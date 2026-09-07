@@ -2,7 +2,7 @@
   "model": "CaM-PDA",
   "application_version": "0.2.0",
   "predictions_unchanged": true,
-  "preview": "Same depth_preview() as exported results: TURBO, independent 2nd-98th percentile color normalization, nonpositive sensor values black; figures fit complete images without cropping.",
+  "preview": "Blade: complete frame, independent 2nd-98th percentile TURBO colors as exported. Material gallery: identical padding-only crop [0,85,392,306] for RGB and both depth panels; shared 2nd-98th percentile limits from positive observed and predicted depth in that view, separately per scene. Cool is near, warm is far, black is missing. Model inputs and numerical output are unmodified.",
   "generated_from": "Verified local inference through the released Python entry points",
   "examples": [
     {
@@ -16,38 +16,90 @@
       "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
     },
     {
-      "example": "examples/dreds_catnovel_00070_0000",
-      "rgb_sha256": "9cf29bffc35404f954aac43876f4d2e0e26b9fcd9d1a214c2c7b8e2266410a93",
-      "sensor_npy_sha256": "e6917f24f5a8893486df5c485a8945abc999945d34fa49f67f331eef3a88801c",
-      "prediction_npy_sha256": "27048151008b4c3a96b5e3555f33a954179dac1ac26ef3cf78977485c2e4fc3b",
-      "prediction_array_sha256": "ae71de760ac25937cbd6e3da72c3557340f2fd569106bcf860a609738b9ea26f",
-      "seed": 20261836,
-      "accepted": 48325,
-      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+      "example": "examples/dreds_catnovel_00144_0171",
+      "rgb_sha256": "0cc57431542a2239d5c66b3088aed0f7c3005e7924f4915358957d406a48cf5f",
+      "sensor_npy_sha256": "b262641922ee064f7bc903dbdcc40cc0f26ababab33dec02eb5542864d4b2980",
+      "prediction_npy_sha256": "3014fcd5ff91b86723eb0e888d4004502f1d488f2cc43b93ad65723a81615f5e",
+      "prediction_array_sha256": "01a9b729a53dda57d9bfc609ef3411706f74f897296f4f3818cdb1554d21466c",
+      "seed": 20301187,
+      "accepted": 47603,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
+      "preview_crop_xyxy": [
+        0,
+        85,
+        392,
+        306
+      ],
+      "depth_color_limits_m": [
+        0.3456226587295532,
+        0.6334356069564819
+      ]
     },
     {
-      "example": "examples/dreds_catnovel_00164_0000",
-      "rgb_sha256": "4be82a2e03d80a55b838848e2a27545f81477cdccc9afb97053bc46d25ae31de",
-      "sensor_npy_sha256": "1779080d66b80693e255c63f198710c72bae7e9f43dfc0598cf24f53c2315e4a",
-      "prediction_npy_sha256": "2920e9c25e1861719d74be89a41a3087cefcddfcf6e0841f40e9605ce1cdcec3",
-      "prediction_array_sha256": "f581a5e253bf4863070a48f3d3c04ce23039386bdd1f168741fe6cb2827d31b8",
-      "seed": 20317331,
-      "accepted": 49058,
-      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+      "example": "examples/dreds_catnovel_00163_0128",
+      "rgb_sha256": "8e1b8772dc106e56ec8e1db36331b2eaf461015988fb871cb40a6f6b2962093f",
+      "sensor_npy_sha256": "114351c7d687f964ec6950e993406182a7f055b73038b5a7abc7a6d207f9e41d",
+      "prediction_npy_sha256": "2cc299a64c0a717ea3e9f398a46f0951d2468c31125f11d02746be35574fd032",
+      "prediction_array_sha256": "213879b34849f182db9ff58604f89cdeebb7ef5305a31e874a327b9feacf3301",
+      "seed": 20314304,
+      "accepted": 48196,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
+      "preview_crop_xyxy": [
+        0,
+        85,
+        392,
+        306
+      ],
+      "depth_color_limits_m": [
+        0.361083984375,
+        0.57763671875
+      ]
     },
     {
-      "example": "examples/dreds_catnovel_00186_0171",
-      "rgb_sha256": "ea32f7f5f9946d503a484ef2fc9734ba5e93bbb66c977d17ea3e114a67bc97a6",
-      "sensor_npy_sha256": "dcbe4bc8cecbfe8da25e3b8f00a58712872e7435f2f9dce13f0bad52c14267b9",
-      "prediction_npy_sha256": "806f3d5174f43adce1f2fd29a306c3308bdffdb49afb1efef073ef20c07d73ae",
-      "prediction_array_sha256": "cd8f96d3dbce9621b14ef2ddf16d841844c82425975bcbb105fc693271eddbfc",
-      "seed": 20371817,
-      "accepted": 46887,
-      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+      "example": "examples/dreds_catnovel_00185_0128",
+      "rgb_sha256": "7832e394d3f82429f732ea347e1186dc2e8d10f46aa940e5353cfbc74ec7931f",
+      "sensor_npy_sha256": "dcef82ffbf9dd227ac1b768739a6f645b24f19434397988cfdbbde7e03c51e79",
+      "prediction_npy_sha256": "4bc357764bcf40e71dee56fbf4fc09056be665b097bd95d1e6cb92cae174a7fc",
+      "prediction_array_sha256": "96ff3a21e382f340707ea363c4097fd55b4ff52d4685ccb42c8fc6306d53c510",
+      "seed": 20364754,
+      "accepted": 47675,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
+      "preview_crop_xyxy": [
+        0,
+        85,
+        392,
+        306
+      ],
+      "depth_color_limits_m": [
+        0.3554963845014572,
+        0.5803745985031128
+      ]
     }
   ],
   "image_sha256": {
     "blade_depth_showcase.png": "21d386a13c071f1c9a2eaea8f328ec84f6f16d77b6e1716a82d60af8c0358784",
-    "material_depth_showcase.png": "20661cce0668800f659a5a6c8079c2bc0237102633d583e56757de35c3f69b24"
-  }
+    "material_depth_showcase.png": "350570def8ecfea446c0208d269a3281978030bb1dc14eefed2a36f8810937d1"
+  },
+  "material_selection": {
+    "criteria": "RGB-only composition, visibility and variety; not selected by depth metrics",
+    "frozen_before_inference": true,
+    "selected": {
+      "dreds_catnovel_00144_0171": "Well-lit red cup and rounded object, with transparent objects and a patterned block.",
+      "dreds_catnovel_00163_0128": "Large blue cup and reflective elongated object, vivid colors and separable shapes.",
+      "dreds_catnovel_00185_0128": "Bright scene with specular, transparent and matte objects at distinct orientations."
+    },
+    "test_pool_frames": 110,
+    "display_box_xyxy": [
+      0,
+      85,
+      392,
+      306
+    ],
+    "aggregate_metrics_changed": false
+  },
+  "retained_original_examples": [
+    "examples/dreds_catnovel_00070_0000",
+    "examples/dreds_catnovel_00164_0000",
+    "examples/dreds_catnovel_00186_0171"
+  ]
 }

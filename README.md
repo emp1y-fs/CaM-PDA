@@ -84,9 +84,11 @@ Point clouds use metres, with x right, y down and z forward. Numerical depth is 
 
 ## More depth examples
 
-![RGB and CaM-PDA depth for three held-out DREDS-CatNovel material scenes](assets/material_depth_showcase.png)
+![RGB, observed depth and CaM-PDA depth for three held-out DREDS-CatNovel material scenes](assets/material_depth_showcase.png)
 
-These are actual outputs from the supplied examples. Colors are normalized independently per preview; NPY files retain metric values. The blade scene is a qualitative example without ground-truth depth. The three DREDS-CatNovel scenes were selected by first / middle / last position in the frozen test manifest and remain excluded from training. See [image provenance](assets/preview_provenance.json).
+These are actual outputs from three runnable examples in the current source checkout, selected for clear RGB composition and material variety before running their predictions. Each row uses a shared depth color range; black marks missing observations. Only artificial padding is omitted from the displayed view, identically across all three columns. Full model inputs and numerical outputs are unchanged.
+
+All examples remain excluded from training, and the complete 110-frame evaluation below is unchanged. The original first / middle / last examples are also retained. See [gallery details and example IDs](docs/GALLERY.md) and [image provenance](assets/preview_provenance.json). The real blade scene above is a qualitative example without ground-truth depth.
 
 ## Recorded evaluation
 

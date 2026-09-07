@@ -1,0 +1,20 @@
+{
+  "source": "DREDS-CatNovel",
+  "source_url": "https://github.com/PKU-EPIC/DREDS",
+  "attribution": "Dai, Zhang, Li, Wu, Dong, Liu, Tan and Wang, ECCV 2022",
+  "license": "CC-BY-NC-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "selection": "RGB-only composition, visibility and variety; not selected by depth metrics",
+  "source_cache_sha256": "aa0269b73e2de84accf3bdcbe000409579f105d69588f935b8d0a73b14019cb1",
+  "seed": 20301187,
+  "depth_unit": "m",
+  "modifications": "Unchanged frozen 392x392 model input. Gallery only: identical RGB/depth display crop [0,85,392,306] removes artificial padding; input and numerical output remain complete.",
+  "camera_status": "Calibration for the frozen 392x392 grid was not sealed in this cache. This example exports depth only; no guessed point cloud.",
+  "split": "held-out test demonstration only; exclude from training",
+  "files": {
+    "rgb.png": "0cc57431542a2239d5c66b3088aed0f7c3005e7924f4915358957d406a48cf5f",
+    "sampled_mask.npy": "b13dce73ebd9f102f4488e3661c0910775467924a5920b80ff9f8b304efc1d0f",
+    "sensor_depth.npy": "b262641922ee064f7bc903dbdcc40cc0f26ababab33dec02eb5542864d4b2980"
+  },
+  "selection_reason": "Well-lit red cup and rounded object, with transparent objects and a patterned block."
+}

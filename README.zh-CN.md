@@ -84,9 +84,11 @@ python run.py
 
 ## 材料场景展示
 
-![三张DREDS-CatNovel材料场景的RGB与CaM-PDA深度结果](assets/material_depth_showcase.png)
+![三张DREDS-CatNovel材料场景的RGB、原始深度与CaM-PDA深度结果](assets/material_depth_showcase.png)
 
-图片来自随仓库提供的真实输入及正式模型输出。每张预览独立归一化颜色，NPY 文件保留米制数值。叶片场景没有真值深度，用于定性展示；三张 DREDS-CatNovel 示例按冻结测试清单的首／中／末位置抽取，不按效果选图，并继续排除于训练。详见[展示图来源](assets/preview_provenance.json)。
+这三张来自当前源码中可运行的案例，在运行预测前，按 RGB 构图清晰度与材料多样性选出。同一行的原始深度和 CaM-PDA 深度共用色标，黑色表示缺失观测。三列统一省略人工填充黑边，完整模型输入及数值输出均保留原样。
+
+所有案例继续排除于训练，下方完整 110 帧测试统计保持不变。原先按测试清单首／中／末抽取的三张案例也继续保留。详见[样例编号与展示说明](docs/GALLERY.md)和[展示图来源](assets/preview_provenance.json)。上方真实叶片场景没有真值深度，仅用于定性展示。
 
 ## 已记录的测试结果
 

@@ -1,0 +1,20 @@
+{
+  "source": "DREDS-CatNovel",
+  "source_url": "https://github.com/PKU-EPIC/DREDS",
+  "attribution": "Dai, Zhang, Li, Wu, Dong, Liu, Tan and Wang, ECCV 2022",
+  "license": "CC-BY-NC-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "selection": "RGB-only composition, visibility and variety; not selected by depth metrics",
+  "source_cache_sha256": "17e6e29e5e5883be0e4835eb8f71c59ce130d9c4a8638abcc12a6a38844f29bf",
+  "seed": 20364754,
+  "depth_unit": "m",
+  "modifications": "Unchanged frozen 392x392 model input. Gallery only: identical RGB/depth display crop [0,85,392,306] removes artificial padding; input and numerical output remain complete.",
+  "camera_status": "Calibration for the frozen 392x392 grid was not sealed in this cache. This example exports depth only; no guessed point cloud.",
+  "split": "held-out test demonstration only; exclude from training",
+  "files": {
+    "rgb.png": "7832e394d3f82429f732ea347e1186dc2e8d10f46aa940e5353cfbc74ec7931f",
+    "sampled_mask.npy": "80da0c379467bf899436db40a4100144a8890fa77a79a7b5417d14a89ec80066",
+    "sensor_depth.npy": "dcef82ffbf9dd227ac1b768739a6f645b24f19434397988cfdbbde7e03c51e79"
+  },
+  "selection_reason": "Bright scene with specular, transparent and matte objects at distinct orientations."
+}

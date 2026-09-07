@@ -67,7 +67,7 @@ The program asks for:
 
 Paths are entered **after the program starts**. You do not edit Python variables. Quoted paths, spaces, `~` and environment variables are accepted. Output runs use unique child folders, so reusing a storage location keeps earlier results.
 
-After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The source checkout includes six examples; the wheel includes the calibrated blade32 example. Download the source examples for the additional material and reference views.
+After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The current source checkout includes nine examples; the v0.2.0 release source includes the original six, and the wheel includes the calibrated blade32 example. Use the current source checkout for the additional material gallery cases and reference views.
 
 ## Model storage
 
