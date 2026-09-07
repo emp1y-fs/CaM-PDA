@@ -1,0 +1,17 @@
+{
+  "ca_m_pda": {
+    "filename": "cam_pda_v1.pt",
+    "url": "https://api.github.com/repos/emp1y-fs/CaM-PDA/releases/tags/v0.1.0",
+    "sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
+    "bytes": 392397069,
+    "source_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+    "all_model_tensors_exact": true,
+    "tensor_count": 281
+  },
+  "mde": {
+    "filename": "depth_anything_v2_vitb.pth",
+    "sha256": "0d2b7002e62d39d655571c371333340bd88f67ab95050c03591555aa05645328",
+    "bytes": 389961218,
+    "url": "https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth"
+  }
+}

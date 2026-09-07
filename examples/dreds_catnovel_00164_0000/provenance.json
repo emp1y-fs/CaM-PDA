@@ -1,0 +1,19 @@
+{
+  "source": "DREDS-CatNovel",
+  "source_url": "https://github.com/PKU-EPIC/DREDS",
+  "attribution": "Dai, Zhang, Li, Wu, Dong, Liu, Tan and Wang, ECCV 2022",
+  "license": "CC-BY-NC-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "selection": "Sorted held-out 110-frame manifest: first, middle, last; no result-based selection",
+  "source_cache_sha256": "96b084a906cbbc3550dbd6477425462b01358f165e05bca13da3979572c7483e",
+  "seed": 20317331,
+  "depth_unit": "m",
+  "modifications": "Previously frozen 392x392 test preprocessing; PNG RGB and float32 NPY export; no new image transformations",
+  "camera_status": "Calibration for the frozen 392x392 grid was not sealed in this cache. This example exports depth only; no guessed point cloud.",
+  "split": "held-out test demonstration only; exclude from training",
+  "files": {
+    "rgb.png": "4be82a2e03d80a55b838848e2a27545f81477cdccc9afb97053bc46d25ae31de",
+    "sampled_mask.npy": "55bd8220b59a6daa1e64c0dc623bb2aa385ade0b5b181b3f5c46ee9146bacaef",
+    "sensor_depth.npy": "1779080d66b80693e255c63f198710c72bae7e9f43dfc0598cf24f53c2315e4a"
+  }
+}

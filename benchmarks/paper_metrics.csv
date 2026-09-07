@@ -1,0 +1,226 @@
+method,dataset,region,metric,frames,value,origin
+Official PDA,DREDS-CatNovel,full,AbsRel,110,0.030986977567603012,verified historical result
+Official PDA,DREDS-CatNovel,full,MAE_m,110,0.01457598866393727,verified historical result
+Official PDA,DREDS-CatNovel,full,RMSE_m,110,0.027861037330199897,verified historical result
+Official PDA,DREDS-CatNovel,sensor_hole,AbsRel,110,0.055599886366401126,verified historical result
+Official PDA,DREDS-CatNovel,sensor_hole,MAE_m,110,0.024087927706377226,verified historical result
+Official PDA,DREDS-CatNovel,sensor_hole,RMSE_m,110,0.04493204317081063,verified historical result
+Official PDA,DREDS-CatNovel,challenging_material,AbsRel,110,0.07480486158813468,verified historical result
+Official PDA,DREDS-CatNovel,challenging_material,MAE_m,110,0.029201192376018946,verified historical result
+Official PDA,DREDS-CatNovel,challenging_material,RMSE_m,110,0.04070472294960471,verified historical result
+Official PDA,DREDS-CatNovel,depth_boundary,AbsRel,110,0.0626126711608119,verified historical result
+Official PDA,DREDS-CatNovel,depth_boundary,MAE_m,110,0.02723861541334986,verified historical result
+Official PDA,DREDS-CatNovel,depth_boundary,RMSE_m,110,0.044081487540009186,verified historical result
+Official PDA,NYUv2,full,AbsRel,654,0.05498091705086836,verified historical result
+Official PDA,NYUv2,full,MAE_m,654,0.18688669868008698,verified historical result
+Official PDA,NYUv2,full,RMSE_m,654,0.3026367937594613,verified historical result
+Official PDA,NYUv2,sensor_hole,AbsRel,654,0.06839028822535874,verified historical result
+Official PDA,NYUv2,sensor_hole,MAE_m,654,0.20923675630675675,verified historical result
+Official PDA,NYUv2,sensor_hole,RMSE_m,654,0.3302240617086673,verified historical result
+Official PDA,NYUv2,challenging_material,AbsRel,0,,verified historical result
+Official PDA,NYUv2,challenging_material,MAE_m,0,,verified historical result
+Official PDA,NYUv2,challenging_material,RMSE_m,0,,verified historical result
+Official PDA,NYUv2,depth_boundary,AbsRel,654,0.07597128506177825,verified historical result
+Official PDA,NYUv2,depth_boundary,MAE_m,654,0.24274732579587915,verified historical result
+Official PDA,NYUv2,depth_boundary,RMSE_m,654,0.3785117789794831,verified historical result
+IP-Basic,DREDS-CatNovel,full,AbsRel,110,0.07894561813234753,verified historical result
+IP-Basic,DREDS-CatNovel,full,MAE_m,110,0.03586943190577713,verified historical result
+IP-Basic,DREDS-CatNovel,full,RMSE_m,110,0.13637149204319035,verified historical result
+IP-Basic,DREDS-CatNovel,sensor_hole,AbsRel,110,0.4245051892046516,verified historical result
+IP-Basic,DREDS-CatNovel,sensor_hole,MAE_m,110,0.19283780939796827,verified historical result
+IP-Basic,DREDS-CatNovel,sensor_hole,RMSE_m,110,0.3418142597909145,verified historical result
+IP-Basic,DREDS-CatNovel,challenging_material,AbsRel,110,0.07179916531714388,verified historical result
+IP-Basic,DREDS-CatNovel,challenging_material,MAE_m,110,0.027078815690409687,verified historical result
+IP-Basic,DREDS-CatNovel,challenging_material,RMSE_m,110,0.05861851888024708,verified historical result
+IP-Basic,DREDS-CatNovel,depth_boundary,AbsRel,110,0.0759327630132744,verified historical result
+IP-Basic,DREDS-CatNovel,depth_boundary,MAE_m,110,0.033292922079707854,verified historical result
+IP-Basic,DREDS-CatNovel,depth_boundary,RMSE_m,110,0.07513264177250455,verified historical result
+IP-Basic,NYUv2,full,AbsRel,654,0.031724740748322565,verified historical result
+IP-Basic,NYUv2,full,MAE_m,654,0.09741062976609445,verified historical result
+IP-Basic,NYUv2,full,RMSE_m,654,0.2608003215655861,verified historical result
+IP-Basic,NYUv2,sensor_hole,AbsRel,654,0.1036346323036625,verified historical result
+IP-Basic,NYUv2,sensor_hole,MAE_m,654,0.30839178612915497,verified historical result
+IP-Basic,NYUv2,sensor_hole,RMSE_m,654,0.5602864379176804,verified historical result
+IP-Basic,NYUv2,challenging_material,AbsRel,0,,verified historical result
+IP-Basic,NYUv2,challenging_material,MAE_m,0,,verified historical result
+IP-Basic,NYUv2,challenging_material,RMSE_m,0,,verified historical result
+IP-Basic,NYUv2,depth_boundary,AbsRel,654,0.08408176043937035,verified historical result
+IP-Basic,NYUv2,depth_boundary,MAE_m,654,0.25596341102011916,verified historical result
+IP-Basic,NYUv2,depth_boundary,RMSE_m,654,0.4622779144866547,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,full,AbsRel,110,0.4046061729930818,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,full,MAE_m,110,0.19184498478430873,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,full,RMSE_m,110,0.23893016772154024,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,sensor_hole,AbsRel,110,0.8252819021989241,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,sensor_hole,MAE_m,110,0.39033366366077843,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,sensor_hole,RMSE_m,110,0.41319874212928953,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,challenging_material,AbsRel,110,0.5327799493077136,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,challenging_material,MAE_m,110,0.21790767999506486,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,challenging_material,RMSE_m,110,0.23737951122086567,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,depth_boundary,AbsRel,110,0.4956442551384872,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,depth_boundary,MAE_m,110,0.21774727548994552,verified historical result
+PromptDA (raw prompt),DREDS-CatNovel,depth_boundary,RMSE_m,110,0.24809620775136923,verified historical result
+PromptDA (raw prompt),NYUv2,full,AbsRel,654,0.6174116745705963,verified historical result
+PromptDA (raw prompt),NYUv2,full,MAE_m,654,1.6890132905144966,verified historical result
+PromptDA (raw prompt),NYUv2,full,RMSE_m,654,1.9800913508434406,verified historical result
+PromptDA (raw prompt),NYUv2,sensor_hole,AbsRel,654,0.8929042775118254,verified historical result
+PromptDA (raw prompt),NYUv2,sensor_hole,MAE_m,654,2.6414871271940683,verified historical result
+PromptDA (raw prompt),NYUv2,sensor_hole,RMSE_m,654,2.844157324719244,verified historical result
+PromptDA (raw prompt),NYUv2,challenging_material,AbsRel,0,,verified historical result
+PromptDA (raw prompt),NYUv2,challenging_material,MAE_m,0,,verified historical result
+PromptDA (raw prompt),NYUv2,challenging_material,RMSE_m,0,,verified historical result
+PromptDA (raw prompt),NYUv2,depth_boundary,AbsRel,654,0.7066017692180621,verified historical result
+PromptDA (raw prompt),NYUv2,depth_boundary,MAE_m,654,2.002860852832142,verified historical result
+PromptDA (raw prompt),NYUv2,depth_boundary,RMSE_m,654,2.28350288064241,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,full,AbsRel,110,0.20812683203335625,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,full,MAE_m,110,0.09752298072410744,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,full,RMSE_m,110,0.1629724659391641,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,sensor_hole,AbsRel,110,0.6926486452184656,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,sensor_hole,MAE_m,110,0.3282036741421766,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,sensor_hole,RMSE_m,110,0.3742771762964491,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,challenging_material,AbsRel,110,0.2577679266541605,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,challenging_material,MAE_m,110,0.10310492500400718,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,challenging_material,RMSE_m,110,0.13348334305660586,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,depth_boundary,AbsRel,110,0.24874728119297448,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,depth_boundary,MAE_m,110,0.10791245356736337,verified historical result
+PromptDA (pooled prompt),DREDS-CatNovel,depth_boundary,RMSE_m,110,0.14408607685666905,verified historical result
+PromptDA (pooled prompt),NYUv2,full,AbsRel,654,0.18155308027443237,verified historical result
+PromptDA (pooled prompt),NYUv2,full,MAE_m,654,0.5355569962599952,verified historical result
+PromptDA (pooled prompt),NYUv2,full,RMSE_m,654,1.002134498472605,verified historical result
+PromptDA (pooled prompt),NYUv2,sensor_hole,AbsRel,654,0.6946132822971177,verified historical result
+PromptDA (pooled prompt),NYUv2,sensor_hole,MAE_m,654,2.0828317091040174,verified historical result
+PromptDA (pooled prompt),NYUv2,sensor_hole,RMSE_m,654,2.4124209122876237,verified historical result
+PromptDA (pooled prompt),NYUv2,challenging_material,AbsRel,0,,verified historical result
+PromptDA (pooled prompt),NYUv2,challenging_material,MAE_m,0,,verified historical result
+PromptDA (pooled prompt),NYUv2,challenging_material,RMSE_m,0,,verified historical result
+PromptDA (pooled prompt),NYUv2,depth_boundary,AbsRel,654,0.33773657226846693,verified historical result
+PromptDA (pooled prompt),NYUv2,depth_boundary,MAE_m,654,0.9740278786941875,verified historical result
+PromptDA (pooled prompt),NYUv2,depth_boundary,RMSE_m,654,1.4359890198314844,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,full,AbsRel,110,0.03545441148483175,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,full,MAE_m,110,0.016270051162781962,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,full,RMSE_m,110,0.065704648540722,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,sensor_hole,AbsRel,110,0.1596524321171988,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,sensor_hole,MAE_m,110,0.07480394296657217,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,sensor_hole,RMSE_m,110,0.14349557830681203,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,challenging_material,AbsRel,110,0.07890125464439487,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,challenging_material,MAE_m,110,0.030340090108410555,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,challenging_material,RMSE_m,110,0.06353894331905836,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,depth_boundary,AbsRel,110,0.06887784219468238,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,depth_boundary,MAE_m,110,0.02979778502309194,verified historical result
+OMNI-DC v1.1,DREDS-CatNovel,depth_boundary,RMSE_m,110,0.06497931350227135,verified historical result
+OMNI-DC v1.1,NYUv2,full,AbsRel,654,0.016802184067146512,verified historical result
+OMNI-DC v1.1,NYUv2,full,MAE_m,654,0.05716821644048368,verified historical result
+OMNI-DC v1.1,NYUv2,full,RMSE_m,654,0.16701749915563174,verified historical result
+OMNI-DC v1.1,NYUv2,sensor_hole,AbsRel,654,0.07546948500862594,verified historical result
+OMNI-DC v1.1,NYUv2,sensor_hole,MAE_m,654,0.24048731865905104,verified historical result
+OMNI-DC v1.1,NYUv2,sensor_hole,RMSE_m,654,0.3933843432659651,verified historical result
+OMNI-DC v1.1,NYUv2,challenging_material,AbsRel,0,,verified historical result
+OMNI-DC v1.1,NYUv2,challenging_material,MAE_m,0,,verified historical result
+OMNI-DC v1.1,NYUv2,challenging_material,RMSE_m,0,,verified historical result
+OMNI-DC v1.1,NYUv2,depth_boundary,AbsRel,654,0.04818587737187114,verified historical result
+OMNI-DC v1.1,NYUv2,depth_boundary,MAE_m,654,0.14859508118339007,verified historical result
+OMNI-DC v1.1,NYUv2,depth_boundary,RMSE_m,654,0.3015774270889748,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,full,AbsRel,110,0.09687742675933533,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,full,MAE_m,110,0.04631079515608988,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,full,RMSE_m,110,0.07784195018713969,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,sensor_hole,AbsRel,110,0.1253028466554155,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,sensor_hole,MAE_m,110,0.06026608795648741,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,sensor_hole,RMSE_m,110,0.10420618870024216,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,challenging_material,AbsRel,110,0.16808824793988825,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,challenging_material,MAE_m,110,0.06671701086260541,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,challenging_material,RMSE_m,110,0.09140511296085325,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,depth_boundary,AbsRel,110,0.12247258458611364,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,depth_boundary,MAE_m,110,0.052220162069952614,verified historical result
+Marigold-DC (10 steps),DREDS-CatNovel,depth_boundary,RMSE_m,110,0.0736318850179051,verified historical result
+Marigold-DC (10 steps),NYUv2,full,AbsRel,654,0.0591454419016281,verified historical result
+Marigold-DC (10 steps),NYUv2,full,MAE_m,654,0.16451737929813984,verified historical result
+Marigold-DC (10 steps),NYUv2,full,RMSE_m,654,0.29564002883064017,verified historical result
+Marigold-DC (10 steps),NYUv2,sensor_hole,AbsRel,654,0.12081255265887149,verified historical result
+Marigold-DC (10 steps),NYUv2,sensor_hole,MAE_m,654,0.3490220391074837,verified historical result
+Marigold-DC (10 steps),NYUv2,sensor_hole,RMSE_m,654,0.5166645447422008,verified historical result
+Marigold-DC (10 steps),NYUv2,challenging_material,AbsRel,0,,verified historical result
+Marigold-DC (10 steps),NYUv2,challenging_material,MAE_m,0,,verified historical result
+Marigold-DC (10 steps),NYUv2,challenging_material,RMSE_m,0,,verified historical result
+Marigold-DC (10 steps),NYUv2,depth_boundary,AbsRel,654,0.10587085367721807,verified historical result
+Marigold-DC (10 steps),NYUv2,depth_boundary,MAE_m,654,0.292337418642644,verified historical result
+Marigold-DC (10 steps),NYUv2,depth_boundary,RMSE_m,654,0.4673364260763248,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,full,AbsRel,110,1.848913186495566,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,full,MAE_m,110,0.8634975402584681,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,full,RMSE_m,110,0.8720168573245115,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,sensor_hole,AbsRel,110,1.8438506660329206,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,sensor_hole,MAE_m,110,0.8509142902048223,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,sensor_hole,RMSE_m,110,0.8595314557923042,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,challenging_material,AbsRel,110,1.9814092707937576,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,challenging_material,MAE_m,110,0.7921247639737766,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,challenging_material,RMSE_m,110,0.7961693654166364,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,depth_boundary,AbsRel,110,1.900555125424036,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,depth_boundary,MAE_m,110,0.8296047421504399,verified historical result
+Depth Pro (native metric),DREDS-CatNovel,depth_boundary,RMSE_m,110,0.8347583582139857,verified historical result
+Depth Pro (native metric),NYUv2,full,AbsRel,654,0.10796274797539958,verified historical result
+Depth Pro (native metric),NYUv2,full,MAE_m,654,0.30412154265729335,verified historical result
+Depth Pro (native metric),NYUv2,full,RMSE_m,654,0.43457187188376656,verified historical result
+Depth Pro (native metric),NYUv2,sensor_hole,AbsRel,654,0.15744219494315145,verified historical result
+Depth Pro (native metric),NYUv2,sensor_hole,MAE_m,654,0.4898644720941965,verified historical result
+Depth Pro (native metric),NYUv2,sensor_hole,RMSE_m,654,0.6690667818936171,verified historical result
+Depth Pro (native metric),NYUv2,challenging_material,AbsRel,0,,verified historical result
+Depth Pro (native metric),NYUv2,challenging_material,MAE_m,0,,verified historical result
+Depth Pro (native metric),NYUv2,challenging_material,RMSE_m,0,,verified historical result
+Depth Pro (native metric),NYUv2,depth_boundary,AbsRel,654,0.1375156022394852,verified historical result
+Depth Pro (native metric),NYUv2,depth_boundary,MAE_m,654,0.39757159579771817,verified historical result
+Depth Pro (native metric),NYUv2,depth_boundary,RMSE_m,654,0.5624092748558216,verified historical result
+Depth Anything V2 (native relative),DREDS-CatNovel,full,AbsRel,110,,verified historical result
+Depth Anything V2 (native relative),DREDS-CatNovel,full,MAE_m,110,,verified historical result
+Depth Anything V2 (native relative),DREDS-CatNovel,full,RMSE_m,110,,verified historical result
+Depth Anything V2 (native relative),NYUv2,full,AbsRel,654,,verified historical result
+Depth Anything V2 (native relative),NYUv2,full,MAE_m,654,,verified historical result
+Depth Anything V2 (native relative),NYUv2,full,RMSE_m,654,,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,full,AbsRel,80,0.035204552749912146,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,full,MAE_m,80,0.05373976544611579,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,full,RMSE_m,80,0.09208773803036965,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,sensor_hole,AbsRel,80,0.048297491477318134,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,sensor_hole,MAE_m,80,0.08104823439299652,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,sensor_hole,RMSE_m,80,0.1312006022895918,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,depth_boundary,AbsRel,80,0.06258888901616363,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,depth_boundary,MAE_m,80,0.0945933988787094,verified historical result
+VGGT (two RGB views + sensor scale),ICL-NUIM,depth_boundary,RMSE_m,80,0.15730627980037462,verified historical result
+Official PDA,ICL-NUIM,full,AbsRel,80,0.06777584864494761,verified historical result
+Official PDA,ICL-NUIM,full,MAE_m,80,0.15121578612301292,verified historical result
+Official PDA,ICL-NUIM,full,RMSE_m,80,0.2861232374078989,verified historical result
+Official PDA,ICL-NUIM,sensor_hole,AbsRel,80,0.6422057879933297,verified historical result
+Official PDA,ICL-NUIM,sensor_hole,MAE_m,80,1.238116694996691,verified historical result
+Official PDA,ICL-NUIM,sensor_hole,RMSE_m,80,1.41887272481148,verified historical result
+Official PDA,ICL-NUIM,depth_boundary,AbsRel,80,0.2295925029025959,verified historical result
+Official PDA,ICL-NUIM,depth_boundary,MAE_m,80,0.48752362984155584,verified historical result
+Official PDA,ICL-NUIM,depth_boundary,RMSE_m,80,0.6958813221445024,verified historical result
+CaM-PDA,DREDS-CatNovel,full,AbsRel,110,0.01422559377631795,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,full,MAE_m,110,0.006331903866809381,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,full,RMSE_m,110,0.01595605182398139,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,sensor_hole,AbsRel,110,0.026098208915770426,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,sensor_hole,MAE_m,110,0.011735816877260923,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,sensor_hole,RMSE_m,110,0.024588898394286865,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,challenging_material,AbsRel,110,0.0545149110978883,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,challenging_material,MAE_m,110,0.021530610580740156,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,challenging_material,RMSE_m,110,0.03141896956774568,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,depth_boundary,AbsRel,110,0.051558943164509506,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,depth_boundary,MAE_m,110,0.02281163683378335,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,DREDS-CatNovel,depth_boundary,RMSE_m,110,0.03726900151624803,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,full,AbsRel,654,0.02330494531145367,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,full,MAE_m,654,0.07605470531675841,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,full,RMSE_m,654,0.19540130042360634,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,sensor_hole,AbsRel,654,0.08188930986828048,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,sensor_hole,MAE_m,654,0.2577944243729196,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,sensor_hole,RMSE_m,654,0.42742015312517745,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,challenging_material,AbsRel,0,,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,challenging_material,MAE_m,0,,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,challenging_material,RMSE_m,0,,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,depth_boundary,AbsRel,654,0.06431657179112642,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,depth_boundary,MAE_m,654,0.1923009400850875,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,NYUv2,depth_boundary,RMSE_m,654,0.36257470345391785,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,full,AbsRel,80,0.009009837557966015,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,full,MAE_m,80,0.016980278252506188,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,full,RMSE_m,80,0.03734402147833671,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,sensor_hole,AbsRel,80,0.03482871789180854,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,sensor_hole,MAE_m,80,0.06552840377981146,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,sensor_hole,RMSE_m,80,0.10586452083510758,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,depth_boundary,AbsRel,80,0.04576751164591802,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,depth_boundary,MAE_m,80,0.0723157218925694,029 independent FP64 audit; T1 fixed historical prediction
+CaM-PDA,ICL-NUIM,depth_boundary,RMSE_m,80,0.13168473957370147,029 independent FP64 audit; T1 fixed historical prediction

@@ -1,0 +1,13 @@
+{
+  "source": "Author-captured Azure Kinect aligned RGB-D sequence",
+  "frame_id": 30,
+  "seed": 0,
+  "depth_unit": "m",
+  "ground_truth_available": false,
+  "license": "Author material; private review copy.",
+  "files": {
+    "camera.json": "8039a9d18be44515cb1d67153777ae2190a7fd720305edd3491d389afe016f24",
+    "rgb.png": "4fee7eda7339fe72190d1cfb44aa7d72e0acbe81fa3060e02bc254973bff5521",
+    "sensor_depth.npy": "a664f0ee060bffe3b184c8d708dbfb21c3cba84bc5c17e84022962d002beb075"
+  }
+}

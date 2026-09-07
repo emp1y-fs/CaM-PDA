@@ -1,0 +1,57 @@
+{
+  "linux": {
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "accepted_count": 46970,
+    "fine_precision": "bf16",
+    "runtime_s": 7.308937541000001,
+    "depth_equal": true,
+    "depth_max_diff": 0.0,
+    "condition_equal": true,
+    "condition_max_diff": 0.0
+  },
+  "windows": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.15",
+    "accepted_count": 46970,
+    "fine_precision": "bf16",
+    "runtime_s": 7.876491700008046,
+    "depth_equal": false,
+    "depth_max_diff": 0.005681097507476807,
+    "condition_equal": true,
+    "condition_max_diff": 0.0,
+    "same_condition": true
+  },
+  "cpu": {
+    "shape": [
+      90,
+      160
+    ],
+    "finite_positive": true,
+    "runtime_s": 4.804801981000001
+  },
+  "unit_tests": {
+    "linux": 7,
+    "windows": 7
+  },
+  "linux_web_upload_exact": true,
+  "status": "cross-platform functional; default Windows and Linux BF16 outputs are not bitwise identical",
+  "attention_diagnosis": {
+    "windows_default": {
+      "exact": false,
+      "max_m": 5.960464477539063e-08,
+      "mean_m": 6.069183378087928e-09
+    },
+    "linux_default": {
+      "exact": false,
+      "max_m": 0.005681097507476807,
+      "mean_m": 0.00024731617304496467
+    },
+    "intervention": "Linux: disable Flash SDPA only; frozen RGB/condition/weights/norms and BF16 policy retained"
+  },
+  "windows_browser": {
+    "real_inference": true,
+    "desktop_mobile_overflow": false,
+    "javascript_errors": 0
+  }
+}

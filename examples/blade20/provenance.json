@@ -1,0 +1,9 @@
+{
+  "source": "Author-captured Azure Kinect aligned RGB-D sequence",
+  "frame_id": 20,
+  "seed": 0,
+  "depth_unit": "m",
+  "ground_truth_available": false,
+  "selection": "Highest automatic registration quality among fixed frame candidates 0,10,20,45,60; RGB and raw sensor depth only",
+  "license": "Author material; private review copy."
+}

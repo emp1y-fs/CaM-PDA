@@ -1,0 +1,11 @@
+# Third-party notices and release status
+
+- **Prior Depth Anything**: [official source](https://github.com/SpatialVision/Prior-Depth-Anything), Apache 2.0 code. The included code is the evaluated PDA derivative, extracted for explicit paths, standard PyTorch KNN and a portable interface. Original notices remain; full license is `PDA-Apache-2.0.txt`.
+- **Depth Anything V2**: [official source and licensing](https://github.com/DepthAnything/Depth-Anything-V2#license). The Base model used here is under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). The PDA-hosted frozen prior retains the recorded SHA256. Do not generalize the code license to all model weights.
+- **DINOv2**: [official source](https://github.com/facebookresearch/dinov2), Apache 2.0 code; copyright headers in the vendored encoder/layers are preserved.
+- **DREDS-CatNovel examples**: Dai, Qiyu; Zhang, Jiyao; Li, Qiwei; Wu, Tianhao; Dong, Hao; Liu, Ziyuan; Tan, Ping; Wang, He. *Domain Randomization-Enhanced Depth Simulation and Restoration for Perceiving and Grasping Specular and Transparent Objects*, ECCV 2022. [Dataset source and license](https://github.com/PKU-EPIC/DREDS#license), [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Each example lists its selection, preprocessing and source-cache hash. Non-commercial use only under those terms.
+- **Marigold utility attribution**: the disparity conversion utility retains PDA's source acknowledgement. See [Marigold](https://github.com/prs-eth/Marigold).
+
+Changes for this distribution: reorganized imports; removed unreachable tutorials and custom-extension dependency; hash-verified tensor-only weight loading; Python API/CLI/local upload UI; empty-completion and CPU guards; strict units/calibration/output-directory contracts. Executed model operations are checked against the retained checkpoint.
+
+The author has not selected a public license for new CaM-PDA code, trained derivatives or author-captured examples. This private review copy does not add a redistribution license. Upstream obligations continue to apply. Before making the repository public, the owner must finalize the project's own license and publication/author metadata.
