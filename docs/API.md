@@ -1,5 +1,19 @@
 # Python and command-line interfaces
 
+## Interactive program
+
+Run `python run.py` from the source checkout, or `cam-pda` / `python -m cam_pda` after installation. Choose a language and a data source, then enter file paths at the terminal prompts. There is no source configuration to edit. The output and model storage locations are selected at runtime.
+
+Every interactive run creates a unique subfolder inside the selected output directory. Existing results are preserved. Small preference files store the last language, output folder and model paths, not image data or credentials. Location: `%APPDATA%/cam-pda/settings.json` on Windows; `$XDG_CONFIG_HOME/cam-pda/settings.json` or `~/.config/cam-pda/settings.json` on Linux. Override it with `CAM_PDA_SETTINGS` if needed.
+
+## Path-based Python workflow
+
+`run_from_paths(rgb_path, depth_path, output_dir, camera_path=None, depth_scale=None, seed=0, sampled_mask_path=None, references=(), model=None, model_options=None, progress=print)` reads files, validates them, predicts and exports into a new run subfolder. It returns the result-folder `Path`. All arguments after `output_dir` are keyword-only. An existing `CaMPDA` instance can be passed as `model` to process several scenes without reloading weights; otherwise use `model_options` for checkpoint/device/cache configuration.
+
+`run_example(folder, output_dir, **options)` additionally loads the example's recorded seed and optional `sampled_mask.npy`. Use this helper for supplied DREDS cases so the frozen sampling protocol is preserved. The terminal's example selection does the same automatically.
+
+For reference refinement, `references` contains dictionaries with `rgb_path`, `depth_path`, `camera_path` and optional `depth_scale`. Target and reference calibration are required. Examples with a frozen sampled mask support single-view inference through this helper; combining one with references is rejected instead of silently discarding that mask.
+
 ## Single view
 
 `CaMPDA(checkpoint=None, mde_checkpoint=None, device="auto", maximum_samples=50000, cache_dir=None, allow_download=True, memory_efficient=True)` loads the retained model and frozen prior. `predict(rgb, depth_m, seed=0, sampled_mask=None)` expects:

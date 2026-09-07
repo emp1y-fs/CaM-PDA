@@ -1,0 +1,49 @@
+{
+  "weights_changed": false,
+  "runtime_path_input": {
+    "builtin": {
+      "point_count": 921600,
+      "depth_sha256": "733f914545f74ad3f3131e75f656128ee5afeba71223948525f41c25b5c26822",
+      "runtime_s": 7.667118914,
+      "depth_bitwise_equal_to_formal": true
+    },
+    "own_paths": {
+      "point_count": 921600,
+      "depth_sha256": "733f914545f74ad3f3131e75f656128ee5afeba71223948525f41c25b5c26822",
+      "runtime_s": 7.110064150999996,
+      "depth_bitwise_equal_to_formal": true
+    },
+    "multiview": {
+      "point_count": 921600,
+      "depth_sha256": "7d52ad8d6b7c373da7af784126883f734474ca75c48e56219916ff6b300159f9",
+      "runtime_s": 14.123526649000006,
+      "multiview_status": "fused"
+    }
+  },
+  "examples": {
+    "dreds_catnovel_00070_0000": {
+      "depth_sha256": "ae71de760ac25937cbd6e3da72c3557340f2fd569106bcf860a609738b9ea26f",
+      "seed": 20261836,
+      "matches_previous_release": true
+    },
+    "dreds_catnovel_00164_0000": {
+      "depth_sha256": "f581a5e253bf4863070a48f3d3c04ce23039386bdd1f168741fe6cb2827d31b8",
+      "seed": 20317331,
+      "matches_previous_release": true
+    },
+    "dreds_catnovel_00186_0171": {
+      "depth_sha256": "cd8f96d3dbce9621b14ef2ddf16d841844c82425975bcbb105fc693271eddbfc",
+      "seed": 20371817,
+      "matches_previous_release": true
+    }
+  },
+  "existing_user_file_preserved": true,
+  "application_version": "0.2.0",
+  "formal_weights_changed": false,
+  "unit_tests": {
+    "linux_all": 13,
+    "windows_interactive": 7
+  },
+  "windows_scope": "Native runtime input/output tests; full model CUDA verification retained from v0.1.0. No new Windows PyTorch environment was installed.",
+  "linux_scope": "Real CUDA stdin-driven application, own-file and built-in input, plus multiview and three material cases."
+}

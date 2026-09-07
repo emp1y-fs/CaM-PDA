@@ -37,6 +37,7 @@ The inference checkpoint contains every retained model tensor and its architectu
 | `io.py` | Units, calibration, depth previews and binary PLY |
 | `multiview.py` | Raw RGB-D registration and guarded depth reprojection |
 | `weights.py` | Hash-verified acquisition and explicit model paths |
-| `cli.py`, `web.py` | CLI and local browser upload/demo interfaces |
+| `interactive.py`, `runner.py` | Runtime path prompts, remembered storage settings and isolated result folders |
+| `cli.py`, `run.py` | Interactive launch and optional command-line automation |
 
 This source release packages inference and records training provenance. It does not claim to provide a one-command replay of all historical training campaigns. The paper's matched ablations require the original frozen manifests and initialization chain; see [TRAINING.md](TRAINING.md).

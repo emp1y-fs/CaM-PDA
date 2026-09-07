@@ -1,5 +1,8 @@
 recursive-include docs *.md
+recursive-include assets *.png *.json
 recursive-include licenses *.txt *.md
 recursive-include benchmarks *.csv *.json *.md
 recursive-include examples *.png *.npy *.json
 include README.zh-CN.md
+include CHANGELOG.md
+include run.py

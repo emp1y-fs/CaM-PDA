@@ -71,15 +71,3 @@ def test_multiview_preserves_accepted_raw_anchor():
     fused,reliable,_=fuse_reference(target,raw,mask,source,np.eye(3),np.eye(4))
     assert fused[2,2]==raw[2,2] and not reliable[2,2]
     assert np.allclose(fused[~mask],2.03,atol=1e-6)
-
-
-def test_web_contract_without_weights(tmp_path):
-    pytest.importorskip('fastapi');pytest.importorskip('httpx')
-    from fastapi.testclient import TestClient
-    from cam_pda.web import create_app
-    with TestClient(create_app({},tmp_path/'examples',tmp_path/'outputs')) as client:
-        assert client.get('/').status_code==200
-        assert client.get('/api/examples').json()==[]
-        assert client.post('/api/predict',data={'example':'missing'}).status_code==400
-        assert client.get('/api/jobs/no-such-job').status_code==404
-        assert client.post('/api/predict',headers={'Origin':'https://untrusted.invalid'}).status_code==403

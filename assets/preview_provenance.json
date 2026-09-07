@@ -1,0 +1,53 @@
+{
+  "model": "CaM-PDA",
+  "application_version": "0.2.0",
+  "predictions_unchanged": true,
+  "preview": "Same depth_preview() as exported results: TURBO, independent 2nd-98th percentile color normalization, nonpositive sensor values black; figures fit complete images without cropping.",
+  "generated_from": "Verified local inference through the released Python entry points",
+  "examples": [
+    {
+      "example": "examples/blade32",
+      "rgb_sha256": "d0d87e25fb8b5e450d26a84223a420fc284cb87d9e1557f58002b75e3b68805e",
+      "sensor_npy_sha256": "c3982b9a7bd3685ffd37a47405b3c96664e26b8c59675fd0178a3fcc99df4587",
+      "prediction_npy_sha256": "398a7298a88cd6675bd136c0ce8477b98ac43cf2e8dc0109bd9547da9bafb8a6",
+      "prediction_array_sha256": "733f914545f74ad3f3131e75f656128ee5afeba71223948525f41c25b5c26822",
+      "seed": 0,
+      "accepted": 46970,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+    },
+    {
+      "example": "examples/dreds_catnovel_00070_0000",
+      "rgb_sha256": "9cf29bffc35404f954aac43876f4d2e0e26b9fcd9d1a214c2c7b8e2266410a93",
+      "sensor_npy_sha256": "e6917f24f5a8893486df5c485a8945abc999945d34fa49f67f331eef3a88801c",
+      "prediction_npy_sha256": "27048151008b4c3a96b5e3555f33a954179dac1ac26ef3cf78977485c2e4fc3b",
+      "prediction_array_sha256": "ae71de760ac25937cbd6e3da72c3557340f2fd569106bcf860a609738b9ea26f",
+      "seed": 20261836,
+      "accepted": 48325,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+    },
+    {
+      "example": "examples/dreds_catnovel_00164_0000",
+      "rgb_sha256": "4be82a2e03d80a55b838848e2a27545f81477cdccc9afb97053bc46d25ae31de",
+      "sensor_npy_sha256": "1779080d66b80693e255c63f198710c72bae7e9f43dfc0598cf24f53c2315e4a",
+      "prediction_npy_sha256": "2920e9c25e1861719d74be89a41a3087cefcddfcf6e0841f40e9605ce1cdcec3",
+      "prediction_array_sha256": "f581a5e253bf4863070a48f3d3c04ce23039386bdd1f168741fe6cb2827d31b8",
+      "seed": 20317331,
+      "accepted": 49058,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+    },
+    {
+      "example": "examples/dreds_catnovel_00186_0171",
+      "rgb_sha256": "ea32f7f5f9946d503a484ef2fc9734ba5e93bbb66c977d17ea3e114a67bc97a6",
+      "sensor_npy_sha256": "dcbe4bc8cecbfe8da25e3b8f00a58712872e7435f2f9dce13f0bad52c14267b9",
+      "prediction_npy_sha256": "806f3d5174f43adce1f2fd29a306c3308bdffdb49afb1efef073ef20c07d73ae",
+      "prediction_array_sha256": "cd8f96d3dbce9621b14ef2ddf16d841844c82425975bcbb105fc693271eddbfc",
+      "seed": 20371817,
+      "accepted": 46887,
+      "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
+    }
+  ],
+  "image_sha256": {
+    "blade_depth_showcase.png": "21d386a13c071f1c9a2eaea8f328ec84f6f16d77b6e1716a82d60af8c0358784",
+    "material_depth_showcase.png": "20661cce0668800f659a5a6c8079c2bc0237102633d583e56757de35c3f69b24"
+  }
+}

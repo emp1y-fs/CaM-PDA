@@ -1,25 +1,25 @@
 """Cross-platform command line entry point."""
-import argparse,json
+import argparse,json,sys
 from pathlib import Path
 
 
 def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if not argv:
+        from .interactive import main as interactive_main
+        return interactive_main()
     parser=argparse.ArgumentParser(prog='cam-pda',description='CaM-PDA: aligned RGB-D to metric depth and colored point cloud')
     sub=parser.add_subparsers(dest='command',required=True)
     download=sub.add_parser('download',help='Download and SHA256-verify inference weights')
     download.add_argument('--cache-dir',type=Path)
     download.add_argument('--github-user',help='Use this account from Git Credential Manager for the private release')
-    for name in ('infer','example','serve'):
+    sub.add_parser('interactive', help='Enter input and output paths when the program asks')
+    for name in ('infer','example'):
         item=sub.add_parser(name)
         item.add_argument('--checkpoint',type=Path)
         item.add_argument('--mde-checkpoint',type=Path)
         item.add_argument('--cache-dir',type=Path)
         item.add_argument('--device',default='auto')
-        if name=='serve':
-            item.add_argument('--port',type=int,default=7860)
-            item.add_argument('--examples',type=Path,default=Path('examples'))
-            item.add_argument('--output',type=Path,default=Path('outputs/web'))
-            continue
         item.add_argument('--output',type=Path,required=True)
         item.add_argument('--seed',type=int)
         item.add_argument('--point-stride',type=int,default=1)
@@ -33,6 +33,9 @@ def main(argv=None):
             item.add_argument('--depth-scale',type=float)
             item.add_argument('--camera',type=Path,help='Calibration JSON; required for point-cloud output')
     args=parser.parse_args(argv)
+    if args.command == 'interactive':
+        from .interactive import main as interactive_main
+        return interactive_main()
     if args.command=='download':
         import os
         from .weights import resolve_weights
@@ -41,9 +44,6 @@ def main(argv=None):
         print(json.dumps({'checkpoint':str(paths[0]),'mde_checkpoint':str(paths[1]),'verified':True}))
         return 0
     config={key:getattr(args,key) for key in ('checkpoint','mde_checkpoint','device','cache_dir')}
-    if args.command=='serve':
-        from .web import serve
-        return serve(config,args.examples,args.output,args.port)
     from . import CaMPDA
     from .io import read_rgb,read_depth,CameraIntrinsics,export_result
     import numpy as np
@@ -66,6 +66,7 @@ def main(argv=None):
         refs.append(dict(rgb=read_rgb(folder/'rgb.png'),raw_m=read_depth(folder/'sensor_depth.npy'),
                          camera=CameraIntrinsics.from_json(folder/'camera.json')))
     if refs and camera is None:parser.error('Multiview requires target calibration.')
+    if refs and sampled is not None:parser.error('Frozen sampled-mask examples support single-view inference only.')
     model=CaMPDA(**config)
     if refs and args.save_routing:parser.error('Save routing for single-view calls; multiview also runs a separate reference prediction.')
     result=model.predict_multiview(rgb,depth,camera,refs,seed=args.seed) if refs else model.predict(rgb,depth,seed=args.seed,sampled_mask=sampled)

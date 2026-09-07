@@ -1,81 +1,112 @@
-# Installation
+# Installation and first run
 
-Use Python 3.10, 3.11 or 3.12 on Windows or Linux. All CaM-PDA runtime code is Python. Dependencies use standard Python wheels; no WSL bridge, compiler, `torch_cluster`, `xformers`, or manually built CUDA extension is required.
+CaM-PDA supports **Python 3.10–3.12 on Windows and Linux**. All application source is Python, packaged as a platform-independent wheel. PyTorch, NumPy and OpenCV use their standard prebuilt dependencies. No JavaScript frontend, local web server, Visual Studio build or custom CUDA extension is needed.
 
-## Environment
+## 1. Create an environment
 
-Create a virtual environment from the repository root:
+Download the source ZIP or clone this repository, open a terminal in its folder, then:
 
 ```console
 python -m venv .venv
 ```
 
-Windows PowerShell activation:
+Choose an environment location on a drive with enough free space; replace `.venv` with that path if desired. Activate it:
+
+Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-If local PowerShell policy prevents activation, call `.\.venv\Scripts\python.exe` directly. No system policy change is necessary. Linux activation:
+Windows Command Prompt:
+
+```console
+.venv\Scripts\activate.bat
+```
+
+Linux:
 
 ```bash
 source .venv/bin/activate
 ```
 
-For an NVIDIA GPU with a compatible driver:
+If PowerShell prevents activation, use `.venv\Scripts\python.exe` directly. A system policy change is unnecessary.
+
+## 2. Install dependencies
+
+NVIDIA GPU with a compatible driver:
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
-python -m pip install ".[web]"
+python -m pip install .
 ```
 
-For CPU:
+CPU:
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-python -m pip install ".[web]"
+python -m pip install .
 ```
 
-These commands follow the [official PyTorch 2.7.1 wheel matrix](https://pytorch.org/get-started/previous-versions/). Choose a wheel supported by your GPU and driver. CaM-PDA defaults to CUDA when available, otherwise CPU. CPU inference is substantially slower. The default memory-efficient mode keeps the coarse and fine networks on the GPU sequentially. Full-resolution KNN working memory also depends on image size and sensor samples; an 8 GB GPU was used for the supplied 720p regression case.
+These are the [official PyTorch 2.7.1 wheels](https://pytorch.org/get-started/previous-versions/). Use the NVIDIA build only with a supported GPU and driver. CPU works but is slower. The validated 720p example used an 8 GB NVIDIA GPU; memory use also depends on image size and observation density. Model stages are transferred to the GPU sequentially to reduce peak weight memory.
 
-## Weights
-
-The inference checkpoint is approximately 392 MB and the frozen monocular prior is approximately 390 MB. Both files are checked against `src/cam_pda/resources/models.json`; mismatched weights are rejected. Default cache: `~/.cache/cam-pda`, overridable with `CAM_PDA_HOME` or `--cache-dir`.
-
-While this repository is private, use an account that has access:
+## 3. Run CaM-PDA and enter paths
 
 ```console
-cam-pda download --github-user emp1y-fs
+python run.py
 ```
 
-This reads an already authorized Git Credential Manager account for the fixed GitHub API destination. It neither displays nor writes the token into project files. Alternatively, a `GH_TOKEN` environment variable can be used by an automated environment. Authentication is removed on redirects to a different host.
+The program asks for:
 
-Manual alternative: download `cam_pda_v1.pt` from this repository's GitHub release and the prior from the [official PDA model host](https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth). Then:
+1. English or 中文.
+2. An included example, or your own RGB and registered sensor-depth paths.
+3. Optional camera calibration and reference view.
+4. The folder where results will be saved.
+5. A model-storage folder or two existing model files.
+6. Automatic device selection or CPU.
+
+Paths are entered **after the program starts**. You do not edit Python variables. Quoted paths, spaces, `~` and environment variables are accepted. Output runs use unique child folders, so reusing a storage location keeps earlier results.
+
+After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The source checkout includes six examples; the wheel includes the calibrated blade32 example. Download the source examples for the additional material and reference views.
+
+## Model storage
+
+The inference checkpoint is approximately 392 MB and the frozen prior approximately 390 MB. The program asks where to store them before downloading. Already valid files are reused. Both are SHA256-checked against `src/cam_pda/resources/models.json`.
+
+To run completely offline, choose **Use two existing weight files** and enter:
+
+- `cam_pda_v1.pt` from the [model release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/v0.1.0).
+- `depth_anything_v2_vitb.pth` from the [official PDA model host](https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth).
+
+Application v0.2.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
+
+While the repository is private, downloading its model needs an account with repository access. In the automatic-download flow, enter **your own** authorized GitHub username when prompted. Sign in with Git Credential Manager first; the program reads its saved credential in memory, without saving a token in project files. A `GH_TOKEN` environment variable is also supported for automation. For public releases, the username can be left blank. Manual download and local-file selection remain available.
+
+For automated installation:
 
 ```console
-cam-pda example examples/blade32 --checkpoint weights/cam_pda_v1.pt --mde-checkpoint weights/depth_anything_v2_vitb.pth --output outputs/blade32
+cam-pda download --cache-dir weights --github-user YOUR_GITHUB_USERNAME
 ```
 
-Explicit paths require existing, hash-matching files; they are never replaced by an automatic download. Git does not track model files or generated outputs.
+The runtime prompt remembers selected storage locations. Preferences are a small JSON file under `%APPDATA%/cam-pda` on Windows or `~/.config/cam-pda` on Linux (respecting `XDG_CONFIG_HOME`). `CAM_PDA_SETTINGS` can select a different preferences file. Images and depth arrays are never stored in this preferences file.
 
-## Browser and CLI
+## Input checklist
 
-```console
-cam-pda serve
-cam-pda example examples/blade32 --output outputs/blade32
-cam-pda example examples/blade32 --references examples/blade20 --output outputs/blade32_two_view
-```
+- RGB and depth must have the same resolution and already be registered.
+- NPY depth is a two-dimensional floating-point array in metres.
+- Sensor PNG is a single-channel integer array; select the correct units when prompted.
+- Zero depth means missing observations; at least 17 valid observations are needed.
+- Camera JSON must describe the aligned grid. Without calibration, export depth only.
+- Reference images must show the same static scene with overlap. Unsuitable registration produces a recorded single-view fallback.
 
-The browser opens at `http://127.0.0.1:7860`; the server binds to localhost. One prediction runs at a time. First use loads the weights and is slower than subsequent calls. Results are stored under `outputs/web/<run-id>` and downloadable as a ZIP. The browser accepts up to 40 MB per request and an aligned grid up to 1920×1080; use the Python interface for other controlled workloads.
-
-If memory is insufficient, reduce the input resolution with a calibrated preprocessing step and update camera intrinsics accordingly, or use CPU. The program does not silently resize an unregistered RGB-D pair or fabricate calibration. Automatic downloading can be disabled in Python with `allow_download=False`.
+See [API.md](API.md) for exact file contracts and optional CLI automation. Use full paths if the current terminal directory differs from your data directory. `run.py` locates its own package and examples even when launched from another folder.
 
 ## Developer checks
 
 ```console
-python -m pip install ".[web,test]" build httpx
-python -m pytest
+python -m pip install ".[test]" build
+python -m pytest -q
 python -m build
 ```
 
-The portable unit checks do not download weights. Actual checkpoint regression evidence is recorded separately in `benchmarks/release_verification.json`.
+Unit checks do not download model weights. Real-model regression evidence is documented separately in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).

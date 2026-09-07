@@ -1,0 +1,15 @@
+{
+  "source": "Author-captured Azure Kinect aligned RGB-D sequence",
+  "frame_id": 32,
+  "seed": 0,
+  "split": "real diagnostic example; never used for gradients or checkpoint selection",
+  "depth_unit": "m",
+  "rgb": "true RGB",
+  "ground_truth_available": false,
+  "license": "Author material; shared for private project review. Public redistribution terms pending owner review.",
+  "files": {
+    "camera.json": "8039a9d18be44515cb1d67153777ae2190a7fd720305edd3491d389afe016f24",
+    "rgb.png": "d0d87e25fb8b5e450d26a84223a420fc284cb87d9e1557f58002b75e3b68805e",
+    "sensor_depth.npy": "c3982b9a7bd3685ffd37a47405b3c96664e26b8c59675fd0178a3fcc99df4587"
+  }
+}
