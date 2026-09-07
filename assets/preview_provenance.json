@@ -2,7 +2,7 @@
   "model": "CaM-PDA",
   "application_version": "0.2.0",
   "predictions_unchanged": true,
-  "preview": "Blade: complete frame, independent 2nd-98th percentile TURBO colors as exported. Material gallery: identical padding-only crop [0,85,392,306] for RGB and both depth panels; shared 2nd-98th percentile limits from positive observed and predicted depth in that view, separately per scene. Cool is near, warm is far, black is missing. Model inputs and numerical output are unmodified.",
+  "preview": "Blade: complete frame, independent 2nd-98th percentile TURBO colors as exported. Material gallery: complete native 848x480 RGB and depth frames, no cropping or rotation; observed and predicted depth share 2nd-98th percentile limits from their positive values per scene. Cool is near, warm is far, black is missing. No smoothing, numerical editing or geometric postprocessing.",
   "generated_from": "Verified local inference through the released Python entry points",
   "examples": [
     {
@@ -16,86 +16,94 @@
       "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc"
     },
     {
-      "example": "examples/dreds_catnovel_00144_0171",
-      "rgb_sha256": "0cc57431542a2239d5c66b3088aed0f7c3005e7924f4915358957d406a48cf5f",
-      "sensor_npy_sha256": "b262641922ee064f7bc903dbdcc40cc0f26ababab33dec02eb5542864d4b2980",
-      "prediction_npy_sha256": "3014fcd5ff91b86723eb0e888d4004502f1d488f2cc43b93ad65723a81615f5e",
-      "prediction_array_sha256": "01a9b729a53dda57d9bfc609ef3411706f74f897296f4f3818cdb1554d21466c",
-      "seed": 20301187,
-      "accepted": 47603,
+      "example": "examples/cleargrasp_d415_000000055",
+      "rgb_sha256": "5685249e73a25409480998d718efc3dba8e9c13c09177d1309e4c0cf3623d4d5",
+      "sensor_npy_sha256": "9fabc2283cf303ccbd11e68200bb7dbace6ba6a357cf732e73fef8cf32a8cc3c",
+      "prediction_npy_sha256": "f23def13dce754a7aea6219e1a042a5ed60a8eb403a12e02fc5be44e5351eadb",
+      "prediction_array_sha256": "d53ed16a221a4cf1b634409a7eaf87b69f15ab5f6dc7d130903efcee798381ae",
+      "seed": 0,
+      "accepted": 49056,
       "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
       "preview_crop_xyxy": [
         0,
-        85,
-        392,
-        306
+        0,
+        848,
+        480
       ],
       "depth_color_limits_m": [
-        0.3456226587295532,
-        0.6334356069564819
+        0.4642234742641449,
+        0.884703378677368
       ]
     },
     {
-      "example": "examples/dreds_catnovel_00163_0128",
-      "rgb_sha256": "8e1b8772dc106e56ec8e1db36331b2eaf461015988fb871cb40a6f6b2962093f",
-      "sensor_npy_sha256": "114351c7d687f964ec6950e993406182a7f055b73038b5a7abc7a6d207f9e41d",
-      "prediction_npy_sha256": "2cc299a64c0a717ea3e9f398a46f0951d2468c31125f11d02746be35574fd032",
-      "prediction_array_sha256": "213879b34849f182db9ff58604f89cdeebb7ef5305a31e874a327b9feacf3301",
-      "seed": 20314304,
-      "accepted": 48196,
+      "example": "examples/cleargrasp_d415_000000071",
+      "rgb_sha256": "891bb43cfdb7d94eb6646e69309390ec9ee418ba5bdd1a32f582ac398c27ac62",
+      "sensor_npy_sha256": "961d6adf942acf4d62fb916768cfa15de0035d09f2532d1bce597573bb086faf",
+      "prediction_npy_sha256": "7eb42d2bd7977dc27dcbcdc9ad80d6b54c98e4f6703f711f2abd8d5236db76fd",
+      "prediction_array_sha256": "65f8e487cfe1426b527f3ec5f10246d28f9c376d3f7db6b424ab9e8bb46909f8",
+      "seed": 0,
+      "accepted": 49686,
       "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
       "preview_crop_xyxy": [
         0,
-        85,
-        392,
-        306
+        0,
+        848,
+        480
       ],
       "depth_color_limits_m": [
-        0.361083984375,
-        0.57763671875
+        0.45967352867126465,
+        0.8864293694496155
       ]
     },
     {
-      "example": "examples/dreds_catnovel_00185_0128",
-      "rgb_sha256": "7832e394d3f82429f732ea347e1186dc2e8d10f46aa940e5353cfbc74ec7931f",
-      "sensor_npy_sha256": "dcef82ffbf9dd227ac1b768739a6f645b24f19434397988cfdbbde7e03c51e79",
-      "prediction_npy_sha256": "4bc357764bcf40e71dee56fbf4fc09056be665b097bd95d1e6cb92cae174a7fc",
-      "prediction_array_sha256": "96ff3a21e382f340707ea363c4097fd55b4ff52d4685ccb42c8fc6306d53c510",
-      "seed": 20364754,
-      "accepted": 47675,
+      "example": "examples/cleargrasp_d415_000000081",
+      "rgb_sha256": "c2939aefe9dd1a24e8947e8b3a037414421db58ba53939e39b718b242e0a20af",
+      "sensor_npy_sha256": "45fa274d0f65f59fff49d25ee0f7911b34117f4150225e16ec059a90cef72fa1",
+      "prediction_npy_sha256": "0717522e00423fc7ad4cea7b45187f78cdf917a6c5d6c16ecc5d6cbbb6a16a7a",
+      "prediction_array_sha256": "6af798a565d0e1130c7763f3ea4f6d8e40f2adfb94e1b4b61d7410d6d71351d5",
+      "seed": 0,
+      "accepted": 49104,
       "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
       "preview_crop_xyxy": [
         0,
-        85,
-        392,
-        306
+        0,
+        848,
+        480
       ],
       "depth_color_limits_m": [
-        0.3554963845014572,
-        0.5803745985031128
+        0.39802937865257265,
+        0.8440000414848328
       ]
     }
   ],
   "image_sha256": {
     "blade_depth_showcase.png": "21d386a13c071f1c9a2eaea8f328ec84f6f16d77b6e1716a82d60af8c0358784",
-    "material_depth_showcase.png": "350570def8ecfea446c0208d269a3281978030bb1dc14eefed2a36f8810937d1"
+    "material_depth_showcase.png": "819dfde94f54d003d8fdddbbb5f6ca196b90e996d2264b8930e7251984d745fc"
   },
   "material_selection": {
-    "criteria": "RGB-only composition, visibility and variety; not selected by depth metrics",
-    "frozen_before_inference": true,
-    "selected": {
-      "dreds_catnovel_00144_0171": "Well-lit red cup and rounded object, with transparent objects and a patterned block.",
-      "dreds_catnovel_00163_0128": "Large blue cup and reflective elongated object, vivid colors and separable shapes.",
-      "dreds_catnovel_00185_0128": "Bright scene with specular, transparent and matte objects at distinct orientations."
+    "request": "Upright front-facing scenes consistent with everyday viewing, with clear actual output.",
+    "rgb_screened": {
+      "ClearGrasp_real_test": 113,
+      "NYUv2_uniform_contact": 40
     },
-    "test_pool_frames": 110,
-    "display_box_xyxy": [
-      0,
-      85,
-      392,
-      306
+    "inference_shortlist": [
+      "cleargrasp_d415_000000055",
+      "cleargrasp_d415_000000071",
+      "cleargrasp_d415_000000081",
+      "nyuv2_test_0235",
+      "nyuv2_test_0335",
+      "nyuv2_test_0587"
     ],
-    "aggregate_metrics_changed": false
+    "selected": [
+      "cleargrasp_d415_000000055",
+      "cleargrasp_d415_000000071",
+      "cleargrasp_d415_000000081"
+    ],
+    "selected_after_output_inspection": true,
+    "reason": "All three ClearGrasp shortlist scenes have upright containers and readable completed surfaces; they keep the material-focus requested by the user. NYUv2 indoor candidates are not used.",
+    "result_based_selection_disclosed": true,
+    "metrics_changed": false,
+    "model_changed": false
   },
   "retained_original_examples": [
     "examples/dreds_catnovel_00070_0000",

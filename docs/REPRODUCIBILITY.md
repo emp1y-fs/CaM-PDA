@@ -6,7 +6,7 @@ The portable Linux CUDA pipeline reproduced the original real frame-32 result ex
 
 Application v0.2.0 adds runtime terminal path entry without changing the model. Its real `run.py` process was exercised with stdin input for the included blade32 example, user-entered paths (including spaces and Chinese characters), and reference refinement. Both single-view paths reproduced the retained depth bitwise; the reference-view path fused successfully. The three original DREDS examples preserved their saved seeds and masks and matched the original release depth hashes. Each blade export contained 921,600 calibrated points. Existing files in the selected result folder remained untouched.
 
-The later [material gallery](GALLERY.md) adds three RGB-selected examples to the source checkout. Each was run with the same model and its original frozen mask/seed; output hashes are in the gallery provenance. These additional demonstrations do not change the application version, model, original examples or aggregate evaluation.
+The later [material gallery](GALLERY.md) includes three upright ClearGrasp real-test examples in the source checkout. Each was run with the same model, native 848×480 RGB-D input and fixed seed 0; output hashes are in the gallery provenance. The selected illustrations do not change the application version, model, original examples or aggregate evaluation.
 
 Default Windows and Linux BF16 predictions are **not bitwise identical**. On the checked frame-32 input, the three conditions were identical; the mean absolute output difference was 0.2473 mm, the median 0.00425 mm, the 95th percentile 1.2364 mm and the maximum 5.6811 mm. These are differences between implementations, not errors against ground truth.
 

@@ -1,0 +1,21 @@
+{
+  "source": "ClearGrasp real-test",
+  "frame_id": "cleargrasp_d415_000000071",
+  "seed": 0,
+  "selection": "Qualitative selection for upright viewpoint and clearly interpretable depth completion after inspecting six candidate predictions; not a random sample or a quantitative ranking.",
+  "split": "held-out real test; no training",
+  "depth_unit": "m",
+  "modifications": "Original prepared RGB and sensor depth; uint16 millimetres converted to float32 metres, no resize.",
+  "source_files": {
+    "rgb.png": "891bb43cfdb7d94eb6646e69309390ec9ee418ba5bdd1a32f582ac398c27ac62",
+    "raw_depth_mm.png": "9a9066f12c2edd0a7ef6883b84035c348e860097f293fb45883d3b52aa584696"
+  },
+  "source_url": "https://sites.google.com/view/cleargrasp/data",
+  "attribution": "Shreeyak S Sajjan, Matthew Moore, Mike Pan, Ganesh Nagaraja, Johnny Lee, Andy Zeng and Shuran Song. ClearGrasp: 3D Shape Estimation of Transparent Objects for Manipulation. ICRA 2020.",
+  "terms": "Original author-distributed dataset terms apply; CaM-PDA does not relicense these data.",
+  "camera_status": "No calibration is bundled with this example; depth export only.",
+  "files": {
+    "rgb.png": "891bb43cfdb7d94eb6646e69309390ec9ee418ba5bdd1a32f582ac398c27ac62",
+    "sensor_depth.npy": "961d6adf942acf4d62fb916768cfa15de0035d09f2532d1bce597573bb086faf"
+  }
+}
