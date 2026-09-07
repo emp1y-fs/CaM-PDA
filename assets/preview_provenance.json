@@ -78,7 +78,7 @@
   ],
   "image_sha256": {
     "blade_depth_showcase.png": "21d386a13c071f1c9a2eaea8f328ec84f6f16d77b6e1716a82d60af8c0358784",
-    "material_depth_showcase.png": "819dfde94f54d003d8fdddbbb5f6ca196b90e996d2264b8930e7251984d745fc"
+    "material_depth_showcase.png": "e9648f8f0870bf6ba6ee6a1daf138af7bced3f6e95f6f5fc217f502d409f8440"
   },
   "material_selection": {
     "request": "Upright front-facing scenes consistent with everyday viewing, with clear actual output.",
@@ -109,5 +109,17 @@
     "examples/dreds_catnovel_00070_0000",
     "examples/dreds_catnovel_00164_0000",
     "examples/dreds_catnovel_00186_0171"
-  ]
+  ],
+  "material_typography": {
+    "family": "Times New Roman",
+    "weight": "bold",
+    "title_pt": 8.666666666666666,
+    "column_heading_pt": 6,
+    "minimum_pt": 5,
+    "canvas_pixels": [
+      1800,
+      1320
+    ],
+    "image_panels_unchanged": true
+  }
 }
