@@ -185,7 +185,7 @@ class CaMPDA:
 
     def _predict_multiview(self,rgb,depth_m,camera,references,*,seed=0):
         from dataclasses import replace
-        from .multiview import select_reference,fuse_reference,_json_value
+        from .multiview import select_reference,refine_reference,_json_value
         camera.validate_shape(depth_m.shape)
         started=time.perf_counter()
         single=self.predict(rgb,depth_m,seed=seed)
@@ -200,12 +200,24 @@ class CaMPDA:
                       multiview_status='single_view_fallback',fused_pixels=0,
                       single_view_runtime_s=single.metadata['runtime_s'],runtime_s=time.perf_counter()-started)
         if registration is None:return replace(single,metadata=metadata)
-        reference_result=self.predict(source['rgb'],source['raw_m'],seed=seed)
-        self.last_routing=target_routing
-        fused,reliable,_=fuse_reference(single.depth_m,depth_m,single.accepted,
-            reference_result.depth_m,camera.matrix,registration['T_source_to_target'],source_K=source['K'])
-        metadata.update(multiview_status='fused',fused_pixels=int(reliable.sum()),
+        try:
+            reference_result=self.predict(source['rgb'],source['raw_m'],seed=seed)
+        finally:
+            self.last_routing=target_routing
+        try:
+            fused,_,solver=refine_reference(single.depth_m,rgb,depth_m,
+                reference_result.depth_m,source['rgb'],camera.matrix,
+                registration['T_source_to_target'],source_K=source['K'])
+        except RuntimeError as error:
+            metadata.update(fallback_reason='continuous_solver_failed',solver_error=str(error),
+                registration=_json_value(registration),raw_anchor_restoration=False,
+                runtime_s=time.perf_counter()-started)
+            return replace(single,metadata=metadata)
+        changed=int(np.count_nonzero(fused!=single.depth_m))
+        metadata.update(multiview_status='fused' if solver['status']=='refined' else 'single_view_fallback',
+            fused_pixels=changed,support_pixels=sum(solver['support_pixels']),
             runtime_s=time.perf_counter()-started,
             registration=_json_value(registration),depth_sha256=_array_sha(fused),
-            refinement='depth-domain reprojection with 60 mm gate; accepted raw anchors restored')
+            refinement='continuous edge-aware depth correction',raw_anchor_restoration=False,
+            continuous_solver=solver)
         return replace(single,depth_m=fused,metadata=metadata)

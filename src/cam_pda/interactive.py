@@ -32,7 +32,7 @@ def read_settings(path):
 
 
 def example_folders(explicit=None):
-    # The source checkout provides additional examples; the wheel includes blade32.
+    # The source adds material cases; the wheel includes target blade32 and reference blade20.
     candidates = [Path(explicit)] if explicit else [Path(__file__).resolve().parents[2]/'examples']
     candidates.append(Path(str(files('cam_pda').joinpath('resources/examples'))))
     found = {}

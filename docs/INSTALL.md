@@ -67,7 +67,7 @@ The program asks for:
 
 Paths are entered **after the program starts**. You do not edit Python variables. Quoted paths, spaces, `~` and environment variables are accepted. Output runs use unique child folders, so reusing a storage location keeps earlier results.
 
-After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The current source checkout includes nine examples; the v0.2.0 release source includes the original six, and the wheel includes the calibrated blade32 example. Use the current source checkout for the additional material gallery cases and reference views.
+After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The current source checkout includes nine examples. The v0.3.0 wheel includes calibrated blade32 and its blade20 reference, so the optional multiview example is available after package installation. Use the source checkout for the additional material gallery cases. SciPy is installed automatically as a standard dependency for the continuous solver; no custom C/CUDA extension or separate CUDA Toolkit build is required.
 
 ## Model storage
 
@@ -78,7 +78,7 @@ To run completely offline, choose **Use two existing weight files** and enter:
 - `cam_pda_v1.pt` from the [model release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/v0.1.0).
 - `depth_anything_v2_vitb.pth` from the [official PDA model host](https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth).
 
-Application v0.2.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
+Application v0.3.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
 
 While the repository is private, downloading its model needs an account with repository access. In the automatic-download flow, enter **your own** authorized GitHub username when prompted. Sign in with Git Credential Manager first; the program reads its saved credential in memory, without saving a token in project files. A `GH_TOKEN` environment variable is also supported for automation. For public releases, the username can be left blank. Manual download and local-file selection remain available.
 

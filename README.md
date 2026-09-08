@@ -80,7 +80,13 @@ your_output_folder/
     └── metadata.json        Units, camera and run information
 ```
 
-Point clouds use metres, with x right, y down and z forward. Numerical depth is saved without smoothing or geometric postprocessing.
+Point clouds use metres, with x right, y down and z forward. Single-view predictions are saved unchanged. Optional multiview output includes the continuous correction described below; export adds no planar fitting or further smoothing.
+
+## Optional multiview refinement
+
+Provide another calibrated RGB-D view of the same static scene, or use the included blade32 / blade20 pair. CaM-PDA now applies a continuous depth correction that preserves the target prediction as a prior and reduces abrupt changes from the previous hard-fusion approach. It does not write raw sensor outliers back into the output. Unusable references give an exact single-view fallback.
+
+On the recorded 80-target ICL protocol, full-image AbsRel/RMSE change from 0.009010/0.037344 m to 0.008775/0.037023 m. Gains are modest and region dependent. See [the visual comparison, complete method and trade-offs](docs/MULTIVIEW.md).
 
 ## More depth examples
 

@@ -1,12 +1,12 @@
-"""Reusable pose-free RGB-D registration and depth-domain reference fusion.
+"""Reusable pose-free RGB-D registration and continuous reference-depth correction.
 
 Public depth inputs and outputs are metres; ``T_source_to_target`` uses a
 millimetre translation, matching the established benchmark geometry. Registration
-uses raw sensor depth and RGB only. Fusion is gated reprojection of predicted
-depth, not neural feature fusion. No trajectory or ground-truth pose is read.
+uses raw sensor depth and RGB only. Continuous correction operates on predicted
+depth. No trajectory or ground-truth pose is read.
 
-The ORB/PnP/ICP and fusion parameters follow evaluate_posefree_two_view.py and
-export_current_cam_pda_frame30.py; image bounds follow the actual array shape.
+ORB/PnP/ICP retains the evaluated registration policy. The continuous solver
+uses the frozen 038 parameters; image bounds follow the actual array shape.
 """
 
 from __future__ import annotations
@@ -274,37 +274,27 @@ def select_reference(target: dict, candidate_ids: Iterable[int], load_frame: Cal
     return registration, source, attempts
 
 
-def fuse_reference(target_depth_m: np.ndarray, target_raw_m: np.ndarray,
-                   accepted_mask: np.ndarray, source_depth_m: np.ndarray,
-                   K: np.ndarray, T: np.ndarray, *, source_K: np.ndarray | None = None,
-                   base_gate_mm: float = 60.0, alpha: float = 1.0
-                   ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Reproject/fuse depth in metres, with a source->target transform in mm.
+def refine_reference(target_depth_m, target_rgb, target_raw_m, source_depth_m,
+                     source_rgb, K, T, *, source_K=None):
+    """Continuous correction in metres; registration T translation is in mm.
 
-    ``accepted_mask`` is the confidence-accepted raw anchor mask, NOT the whole
-    sampling mask. Only finite, positive accepted sensor points are restored.
-    All other pixels require a valid source prediction within ``base_gate_mm``
-    of the finite positive target prediction; otherwise target depth is kept.
+    No accepted sensor values are restored. The frozen solver receives a copy
+    of T converted to metres, leaving registration metadata and caller arrays intact.
     """
-    target = np.asarray(target_depth_m, dtype=np.float32)
-    raw = np.asarray(target_raw_m, dtype=np.float32)
-    source = np.asarray(source_depth_m, dtype=np.float32)
-    accepted = np.asarray(accepted_mask, dtype=bool)
-    if target.ndim != 2 or raw.shape != target.shape or accepted.shape != target.shape or source.shape != target.shape:
-        raise ValueError("Target, raw, accepted mask and source depths must share HxW resolution")
-    T = np.asarray(T, dtype=np.float64)
-    if T.shape != (4, 4) or not np.isfinite(T).all() or not np.allclose(T[3], [0, 0, 0, 1]):
-        raise ValueError("T must be a finite 4x4 source-to-target transform with mm translation")
-    if not np.isfinite(base_gate_mm) or base_gate_mm < 0 or not np.isfinite(alpha) or not 0 <= alpha <= 1:
-        raise ValueError("base_gate_mm must be nonnegative and alpha must be in [0,1]")
+    from .continuous_multiview import refine
+    transform = np.array(T, dtype=np.float64, copy=True)
+    if (transform.shape != (4, 4) or not np.isfinite(transform).all()
+            or not np.allclose(transform[3], [0, 0, 0, 1])
+            or not np.allclose(transform[:3, :3].T @ transform[:3, :3], np.eye(3), atol=1e-4)
+            or not np.isclose(np.linalg.det(transform[:3, :3]), 1.0, atol=1e-4)):
+        raise ValueError('T must be a rigid source-to-target transform with mm translation')
     target_K = _intrinsics(K)
-    warped_mm = _warp_mm(source * 1000.0, _intrinsics(source_K) if source_K is not None else target_K,
-                        target_K, T, target.shape)
-    warped_m = (warped_mm * 0.001).astype(np.float32)
-    protected = accepted & np.isfinite(raw) & (raw > 0)
-    reliable = (~protected & np.isfinite(target) & (target > 0) & (warped_m > 0)
-                & (np.abs(warped_mm - target * 1000.0) <= base_gate_mm))
-    output = target.copy()
-    output[reliable] = (1.0 - alpha) * target[reliable] + alpha * warped_m[reliable]
-    output[protected] = raw[protected]
-    return output, reliable, warped_m
+    reference_K = _intrinsics(source_K) if source_K is not None else target_K
+    for rgb in (target_rgb, source_rgb):
+        if np.asarray(rgb).dtype != np.uint8:
+            raise ValueError('RGB must be uint8')
+    transform[:3, 3] *= .001
+    raw = np.asarray(target_raw_m, dtype=np.float32)
+    raw = np.where(np.isfinite(raw) & (raw > 0), raw, 0).astype(np.float32)
+    reference = dict(depth_m=source_depth_m, rgb=source_rgb, K=reference_K, T_m=transform)
+    return refine(target_depth_m, target_rgb, raw, [reference], target_K)

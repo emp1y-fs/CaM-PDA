@@ -1,0 +1,52 @@
+{
+  "application_version": "0.3.0",
+  "formal_model": "T1-RNE-GS-026-step600",
+  "weights_changed": false,
+  "checkpoint_sha256": "0ed8d6299f49d69e092720b54e7edd6dd732a51ed20d50434b90a0f13a0cfacc",
+  "prior_sha256": "0d2b7002e62d39d655571c371333340bd88f67ab95050c03591555aa05645328",
+  "runtime": "Linux CUDA, PyTorch 2.7.1; OMP/OPENBLAS/MKL threads = 1",
+  "linux_cpu_tests_passed": 24,
+  "windows_cpu_solver_and_prompt_tests_passed": 15,
+  "actual_terminal_runtime": true,
+  "point_filtering": false,
+  "raw_anchor_restoration": false,
+  "cross_platform_bitwise_equivalence_claimed": false,
+  "examples": {
+    "single": {
+      "depth_sha256": "398a7298a88cd6675bd136c0ce8477b98ac43cf2e8dc0109bd9547da9bafb8a6",
+      "bitwise_equal_to_frozen_038": true,
+      "vertices": 921600,
+      "existing_files_unchanged": true
+    },
+    "continuous": {
+      "depth_sha256": "f676498c336c0035fd29d553806dcfaf305990904ea532165ca001160c61bcfe",
+      "bitwise_equal_to_frozen_038": true,
+      "vertices": 921600,
+      "existing_files_unchanged": true
+    }
+  },
+  "continuous_solver": {
+    "config": {
+      "gate_m": 0.03,
+      "gate_relative": 0.01,
+      "roundtrip_px": 2.0,
+      "source_edge_relative": 0.015,
+      "smoothness": 64.0,
+      "target_weight": 1.0,
+      "hole_weight": 0.5,
+      "reference_weight": 1.0,
+      "iterations": 200
+    },
+    "support_pixels": [
+      704065
+    ],
+    "raw_anchor_restoration": false,
+    "method": "continuous edge-aware depth correction",
+    "ground_truth_used": false,
+    "status": "refined",
+    "cg_info": 200,
+    "solver_relative_residual": 0.0006435902905650437,
+    "changed_pixels": 919157,
+    "correction_abs_p95_mm": 1.4881587028503418
+  }
+}

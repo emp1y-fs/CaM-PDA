@@ -62,12 +62,3 @@ def test_cpu_knn_all_accepted_and_one_missing():
     completed=engine.kss_completer(torch.where(mask,sparse,0),sparse,~mask,mask,K=5)
     assert torch.isfinite(completed).all() and torch.equal(completed[mask],sparse[mask])
     assert abs(float(completed[0,2,2])-13)<.01
-
-
-def test_multiview_preserves_accepted_raw_anchor():
-    from cam_pda.multiview import fuse_reference
-    target=np.full((5,5),2,np.float32);source=np.full((5,5),2.03,np.float32)
-    mask=np.zeros((5,5),bool);mask[2,2]=True;raw=target.copy();raw[2,2]=1.9
-    fused,reliable,_=fuse_reference(target,raw,mask,source,np.eye(3),np.eye(4))
-    assert fused[2,2]==raw[2,2] and not reliable[2,2]
-    assert np.allclose(fused[~mask],2.03,atol=1e-6)

@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cam-pda"
-version = "0.2.0"
+version = "0.3.0"
 description = "CaM-PDA: balanced confidence and independent residual experts for metric RGB-D completion"
 readme = "README.md"
 license-files = ["licenses/*.txt", "licenses/README.md"]
 requires-python = ">=3.10,<3.13"
-dependencies = ["torch>=2.7.1,<2.8", "numpy>=1.25,<3", "Pillow>=10", "opencv-python>=4.10,<6", "einops>=0.8,<1"]
+dependencies = ["torch>=2.7.1,<2.8", "numpy>=1.25,<3", "Pillow>=10", "opencv-python>=4.10,<6", "einops>=0.8,<1", "scipy>=1.14,<2"]
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
@@ -21,7 +21,7 @@ cam-pda = "cam_pda.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-cam_pda = ["resources/*.json", "resources/examples/blade32/*"]
+cam_pda = ["resources/*.json", "resources/examples/blade32/*", "resources/examples/blade20/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
