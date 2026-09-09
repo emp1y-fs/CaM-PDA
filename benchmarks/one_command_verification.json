@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-09",
+  "test_targets_verified": 844,
+  "nyuv2_official_mat_conversions_exact": 654,
+  "download_assets_verified": 5,
+  "download_evidence": "Three test release assets and both model weights downloaded from their real URLs and SHA256 verified. Official NYUv2 source was verified using a byte-range request plus the complete existing local MAT hash.",
+  "inference": {
+    "dataset": "icl80",
+    "frames": 80,
+    "maximum_per_frame_metric_difference": {
+      "AbsRel": 0.0,
+      "MAE_m": 0.0,
+      "RMSE_m": 0.0
+    },
+    "numerical_depth_outputs": 80,
+    "color_depth_outputs": 80,
+    "all_saved_depth_hashes_match": true
+  },
+  "protocol": "Frozen paper grid, input/reference hashes, sampling masks and retained weights unchanged",
+  "unit_tests": {
+    "windows": 11,
+    "linux": 11
+  },
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU"
+}

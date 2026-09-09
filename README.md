@@ -4,7 +4,7 @@
 
 Python · Windows & Linux · Single-frame inference
 
-[Quick start](#quick-start) · [Use your data](#3-run-your-own-data) · [简体中文](README.zh-CN.md) · [Install](docs/INSTALL.md) · [Data & downloads](docs/DATASETS.md) · [Reproduce](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
+[Quick start](#quick-start) · [Test our weights](#test-the-released-weights-with-one-command) · [Use your data](#3-run-your-own-data) · [简体中文](README.zh-CN.md) · [Install](docs/INSTALL.md) · [Data & downloads](docs/DATASETS.md) · [Reproduce](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
 ## Quick start
 
@@ -25,14 +25,14 @@ For an **NVIDIA GPU with a compatible driver**, install:
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
-python -m pip install .
+python -m pip install ".[benchmark]"
 ```
 
 For **CPU**, use these commands instead; inference will be slower:
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-python -m pip install .
+python -m pip install ".[benchmark]"
 ```
 
 No separate CUDA Toolkit installation or Visual Studio build is required. For an isolated environment, see [environment setup](docs/INSTALL.md#1-choose-a-python-environment).
@@ -98,7 +98,29 @@ result_folder/
 
 Open **`depth_color.png`** in an image viewer and **`point_cloud.ply`** in CloudCompare or another PLY viewer. Use **`depth_m.npy`** for numerical work. Point-cloud coordinates are in metres: x right, y down, z forward. Export preserves the predicted depth values.
 
-For full benchmark protocols and training records, continue to the [reproduction guide](docs/REPRODUCIBILITY.md).
+## Test the released weights with one command
+
+After the installation above, **run this from the cloned or extracted CaM-PDA folder**:
+
+```console
+python reproduce.py --root ./cam_pda_test
+```
+
+The program downloads the fixed test data and both weights, checks their SHA256 values, evaluates **all 844 frames**, and saves scores and predicted depth maps. No manual extraction, dataset selection, or source-code editing is needed. `--root` controls **all** download, data, weight and output locations. On Windows, for example: `python reproduce.py --root "D:/CaM-PDA-test"`; on Linux: `python reproduce.py --root /home/you/CaM-PDA-test`.
+
+| Test subset | Frames | Automatic download |
+|---|---:|---|
+| DREDS-CatNovel | 110 | [Prepared inputs and reference masks, 30.2 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_dreds110_v1.zip) |
+| NYUv2 | 654 | [Official labeled MAT, 2.97 GB](https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat) + [frozen protocol masks, 15.8 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_nyu654_masks_v1.zip); converted automatically |
+| ICL-NUIM | 80 | [Prepared inputs and reference masks, 28.0 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_icl80_v1.zip) |
+
+The first full run downloads about **3.83 GB including both weights**. NYUv2's official file contains all labeled images; the converter selects only the 654 official test frames. We do not mirror its RGB or depth arrays. The prepared test records total about 375 MB. Allow approximately **6 GB** for downloads, prepared records and predicted depth maps. Verified files are reused; interrupted downloads resume when you rerun the command. NVIDIA CUDA is recommended for the full benchmark; CPU evaluation is supported but much slower.
+
+**Results:** the terminal prints a score table and the full output path. Open `cam_pda_test/results/<run>/results.md` for a readable summary, `summary.csv` for aggregate and regional metrics, and `per_frame.csv` for every frame. Under `predictions/`, folders named by each manifest frame ID contain `depth_m.npy` (metres) and `depth_color.png`. New runs receive separate result folders. Benchmark records do not include calibrated intrinsics, so this command exports depth maps and evaluation results; use the capture workflow above for calibrated point clouds.
+
+To start with the smaller 80-frame ICL set, use `python reproduce.py --root ./cam_pda_test --dataset icl80`. Other choices are `dreds110` and `nyu654`. Use `--prepare-only` to download without evaluating or `--metrics-only` to skip saving depth maps. Existing weights or an existing NYUv2 MAT can also be reused; see [benchmark options](docs/REPRODUCIBILITY.md#one-command-benchmark).
+
+**Private review:** downloads require an account granted access to this repository. The command uses an existing Git Credential Manager sign-in or `GH_TOKEN`/`GITHUB_TOKEN`; use `--github-user YOUR_GITHUB_NAME` to select an account. No credential is written to the results. Once the repository and releases are public, the same command works without GitHub sign-in. If you installed an older package without benchmark support, run `python -m pip install ".[benchmark]"` once first.
 
 ![RGB, measured ToF depth and CaM-PDA depth in a real engine-blade scene](assets/blade_depth_showcase.png)
 

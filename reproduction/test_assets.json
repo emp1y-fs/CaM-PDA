@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "release": "https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-tests-v1",
+  "datasets": {
+    "dreds110": {
+      "filename": "cam_pda_dreds110_v1.zip",
+      "bytes": 30213504,
+      "sha256": "9b77b680ae1eaae8cd44cf5dfb4191aae442d0f5a19dcdd7935793401b33cd5c",
+      "frames": 110,
+      "url": "https://api.github.com/repos/emp1y-fs/CaM-PDA/releases/tags/paper-tests-v1",
+      "browser_download_url": "https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_dreds110_v1.zip",
+      "asset_id": 553019816
+    },
+    "icl80": {
+      "filename": "cam_pda_icl80_v1.zip",
+      "bytes": 28009018,
+      "sha256": "f952276c50d5cef6bd36a3fd9524976a0cc3d8b5e2ef1c7cfa05b1a703bfbf43",
+      "frames": 80,
+      "url": "https://api.github.com/repos/emp1y-fs/CaM-PDA/releases/tags/paper-tests-v1",
+      "browser_download_url": "https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_icl80_v1.zip",
+      "asset_id": 553021132
+    },
+    "nyu654": {
+      "filename": "cam_pda_nyu654_masks_v1.zip",
+      "bytes": 15752898,
+      "sha256": "7b4fb952e7e18b5db0b32f134670cbf35408444ea3d586ef6a727b45f6a2925e",
+      "frames": 654,
+      "url": "https://api.github.com/repos/emp1y-fs/CaM-PDA/releases/tags/paper-tests-v1",
+      "browser_download_url": "https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_nyu654_masks_v1.zip",
+      "asset_id": 553022179
+    }
+  },
+  "nyu_source": {
+    "filename": "nyu_depth_v2_labeled.mat",
+    "bytes": 2972037809,
+    "sha256": "2d724b0c0ab358aa1ce5df855e5bd14a2279ab7202efe22f32a30d612dcb86aa",
+    "url": "https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat"
+  }
+}

@@ -1,6 +1,6 @@
 # Data sources and selected subsets
 
-Start with the included examples if you only want to run CaM-PDA. Reproducing the paper experiments additionally requires the source data listed below. Obtain third-party data from its original distributor under its terms; the full datasets are not mirrored in this repository.
+Start with the included examples if you only want to run CaM-PDA. Reproducing the paper experiments additionally requires the source data listed below. Prepared DREDS110 and ICL80 test subsets are distributed under their original licenses. NYUv2 RGB/depth and all training sources are obtained from their original distributors; full raw datasets are not mirrored here.
 
 ## Training sources
 
@@ -28,6 +28,10 @@ Geometry/material adaptation retains the 672/84 initial training/development fra
 Use [`geometry_train_val.json`](../reproduction/manifests/geometry_train_val.json) for the combined **854/108** split and source/condition-cache hashes. [`dataset_sources.json`](../reproduction/dataset_sources.json) contains download URLs, archive names and pinned revisions in a machine-readable form. It lists only sources, not credentials or machine-specific directories.
 
 ## Test sets
+
+**Automatic download and evaluation:** after installation, run `python reproduce.py --root ./cam_pda_test` from the source checkout. See the [homepage quick start](../README.md#test-the-released-weights-with-one-command). The [test release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-tests-v1) contains DREDS110 (30.2 MB), ICL80 (28.0 MB), and NYUv2 Boolean protocol masks (15.8 MB). NYUv2 RGB/depth are downloaded from the official labeled MAT and converted automatically. SHA256 values and exact URLs are in [test_assets.json](../reproduction/test_assets.json).
+
+These 844 prepared test records total about 375 MB. First-time download is larger (about 3.83 GB with weights) because NYUv2 is acquired as its official 2.97-GB labeled MAT; only the 654 test targets enter evaluation. The original source links below remain available for attribution and manual acquisition.
 
 | Dataset | Download | Frozen evaluation subset |
 |---|---|---|

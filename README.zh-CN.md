@@ -4,7 +4,7 @@
 
 Python · Windows / Linux · 单帧推理
 
-[快速上手](#快速上手) · [运行自己的数据](#3-运行自己的数据) · [English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
+[快速上手](#快速上手) · [一键测试](#一条命令下载测试集并评估) · [运行自己的数据](#3-运行自己的数据) · [English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
 ## 快速上手
 
@@ -25,14 +25,14 @@ cd CaM-PDA
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
-python -m pip install .
+python -m pip install ".[benchmark]"
 ```
 
 使用 **CPU** 时，改为下面两条命令，推理速度会慢一些：
 
 ```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-python -m pip install .
+python -m pip install ".[benchmark]"
 ```
 
 无需另外安装 CUDA Toolkit 或使用 Visual Studio 编译。需要独立环境时，可参考[环境设置](docs/INSTALL.md#1-choose-a-python-environment)。
@@ -98,7 +98,29 @@ result_folder/
 
 双击 **`depth_color.png`** 查看深度预览；使用 CloudCompare 等 PLY 查看器打开 **`point_cloud.ply`**。数值计算使用 **`depth_m.npy`**。点云单位为米，x 向右、y 向下、z 向前；导出保留预测的深度值。
 
-完整测试协议和训练记录另见[复现流程](docs/REPRODUCIBILITY.md)。
+## 一条命令下载测试集并评估
+
+完成上方安装后，**在克隆或解压得到的 CaM-PDA 项目文件夹内**运行：
+
+```console
+python reproduce.py --root ./cam_pda_test
+```
+
+程序会自动下载固定测试数据和两个权重，校验 SHA256，评估 **844 张正式测试图像**，最后输出指标和预测深度图。无需手动解压、挑选样本或修改代码。`--root` 指定**全部下载文件、数据、权重和结果**的保存目录。例如 Windows 可直接运行 `python reproduce.py --root "D:/CaM-PDA-test"`，Linux 可运行 `python reproduce.py --root /home/you/CaM-PDA-test`。
+
+| 测试集 | 帧数 | 程序自动下载的文件 |
+|---|---:|---|
+| DREDS-CatNovel | 110 | [整理后的测试输入与参考掩码，30.2 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_dreds110_v1.zip) |
+| NYUv2 | 654 | [官方标注 MAT，2.97 GB](https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat) + [固定协议掩码，15.8 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_nyu654_masks_v1.zip)，下载后自动转换 |
+| ICL-NUIM | 80 | [整理后的测试输入与参考掩码，28.0 MB](https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-tests-v1/cam_pda_icl80_v1.zip) |
+
+首次完整运行连同两个权重下载约 **3.83 GB**。NYUv2 官方 MAT 含全部标注图像，程序只提取其中 654 张官方测试图像；本项目不另行分发其 RGB 和深度数组。整理后的三套测试记录合计约 375 MB。下载、整理数据和保存深度预测总共建议预留约 **6 GB**。已校验文件会复用，下载中断后重新执行相同指令即可继续。完整测试建议使用 NVIDIA 显卡；CPU 也支持，但耗时较长。
+
+**结果在哪里？** 完成后终端会显示指标表和完整保存位置。打开 `cam_pda_test/results/<本次运行>/results.md` 查看汇总，`summary.csv` 查看全图与各区域指标，`per_frame.csv` 查看逐帧指标。`predictions/` 下按测试清单中的帧 ID 建立文件夹，保存 `depth_m.npy`（米制数值深度）和 `depth_color.png`（彩色预览）。每次运行新建结果文件夹。这些固定测试记录没有相机标定内参，因此测试命令输出深度图和评估结果；需要点云时使用上方自带采集案例或自己的标定数据。
+
+想先跑较小的 ICL 80 帧，可运行 `python reproduce.py --root ./cam_pda_test --dataset icl80`；也可选择 `dreds110` 或 `nyu654`。`--prepare-only` 表示只下载准备，`--metrics-only` 表示不保存预测深度图。已有权重或 NYUv2 MAT 文件可直接复用，详见[完整测试选项](docs/REPRODUCIBILITY.md#one-command-benchmark)。
+
+**仓库私有期间：** 需要已获得仓库访问权限的 GitHub 账号。程序读取已有的 Git Credential Manager 登录或 `GH_TOKEN` / `GITHUB_TOKEN`；多个账号时可加 `--github-user 你的GitHub用户名`。结果中不会保存凭据。仓库及发布文件公开后，相同命令无需 GitHub 登录。如果此前安装的是未带测试依赖的版本，先执行一次 `python -m pip install ".[benchmark]"`。
 
 ![真实叶片场景的 RGB、ToF 实测深度与 CaM-PDA 深度](assets/blade_depth_showcase.png)
 

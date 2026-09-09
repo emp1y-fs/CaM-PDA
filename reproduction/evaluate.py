@@ -51,6 +51,7 @@ def main(argv=None):
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--dataset', choices=('dreds110', 'nyu654', 'icl80'))
     parser.add_argument('--device', default='auto')
+    parser.add_argument('--save-predictions', action='store_true', help='Save numerical depth and color previews for every frame')
     args = parser.parse_args(argv)
     verify_manifests()
     rows = [r for r in read_records('paper_test.json') if args.dataset is None or r['dataset'] == args.dataset]
@@ -71,6 +72,13 @@ def main(argv=None):
             metrics = {key: depth_metrics(prediction.depth_m, data['gt_m'], data[key]) for key in REGIONS}
             record = dict(id=row['id'], dataset=row['dataset'], metrics=metrics,
                           prediction_sha256=array_sha(prediction.depth_m))
+            if args.save_predictions:
+                from PIL import Image
+                from cam_pda.io import depth_preview
+                target = args.output / 'predictions' / row['id']
+                target.mkdir(parents=True)
+                np.save(target / 'depth_m.npy', prediction.depth_m, allow_pickle=False)
+                Image.fromarray(depth_preview(prediction.depth_m)).save(target / 'depth_color.png')
             records.append(record)
             stream.write(json.dumps(record, allow_nan=False) + '\n')
             stream.flush()
