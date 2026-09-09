@@ -32,7 +32,7 @@ def read_settings(path):
 
 
 def example_folders(explicit=None):
-    # The source adds material cases; the wheel includes target blade32 and reference blade20.
+    # Prefer checkout examples, then add examples installed with the package.
     candidates = [Path(explicit)] if explicit else [Path(__file__).resolve().parents[2]/'examples']
     candidates.append(Path(str(files('cam_pda').joinpath('resources/examples'))))
     found = {}
@@ -40,7 +40,7 @@ def example_folders(explicit=None):
         for folder in sorted(root.glob('*')):
             if (folder/'rgb.png').is_file() and (folder/'sensor_depth.npy').is_file():
                 found.setdefault(folder.name, folder)
-    order = {'blade32': 0, 'blade20': 1, 'blade30': 2}
+    order = {'blade32': 0}
     return sorted(found.values(), key=lambda p: (order.get(p.name, 3), p.name))
 
 
@@ -83,9 +83,8 @@ class Prompts:
             except (OSError, ValueError) as error:
                 self.write(str(error))
 
-    def own_inputs(self, *, reference=False):
-        self.write(self.text('\nReference view' if reference else '\nYour RGB-D files',
-                             '\n参考视角' if reference else '\n输入自己的 RGB-D 文件'))
+    def own_inputs(self):
+        self.write(self.text('\nYour RGB-D files', '\n输入自己的 RGB-D 文件'))
         rgb = self.path(self.text('RGB image path', 'RGB 照片路径'))
         depth = self.path(self.text('Sensor depth path (.npy or integer .png)', '传感深度路径（.npy 或单通道整数 .png）'))
         scale = None
@@ -104,14 +103,13 @@ class Prompts:
                         break
                     except ValueError:
                         self.write(self.text('Enter a positive finite number.', '请输入有效的正数。'))
-        camera = self.path(self.text('Camera JSON path' + ('' if reference else ' (Enter: depth only)'),
-                                     '相机内参 JSON 路径' + ('' if reference else '（回车：仅生成深度图）')),
-                           optional=not reference)
+        camera = self.path(self.text('Camera JSON path (Enter: depth only)',
+                                     '相机内参 JSON 路径（回车：仅生成深度图）'), optional=True)
         return dict(rgb_path=rgb, depth_path=depth, depth_scale=scale, camera_path=camera)
 
 
 def main(*, input_fn=input, output_fn=print, settings_path=None, examples_dir=None, execute=None):
-    """Start the interactive prompt. No GUI, local server or source edits."""
+    """Ask for input files, output directory and model settings."""
     path = Path(settings_path) if settings_path else settings_file()
     settings = read_settings(path)
     p = Prompts(input_fn, output_fn)
@@ -145,19 +143,6 @@ def main(*, input_fn=input, output_fn=print, settings_path=None, examples_dir=No
                     inputs = load_example(selected)
                 else:
                     inputs = p.own_inputs()
-                references = []
-                if inputs.get('camera_path') and not inputs.get('sampled_mask_path'):
-                    view = p.choice(p.text('\nReconstruction mode', '\n重建方式'), {
-                        '1': p.text('Single view', '单视角'),
-                        '2': p.text('Use an additional view of the same static scene', '增加同一静态场景的参考视角')})
-                    if view == '2':
-                        ref = next((f for f in folders if f.name == 'blade20'), None)
-                        if selected and selected.name == 'blade32' and ref:
-                            r = load_example(ref)
-                            references.append({k: r[k] for k in ('rgb_path', 'depth_path', 'camera_path')})
-                            output_fn(p.text('Using included blade20 as the reference.', '使用自带的第20帧作为参考视角。'))
-                        else:
-                            references.append(p.own_inputs(reference=True))
                 output = p.path(p.text('\nSave results in folder', '\n结果保存文件夹'),
                                 settings.get('output_dir', str(Path.cwd()/'outputs')), directory=True)
                 options = {}
@@ -192,7 +177,7 @@ def main(*, input_fn=input, output_fn=print, settings_path=None, examples_dir=No
                 except OSError:
                     output_fn(p.text('Preferences could not be saved; this run can continue.', '无法保存偏好设置，本次运行仍可继续。'))
                 output_fn(p.text('\nStarting. First model load can take a little longer.\n', '\n开始处理，首次加载模型可能需要更长时间。\n'))
-                run = (execute or run_from_paths)(**inputs, output_dir=output, references=references,
+                run = (execute or run_from_paths)(**inputs, output_dir=output,
                                                  model_options=options, progress=output_fn)
                 output_fn(p.text('\nComplete. Your result folder:', '\n处理完成，结果文件夹：'))
                 output_fn(str(run))

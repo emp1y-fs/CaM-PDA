@@ -1,0 +1,15 @@
+{
+  "step": 600,
+  "score": [
+    0.21566234607394766,
+    0.03992656378873757,
+    600
+  ],
+  "selection": {
+    "nonflat_plane_fpr": 0.21566234607394766,
+    "nonflat_curve_recall": 0.857843137254902,
+    "edge_recall": 0.6717147555377676,
+    "replay_absrel": 0.03992656378873757
+  },
+  "checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48"
+}

@@ -3,6 +3,7 @@ recursive-include assets *.png *.json
 recursive-include licenses *.txt *.md
 recursive-include benchmarks *.csv *.json *.md
 recursive-include examples *.png *.npy *.json
+recursive-include reproduction *.py *.json *.md *.csv
 include README.zh-CN.md
 include CHANGELOG.md
 include run.py

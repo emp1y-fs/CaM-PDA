@@ -1,0 +1,23 @@
+{
+  "note": "Methods extracted from executed research files; hashes distinguish the original sources and released extracts.",
+  "files": [
+    {
+      "original_source_file": "experiments/rne_geometry_026/geometry.py",
+      "original_sha256": "ea5f669b8e853f7fdc66c55522120d39af024ffd76ec18387ccafc0176e83aa0",
+      "released_file": "geometry_labels.py",
+      "released_sha256": "fde152a1fc938577e2fb79a08e7f8c317a11d5ec87cd0e4a34e09bedc3e603d8"
+    },
+    {
+      "original_source_file": "experiments/balanced_threechannel_edge_moe_014/losses.py",
+      "original_sha256": "8b515e968909d93dbd10c794a185eb92552855511a04497e1ba3317ce120bd9f",
+      "released_file": "initial_losses.py",
+      "released_sha256": "6c1be0fab638e05de3393e297c8764fc5bdcb9309cfe3e57604a65d990508fb3"
+    },
+    {
+      "original_source_file": "experiments/rne_geometry_026/engine.py",
+      "original_sha256": "7c42ee711ea1daf8c114683fa93dec7d31d79410e5cfd17ef66dc27d3dbdfb2b",
+      "released_file": "geometry_losses.py",
+      "released_sha256": "1736e9e9fe2f11dbbb6a06dbd8f1acea8619e3909e9fa66e0d68b24b9ccb5158"
+    }
+  ]
+}

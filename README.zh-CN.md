@@ -1,141 +1,93 @@
 # CaM-PDA
 
-**将 RGB-D 图像补全为米制深度图，并生成彩色点云。**
+**将视觉深度先验与实测深度对齐，从 RGB-D 恢复稠密的米制深度。**
 
-Python · Windows / Linux · 本地处理
+Python · Windows / Linux · 单帧推理
 
-[English](README.md) · [安装说明](docs/INSTALL.md) · [Python 接口](docs/API.md) · [模型架构](docs/ARCHITECTURE.md) · [完整测试结果](benchmarks/README.md)
+[English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
-![真实发动机叶片场景：RGB、传感深度与CaM-PDA补全深度](assets/blade_depth_showcase.png)
+![真实叶片场景的 RGB、ToF 实测深度与 CaM-PDA 深度](assets/blade_depth_showcase.png)
 
-CaM-PDA 基于 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything)，结合平衡置信筛选，以及反射、非平面、边缘三个专家，从彩色图像与已对齐的传感深度生成稠密米制深度。
+CaM-PDA 从 RGB 图像估计视觉深度先验，用平衡置信筛选保留较可靠的传感器观测，再将视觉先验与这些实测深度对齐。带有反射、非平面和边缘专家的条件深度网络进一步预测稠密的米制深度。方法基于 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything)。
 
-**启动程序后，按提示输入数据路径和保存路径即可。也可以直接选择自带案例。**
+**输入：** 一张 RGB 图像及对应的传感器深度。**输出：** 深度预览、数值深度；提供相机内参时还可生成彩色点云。RGB 与传感器深度需要预先配准到同一像素网格。CaM-PDA 内部进行的是深度尺度与结构对齐，不负责两台相机之间的图像配准。
 
-## 可以得到什么
+## 运行程序
 
-| 稠密深度图 | 彩色点云 | 简单的 Python 使用方式 |
-|---|---|---|
-| 原始分辨率的米制深度，以及便于查看的彩色预览 | 提供相机内参后生成 `.ply`，可在 CloudCompare 等软件中查看 | 运行时输入路径，中英文提示，记住输出和模型存储位置 |
-
-## 开始使用
-
-使用 **Python 3.10–3.12**，支持 Windows 与 Linux。从 GitHub 的 **Code → Download ZIP** 下载并解压，或运行：
+使用 Python **3.10–3.12**，下载仓库并安装依赖：
 
 ```console
 git clone https://github.com/emp1y-fs/CaM-PDA.git
 cd CaM-PDA
-```
-
-先安装适合设备的 PyTorch，再安装 CaM-PDA。以下为已验证的 NVIDIA GPU 环境：
-
-```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
 python -m pip install .
 python run.py
 ```
 
-[安装说明](docs/INSTALL.md)提供独立环境、CPU 安装和权重配置方法。两个权重合计约 **0.8 GB**；程序会询问模型存储文件夹，也可以直接指定已有权重文件。
+以上使用 NVIDIA CUDA 版 PyTorch。CPU 安装、独立环境和权重获取见[安装说明](docs/INSTALL.md)。两个模型文件合计约 **0.8 GB**。
 
-### 1. 启动后选择数据
+程序启动后选择自带案例，或**在运行时输入数据路径**，然后选择保存目录和模型位置。无需修改 Python 源文件。安装后也可以使用 `cam-pda` 或 `python -m cam_pda` 启动，提供中英文提示。
 
-运行 `python run.py`，选择中文后会看到：
-
-```text
-选择数据来源
-  1  使用自带案例
-  2  输入自己的数据路径
-  0  退出
-```
-
-选择 **1** 可体验发动机叶片案例；选择 **2** 后依次输入照片、原始传感深度和可选的相机内参路径。程序随后询问结果保存文件夹、权重位置与计算设备。
-
-**路径是在程序运行过程中输入的，不需要打开或修改 Python 源码。** 支持含空格的路径，也支持直接粘贴带引号的路径。安装后输入 `cam-pda` 或 `python -m cam_pda` 也可启动同一程序。
-
-### 2. 准备自己的 RGB-D
-
-| 输入 | 格式与要求 |
+| 输入 | 格式 |
 |---|---|
-| 彩色照片 | PNG、JPEG 等 RGB 图像 |
-| 原始传感深度 | 二维浮点米制 `.npy`，或单通道整数 `.png`；PNG 的单位由程序询问 |
-| 相机内参 | 可选 JSON，包含 `fx、fy、cx、cy、width、height`；生成点云时需要 |
+| RGB 图像 | PNG、JPEG |
+| 已配准的传感器深度 | 以米为单位的浮点 `.npy`，或注明单位的单通道整数 `.png`；0 表示缺失 |
+| 相机内参 | 包含 `fx`、`fy`、`cx`、`cy`、`width`、`height` 的 JSON；生成点云时必需 |
 
-照片与深度必须事先对齐到同一像素网格，深度中的 0 表示缺失。请提供原始深度数值，不能把彩色深度预览当作输入。当前方法需要米制观测锚点，仅有 RGB 照片不足以运行这一补全流程。
+彩色深度图只用于展示，不能作为数值深度输入。自己的数据应使用实际相机内参；仅凭一张 RGB 照片不能获得本方法所需的实测尺度。
 
-不提供内参时输出深度图；提供对应内参后同时输出点云。程序还支持增加同一静态场景的参考视角，自带叶片案例已配有参考帧。其他相机需要使用自己的标定参数。
-
-### 3. 在指定文件夹查看结果
-
-每次运行都会新建独立子文件夹，保留已有结果：
+每次运行都在所选保存目录中创建独立文件夹：
 
 ```text
-你选择的保存文件夹/
-└── 20260907-220000_rgb_a1b2c3d4/
-    ├── rgb.png              输入照片
-    ├── depth_color.png      彩色深度预览
-    ├── depth_m.npy          完整精度的米制深度
-    ├── depth_mm.png         可表示时保存的毫米深度 PNG
-    ├── point_cloud.ply      提供内参时生成的彩色点云
-    ├── accepted_mask.png    接受的传感观测点
-    └── metadata.json        单位、相机与运行记录
+result_folder/
+├── rgb.png              输入 RGB
+├── depth_color.png      深度预览
+├── depth_m.npy          Float32 米制深度
+├── depth_mm.png         四舍五入后的毫米深度，数值可表示时输出
+├── point_cloud.ply      标定后的彩色点云
+├── accepted_mask.png    保留的传感器观测
+└── metadata.json        内参、单位和推理设置
 ```
 
-点云坐标单位为米，x 向右、y 向下、z 向前。单视角结果保留原始预测；可选多视角结果包含下述连续校正，导出时不再进行平面拟合或额外平滑。
+未提供相机内参时只生成深度图。点云单位为米，x 向右、y 向下、z 向前。导出保留模型预测数值，预览配色不会改变深度值。
 
-## 可选多视角优化
+## 其他发动机构件
 
-提供同一静态场景的另一个已标定 RGB-D 视角，或使用自带的第32帧／第20帧案例。当前版本以单视角深度为基础进行连续校正，减少旧硬融合带来的突变，也不再把原始传感器异常值写回输出。参考视角不可用时，完整保留单视角结果。
+![四组单帧案例：RGB、原始 ToF 深度、CaM-PDA 深度和点云](assets/engine_components.png)
 
-在已记录的 ICL 80帧测试中，全图 AbsRel／RMSE 从 0.009010／0.037344 m 变为 0.008775／0.037023 m。改善幅度温和，不同区域表现仍有差异。参见[深度图对比、方法与完整结果](docs/MULTIVIEW.md)。
+以上为论文第 5 节补充的发动机内部构件，拍摄于**杂物相对较少的干净桌面环境**。每行均由一帧 RGB-D 独立推理，展示缺失深度的补全与重建结构。这些场景没有参考几何，不能据此给出定量精度结论。
 
-## 材料场景展示
+在程序中选择 `engine_component_01` 至 `engine_component_04`，即可分别运行图中四行案例。源码和安装包都附带原始 RGB、实测深度、内参与采样种子。详见[案例说明及来源](docs/ENGINE_COMPONENTS.md)。
 
-![正向真实桌面场景的RGB、原始深度与CaM-PDA深度结果](assets/material_depth_showcase.png)
+源码中还保留了[真实材料场景案例](docs/GALLERY.md)。
 
-这三张来自当前源码中可运行的 ClearGrasp 真实测试案例，按自然正向的观看角度和清楚可辨的补全效果选出。每个面板均展示完整原始画幅。同一行的原始深度和 CaM-PDA 深度共用色标，黑色表示缺失观测；未旋转图片、平滑深度或进行几何后处理。
+## 测试结果
 
-这些精选图用于展示，与下方保持不变的完整基准测试统计分开，并继续排除于训练。原始三张 DREDS 案例仍然保留。详见[样例编号与选样说明](docs/GALLERY.md)和[展示图来源](assets/preview_provenance.json)。上方真实叶片场景没有真值深度，仅用于定性展示。
+固定测试帧的全图 **AbsRel ↓** 均值：
 
-## 已记录的测试结果
-
-固定留出测试输入的全图 **AbsRel，越低越好**：
-
-| 方法 | DREDS-CatNovel · 110帧 | NYUv2 · 654帧 | ICL-NUIM · 80帧 |
+| 方法 | DREDS-CatNovel · 110 帧 | NYUv2 · 654 帧 | ICL-NUIM · 80 帧 |
 |---|---:|---:|---:|
 | **CaM-PDA** | **0.014226** | 0.023305 | **0.009010** |
 | Official PDA | 0.030987 | 0.054981 | 0.067776 |
 | OMNI-DC v1.1 | 0.035454 | **0.016802** | — |
 | IP-Basic | 0.078946 | 0.031725 | — |
-| Marigold-DC · 10步 | 0.096877 | 0.059145 | — |
+| Marigold-DC · 10 steps | 0.096877 | 0.059145 | — |
 
-CaM-PDA 在这些测试集上相对官方 PDA 降低了全图误差；OMNI-DC 在 NYUv2 全图指标上更低。各区域的取舍和更多算法见[完整数据与协议](benchmarks/README.md)。展示图用于说明模型行为，定量结论以冻结测试记录为依据。
+CaM-PDA 在这三个测试集上均优于原始 PDA；OMNI-DC 的 NYUv2 全图误差更低。[完整记录](benchmarks/README.md)保留各区域指标与单独列出的 VGGT 对比。上方的案例展示不能代替整套测试集结果。
 
-## 给开发者的接口
+## 复现与代码
 
-需要集成到其他 Python 程序时，可以调用：
+- [复现流程](docs/REPRODUCIBILITY.md)：环境 → 权重 → 案例 → 测试 → 训练记录。
+- [数据下载](docs/DATASETS.md)：原始数据入口、精确样本清单和所需文件。
+- [训练方法](docs/TRAINING.md)：两个适配阶段、专家监督与权重选择。
+- [架构](docs/ARCHITECTURE.md)：平衡置信、三通道条件、独立 R/N/E 专家。
+- [Python API](docs/API.md)：文件和数组接口。
+- [模型说明](docs/MODEL_CARD.md)：适用范围与局限。
 
-```python
-from cam_pda import run_from_paths
-
-result_folder = run_from_paths(
-    rgb_path="my_scene/rgb.png",
-    depth_path="my_scene/sensor_depth.npy",
-    camera_path="my_scene/camera.json",
-    output_dir="results",
-)
-```
-
-普通使用直接启动交互程序即可。数组接口、批处理命令、案例固定采样和参考视角功能见 [API 文档](docs/API.md)。
-
-## 进一步了解
-
-- [模型卡](docs/MODEL_CARD.md)：正式权重、适用范围与已知限制。
-- [架构](docs/ARCHITECTURE.md)：平衡置信、三通道和 R/N/E 专家。
-- [训练与标注](docs/TRAINING.md)：训练数据、专家监督及测试隔离。
-- [跨平台复现](docs/REPRODUCIBILITY.md)：Windows / Linux 验证和数值差异。
+发布权重对应论文中的 CaM-PDA；应用更新不改变模型权重。
 
 ## 致谢与使用条款
 
-本项目基于 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything)、[Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) 和 DINOv2。上游声明保留在 [licenses](licenses/README.md)；ViT-B 权重与 DREDS 数据涉及 **CC BY-NC 4.0** 条款。
+基于 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything)、[Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) 和 DINOv2。[上游版权与数据条款](licenses/README.md)继续适用，其中 ViT-B 权重和 DREDS 数据采用 **CC BY-NC 4.0**。
 
-仓库目前仍处于访问受限的发布检查阶段。新增代码与自有案例的公开许可尚待确定，上游条款继续有效；正式论文与引用信息确定后补充。
+仓库目前保持私有供作者检查。CaM-PDA 新增代码及作者自采案例的公开许可尚未确定，收录在此不代表额外授予再分发权限。

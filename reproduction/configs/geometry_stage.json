@@ -1,0 +1,66 @@
+{
+  "name": "CaM-PDA-RNE-GS",
+  "run_id": "026",
+  "parent": "formal_D6",
+  "formal_checkpoint_sha256": "83898cc3a8b738db8de60676ba0404cde1e6bbb4d4e73b2cee74a9d7c7a85558",
+  "data_manifest_sha256": "46606df4a1c0521cfd227078efddf352331e061afbdd08fb8c7d4967d7de2f15",
+  "code_sha256": {
+    "data.py": "43c3c707ed741a226eb40c51244d636c9947610ad46de97292dfd0aa72cc782a",
+    "engine.py": "7c42ee711ea1daf8c114683fa93dec7d31d79410e5cfd17ef66dc27d3dbdfb2b",
+    "geometry.py": "ea5f669b8e853f7fdc66c55522120d39af024ffd76ec18387ccafc0176e83aa0",
+    "preflight.py": "3d093ab07942b3ada3d7838f9b2ddc89d60790d608ba84be1ff6e9aee8d24ab9",
+    "prepare_conditions.py": "2bf35c87efa97deee4ce0897bd711484570912d3ca4a79800cf2edf40add607c",
+    "prepare_sources.py": "3ccc777c0da8084c19468c17451784b640166e40ffefc444401642c41ce441b7",
+    "settings.py": "2c279c414487bb78bdb29407b3144d59cd67f9a298202ee60efd36f649672639",
+    "test_loss.py": "7945ee790e01f9078fd49b4d428a79efc595e1e315bc2abe97e0bf0ec79914df",
+    "train.py": "db25b7664030296f6bdc4e28e7444a9015850d7976daca7526604c017346daac"
+  },
+  "updates": 1000,
+  "router_warmup_updates": 100,
+  "effective_batch": 4,
+  "microbatch": 4,
+  "seed": 2026090626,
+  "expert_names": [
+    "reflective",
+    "nonflat",
+    "edge"
+  ],
+  "blocks": [
+    6,
+    8,
+    10
+  ],
+  "rank": 32,
+  "condition": "frozen balanced rule original three channels",
+  "warmup_mixture": [
+    "hypersim",
+    "hypersim",
+    "dreds",
+    "dreds"
+  ],
+  "joint_mixture": [
+    "replay",
+    "replay",
+    "hypersim",
+    "dreds"
+  ],
+  "loss": "per-frame AbsRel + 0.05 per-frame role/class-balanced BCE + 0.10 per-frame GT planar gradient error; warmup BCE only",
+  "learning_rates": {
+    "backbone": 1e-06,
+    "decoder": 2e-06,
+    "routers": 2.5e-05,
+    "residuals": 5e-05,
+    "gates": 0.00025
+  },
+  "schedule": "joint cosine to 10 percent; warmup fixed rate",
+  "selection": {
+    "every_updates": 100,
+    "eligible": "old84 AbsRel <= 1.02 * D6; HS24 scene-macro N and E recall >= D6 minus 0.05",
+    "rank": "HS24 scene-macro nonflat FPR ascending; then old84 AbsRel; then earlier update",
+    "formal_auto_promotion": false,
+    "limitations": "eligible best means best candidate, not automatically an improvement over D6; always report D6 comparison"
+  },
+  "external_tests_for_selection": false,
+  "real_sequence_for_training": false,
+  "selected_step": 600
+}

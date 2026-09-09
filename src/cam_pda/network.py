@@ -11,7 +11,7 @@ from ._vendor.pda.utils import disparity2depth
 
 def _finite(value, name):
     if not bool(torch.isfinite(value).all()):
-        raise ValueError(f'Nonfinite {name}; no clipping or reference-domain removal is allowed')
+        raise ValueError(f'Nonfinite {name}')
 
 class LowRankResidual(nn.Module):
     def __init__(self, width, rank):
@@ -28,12 +28,7 @@ class LowRankResidual(nn.Module):
         return self.up(self.activation(self.down(x)))
 
 def router_condition_softsign(condition_tokens):
-    """Detached, parameter-free FP32 transform; never modifies its input.
-
-    Only conditions are bounded. This does not assert that arbitrary learned
-    router weights or arbitrary token features have globally bounded logits.
-    Nonfinite input is still a failure, not silently repaired or discarded.
-    """
+    """Bound detached router conditions in FP32 without changing patch inputs."""
     if not isinstance(condition_tokens, torch.Tensor) or not condition_tokens.is_floating_point():
         raise TypeError('Router conditions must be a floating tensor')
     with torch.autocast(device_type=condition_tokens.device.type, enabled=False):
@@ -153,11 +148,8 @@ def _call_block(block, tokens, condition_tokens):
     return block(tokens)
 
 def _threechannel_intermediate(self, x, n=1, condition=None):
-    """Original non-chunked loop, passing immutable conditions to checkpoint.
-
-    Passing the pool as an explicit checkpoint argument prevents condition
-    leakage when several image forwards occur before their backward passes.
-    This instance-bound method does not edit the shared/official repository.
+    """Pass pooled conditions explicitly so checkpoint recomputation uses
+    the conditions belonging to the same image forward.
     """
     if condition is None or condition.shape[:2] != (x.shape[0], 3) or condition.shape[-2:] != x.shape[-2:]:
         raise ValueError('Actual patch input requires aligned Bx3xHxW conditions')
@@ -212,7 +204,7 @@ class CaMPDANetwork(nn.Module):
             raise TypeError('image_bgr_u8 must be Bx3xHxW BGR bytes')
         if (not isinstance(condition, torch.Tensor) or not condition.is_floating_point()
                 or condition.shape != image_bgr_u8.shape or condition.device != image_bgr_u8.device):
-            raise ValueError('condition must match the image Bx3xHxW exactly; four channels are prohibited')
+            raise ValueError('condition must match the image Bx3xHxW exactly')
         for name, value in (('condition', condition), ('norm_min_m', norm_min_m), ('norm_range_m', norm_range_m)):
             if not isinstance(value, torch.Tensor) or not value.is_floating_point() or value.device != image_bgr_u8.device:
                 raise TypeError(f'{name} must be a floating tensor on the image device')

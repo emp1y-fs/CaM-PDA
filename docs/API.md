@@ -8,11 +8,9 @@ Every interactive run creates a unique subfolder inside the selected output dire
 
 ## Path-based Python workflow
 
-`run_from_paths(rgb_path, depth_path, output_dir, camera_path=None, depth_scale=None, seed=0, sampled_mask_path=None, references=(), model=None, model_options=None, progress=print)` reads files, validates them, predicts and exports into a new run subfolder. It returns the result-folder `Path`. All arguments after `output_dir` are keyword-only. An existing `CaMPDA` instance can be passed as `model` to process several scenes without reloading weights; otherwise use `model_options` for checkpoint/device/cache configuration.
+`run_from_paths(rgb_path, depth_path, output_dir, camera_path=None, depth_scale=None, seed=0, sampled_mask_path=None, model=None, model_options=None, progress=print)` reads files, validates them, predicts and exports into a new run subfolder. It returns the result-folder `Path`. All arguments after `output_dir` are keyword-only. An existing `CaMPDA` instance can be passed as `model` to process several scenes without reloading weights; otherwise use `model_options` for checkpoint/device/cache configuration.
 
 `run_example(folder, output_dir, **options)` additionally loads the example's recorded seed and optional `sampled_mask.npy`. Use this helper for supplied DREDS cases so the frozen sampling protocol is preserved. The terminal's example selection does the same automatically.
-
-For reference refinement, `references` contains dictionaries with `rgb_path`, `depth_path`, `camera_path` and optional `depth_scale`. Target and reference calibration are required. Examples with a frozen sampled mask support single-view inference through this helper; combining one with references is rejected instead of silently discarding that mask.
 
 ## Single view
 
@@ -43,17 +41,6 @@ There must be at least 17 valid original observations. Without a supplied mask, 
 
 This calibration belongs only to the included author blade sequence. Supply your own calibrated intrinsics for another camera.
 
-## Optional multiview
-
-```python
-references = [{"rgb": reference_rgb, "raw_m": reference_depth_m, "camera": reference_camera}]
-result = model.predict_multiview(rgb, depth_m, camera, references, seed=0)
-```
-
-References must show the same static scene with overlap. ORB matches, PnP and guarded ICP use RGB and raw depth, with a fixed RANSAC seed. The routine selects one usable reference, predicts both views independently, and solves a continuous correction to the target depth. It rejects incompatible depth and round-trip projections and regularizes correction differences across compatible neighbors. Raw sensor values are not restored into the output. Insufficient correspondences/support or a failed solver acceptance check returns the exact single-view depth with diagnostic metadata. The high-level API keeps input and output depths in metres; `multiview.refine_reference` accepts the registration record's **millimetre translation** and converts a copy before solving.
-
-This optional sequence export includes practical baseline/rotation guards and does not by itself reproduce every manuscript benchmark protocol. The benchmark's fixed pairs and eligibility rules are documented separately. [Method, parameters and measured trade-offs](MULTIVIEW.md) describe the frozen continuous solver. `fused_pixels` counts changed depth values, whereas `support_pixels` counts direct reference evidence. The `continuous_solver` record includes actual residual and iteration-limit status. Multiview refinement is not universally better.
-
 ## CLI
 
-Run `cam-pda --help`, `cam-pda infer --help`, or `python -m cam_pda --help`. `--save-routing` saves block-level arrays for single-view inspection. `--references` takes example-format folders with RGB, depth and calibration. Use a fresh output folder for each run.
+Run `cam-pda --help`, `cam-pda infer --help`, or `python -m cam_pda --help`. `--save-routing` saves block-level arrays for single-view inspection. Use a fresh output folder for each run.

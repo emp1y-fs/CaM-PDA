@@ -24,7 +24,6 @@ def main(argv=None):
         item.add_argument('--seed',type=int)
         item.add_argument('--point-stride',type=int,default=1)
         item.add_argument('--save-routing',action='store_true')
-        item.add_argument('--references',type=Path,nargs='*',default=[],help='Aligned RGB-D example folders for pose-free refinement')
         if name=='example':
             item.add_argument('folder',type=Path,help='Folder with rgb.png, sensor_depth.npy and camera.json')
         else:
@@ -61,15 +60,10 @@ def main(argv=None):
         camera=CameraIntrinsics.from_json(args.camera) if args.camera else None
     if args.seed is None:args.seed=0
     if camera:camera.validate_shape(depth.shape)
-    refs=[]
-    for folder in args.references:
-        refs.append(dict(rgb=read_rgb(folder/'rgb.png'),raw_m=read_depth(folder/'sensor_depth.npy'),
-                         camera=CameraIntrinsics.from_json(folder/'camera.json')))
-    if refs and camera is None:parser.error('Multiview requires target calibration.')
-    if refs and sampled is not None:parser.error('Frozen sampled-mask examples support single-view inference only.')
+    from .types import prepare_inputs
+    prepare_inputs(rgb, depth, seed=args.seed, sampled_mask=sampled)
     model=CaMPDA(**config)
-    if refs and args.save_routing:parser.error('Save routing for single-view calls; multiview also runs a separate reference prediction.')
-    result=model.predict_multiview(rgb,depth,camera,refs,seed=args.seed) if refs else model.predict(rgb,depth,seed=args.seed,sampled_mask=sampled)
+    result=model.predict(rgb,depth,seed=args.seed,sampled_mask=sampled)
     export_result(result,rgb,args.output,camera,point_stride=args.point_stride)
     if args.save_routing:
         import numpy as np

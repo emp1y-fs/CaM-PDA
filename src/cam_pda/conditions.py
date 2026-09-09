@@ -16,7 +16,7 @@ class InsufficientAnchorsError(ValueError):
 
 def _finite(value, name):
     if not bool(torch.isfinite(value).all()):
-        raise ValueError(f'Nonfinite {name}; no clipping or domain removal allowed')
+        raise ValueError(f'Nonfinite {name}')
 
 
 def _checked_inputs(data, mask, seed):
@@ -27,8 +27,7 @@ def _checked_inputs(data, mask, seed):
     if isinstance(seed, bool) or not isinstance(seed, int) or not 0 <= seed < 2**63:
         raise ValueError('seed must be an integer in [0,2**63)')
     fields = {}
-    # Deliberately whitelist four fields. Never inspect GT/valid/eval labels or
-    # enumerate data, even if a caller includes unrelated training metadata.
+    # Read only the observations and prior used to construct the conditions.
     for name in ('raw_pred_disparity', 'raw_sparse_disparity', 'sensor_m', 'sampled'):
         value = data[name]
         if not isinstance(value, torch.Tensor) or value.shape != mask.shape or value.device != mask.device:
@@ -53,16 +52,13 @@ def _checked_inputs(data, mask, seed):
 
 @torch.no_grad()
 def build_from_mask(pda, data, mask, seed):
-    """Recompute official ss/KNN/three-channel conditions without changing mask.
+    """Build scale-aligned and KNN-prefilled conditions from fixed anchors.
 
-    Numeric fields must be finite FP32; sensor depth and sparse disparity must
-    be strictly positive at every sampled point. No additional sign constraint
-    is imposed on raw MDE disparity or unobserved positions, matching D2 and
-    the original positive-only reciprocal semantics. Every batch needs
-    >=max(K+1,17) accepted points; there is no top-64 rule.
+    Numeric fields must be finite FP32. Sensor depth and sparse disparity
+    must be positive at sampled pixels. Each item needs max(K+1, 17)
+    accepted anchors; callers handle an insufficient-anchor exception.
 
-    The returned dictionary is directly readable by D2 ``forward_frozen``.
-    ``fallback_count`` is zero on success: this function never falls back.
+    Returns the three-channel tensor, depth normalization and anchor masks.
     """
     if pda.args.double_global or pda.args.confidence_filter or not pda.args.normalize_depth:
         raise ValueError('Require original global+KNN, no internal confidence filter, normalization enabled')

@@ -1,106 +1,71 @@
 # CaM-PDA
 
-**Turn RGB-D images into dense metric depth maps and colored point clouds.**
+**Align visual depth with real sensor measurements. Recover dense metric depth from RGB-D.**
 
-Python · Windows & Linux · Local processing
+Python · Windows & Linux · Single-frame inference
 
-[简体中文](README.zh-CN.md) · [Installation](docs/INSTALL.md) · [Python API](docs/API.md) · [Architecture](docs/ARCHITECTURE.md) · [Results](benchmarks/README.md)
+[简体中文](README.zh-CN.md) · [Install](docs/INSTALL.md) · [Data & downloads](docs/DATASETS.md) · [Reproduce](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
-![CaM-PDA on a real engine-blade scene: RGB, observed depth and completed depth](assets/blade_depth_showcase.png)
+![RGB, measured ToF depth and CaM-PDA depth in a real engine-blade scene](assets/blade_depth_showcase.png)
 
-CaM-PDA combines balanced confidence screening with three specialist experts for reflective regions, non-flat geometry and depth edges. It builds on [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything) to complete depth from a color image and aligned sensor measurements.
+CaM-PDA estimates a visual depth prior from an RGB image, screens unreliable sensor observations, and aligns the prior to the retained measurements. A conditioned depth network with reflective, non-flat and edge experts then predicts a dense depth map in metres. The method builds on [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything).
 
-**Run the program, enter your file paths when prompted, and choose where to save the results.** You can also start with an included example. Everything runs on your computer.
+**Input:** one RGB image and its registered sensor depth. **Output:** a depth preview, numerical metric depth and, with camera calibration, a colored point cloud. RGB and sensor depth must already share the same pixel grid; the alignment inside CaM-PDA recovers depth scale and structure, not camera-to-camera image registration.
 
-## What you get
+## Run CaM-PDA
 
-| Dense depth | Colored point clouds | A simple Python workflow |
-|---|---|---|
-| Full-resolution depth in metres, plus a color preview | Calibrated `.ply` output for tools such as CloudCompare | Runtime path prompts, English / 中文, remembered output and model folders |
-
-## Get started
-
-Use **Python 3.10–3.12** on Windows or Linux. Download this repository with **Code → Download ZIP**, or clone it:
+Use Python **3.10–3.12**. Clone the repository, install PyTorch and the package, then start the program:
 
 ```console
 git clone https://github.com/emp1y-fs/CaM-PDA.git
 cd CaM-PDA
-```
-
-Install a compatible PyTorch build, then CaM-PDA. For the validated NVIDIA CUDA configuration:
-
-```console
 python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
 python -m pip install .
 python run.py
 ```
 
-[Installation instructions](docs/INSTALL.md) cover isolated environments, CPU installation and model files. The two weights occupy about **0.8 GB**; the program lets you choose their storage folder or select existing files.
+The commands above use the NVIDIA CUDA build. See [installation](docs/INSTALL.md) for CPU support, isolated environments and weight downloads. Both model files together occupy about **0.8 GB**.
 
-### 1. Choose your input
+The program asks you to choose an included example or **enter input paths at runtime**, followed by the output directory and model locations. English and Chinese prompts are available. `cam-pda` and `python -m cam_pda` start the same program after installation.
 
-After starting `python run.py`, choose English or 中文, then:
-
-```text
-How would you like to start?
-  1  Try an included example
-  2  Enter my data paths
-  0  Exit
-```
-
-Choose **1** to try the engine-blade scene. Choose **2** to enter the paths to your RGB image and observed depth. The program then asks for camera calibration, the result folder and model locations. Paths with spaces and pasted quotation marks are supported.
-
-**You enter paths while the program is running. No Python source changes are needed.** After installation, `cam-pda` and `python -m cam_pda` start the same program.
-
-### 2. Provide aligned RGB-D
-
-| Input | Supported format |
+| Input | Format |
 |---|---|
-| Color image | RGB image such as PNG or JPEG |
-| Observed depth | A 2D floating-point `.npy` in metres, or a single-channel integer `.png` with its units specified |
-| Camera calibration | Optional JSON with `fx`, `fy`, `cx`, `cy`, `width`, `height`; needed for a point cloud |
+| RGB image | PNG or JPEG |
+| Registered sensor depth | Floating-point `.npy` in metres, or a single-channel integer `.png` with its unit specified; zero means missing |
+| Camera intrinsics | JSON with `fx`, `fy`, `cx`, `cy`, `width`, `height`; required for point-cloud export |
 
-RGB and depth must be registered to the same image grid. Zero depth means a missing observation. Supply original sensor values rather than a colorized depth preview. A photo alone does not provide the metric measurements required by this method.
+A colorized depth image is only a preview. Supply numerical sensor depth to recover metric scale. Use your camera's calibration for your own captures.
 
-For another camera, use its calibration. With no calibration, CaM-PDA exports depth maps. With calibration, you can also choose an additional view of the same static scene; the included blade case provides a reference view.
-
-### 3. Find your results
-
-Each run creates a new folder inside your chosen location, so previous results remain intact:
+Each run creates a separate folder under the selected output directory:
 
 ```text
-your_output_folder/
-└── 20260907-220000_rgb_a1b2c3d4/
-    ├── rgb.png              Input color image
-    ├── depth_color.png      Completed-depth preview
-    ├── depth_m.npy          Full-precision depth in metres
-    ├── depth_mm.png         Millimetre PNG, when representable
-    ├── point_cloud.ply      Colored point cloud, with calibration
-    ├── accepted_mask.png    Accepted sensor observations
-    └── metadata.json        Units, camera and run information
+result_folder/
+├── rgb.png              Input RGB
+├── depth_color.png      Depth preview
+├── depth_m.npy          Float32 depth in metres
+├── depth_mm.png         Rounded millimetre depth, when representable
+├── point_cloud.ply      Calibrated colored point cloud
+├── accepted_mask.png    Retained sensor observations
+└── metadata.json        Calibration, units and prediction settings
 ```
 
-Point clouds use metres, with x right, y down and z forward. Single-view predictions are saved unchanged. Optional multiview output includes the continuous correction described below; export adds no planar fitting or further smoothing.
+Without intrinsics, the program saves depth maps only. Point-cloud coordinates are in metres: x right, y down, z forward. Export preserves the predicted depth; preview colors do not modify its values.
 
-## Optional multiview refinement
+## Engine components
 
-Provide another calibrated RGB-D view of the same static scene, or use the included blade32 / blade20 pair. CaM-PDA now applies a continuous depth correction that preserves the target prediction as a prior and reduces abrupt changes from the previous hard-fusion approach. It does not write raw sensor outliers back into the output. Unusable references give an exact single-view fallback.
+![Four single-frame captures: RGB, raw ToF depth, CaM-PDA depth and point clouds](assets/engine_components.png)
 
-On the recorded 80-target ICL protocol, full-image AbsRel/RMSE change from 0.009010/0.037344 m to 0.008775/0.037023 m. Gains are modest and region dependent. See [the visual comparison, complete method and trade-offs](docs/MULTIVIEW.md).
+These additional engine-component captures appear in Section 5 of the manuscript. They were acquired in a **relatively uncluttered tabletop setting**. Each row is processed independently from one RGB-D frame. The examples illustrate completion of missing sensor depth and the resulting surface structure; no reference geometry is available for a quantitative accuracy claim.
 
-## More depth examples
+Choose `engine_component_01` through `engine_component_04` in the program to reproduce the four rows. The original RGB, sensor depth, calibration and sampling seed are included in both the source checkout and installed package. [Example details and provenance](docs/ENGINE_COMPONENTS.md).
 
-![Upright real tabletop scenes: RGB, observed depth and CaM-PDA depth](assets/material_depth_showcase.png)
+Additional [real material examples](docs/GALLERY.md) are available in the source checkout.
 
-These are actual outputs from three runnable ClearGrasp real-test examples, chosen for natural upright viewpoints and clearly interpretable completion. Every panel shows the complete original frame. Each row uses a shared depth color range; black marks missing observations. No image rotation, numerical smoothing or geometric postprocessing is applied.
+## Recorded benchmarks
 
-These selected illustrations are separate from the unchanged benchmark measurements below and remain excluded from training. The original DREDS examples are also retained. See [gallery details, selection and example IDs](docs/GALLERY.md) and [image provenance](assets/preview_provenance.json). The real blade scene above is a qualitative example without ground-truth depth.
+Full-image **AbsRel ↓**, averaged over fixed test frames:
 
-## Recorded evaluation
-
-Full-image **AbsRel ↓** on fixed held-out inputs:
-
-| Method | DREDS-CatNovel · 110 frames | NYUv2 · 654 frames | ICL-NUIM · 80 frames |
+| Method | DREDS-CatNovel · 110 | NYUv2 · 654 | ICL-NUIM · 80 |
 |---|---:|---:|---:|
 | **CaM-PDA** | **0.014226** | 0.023305 | **0.009010** |
 | Official PDA | 0.030987 | 0.054981 | 0.067776 |
@@ -108,34 +73,21 @@ Full-image **AbsRel ↓** on fixed held-out inputs:
 | IP-Basic | 0.078946 | 0.031725 | — |
 | Marigold-DC · 10 steps | 0.096877 | 0.059145 | — |
 
-CaM-PDA improves over official PDA across these evaluated sets. OMNI-DC achieves lower full-image error on NYUv2. Regional trade-offs and all recorded methods are available in the [complete results and protocols](benchmarks/README.md). Preview images illustrate behavior and are separate from these aggregate measurements.
+CaM-PDA improves over official PDA on all three evaluated sets. OMNI-DC has lower full-image error on NYUv2. [Complete results](benchmarks/README.md) include regional metrics and the separate VGGT comparison. Selected illustrations above do not replace whole-set evaluation.
 
-## Python API
+## Reproduction and implementation
 
-For integration into another Python application:
+- [Reproduction guide](docs/REPRODUCIBILITY.md): installation → weights → examples → evaluation → training records.
+- [Dataset sources](docs/DATASETS.md): original download locations, exact sample selections and required files.
+- [Training](docs/TRAINING.md): both adaptation stages, expert supervision and checkpoint selection.
+- [Architecture](docs/ARCHITECTURE.md): balanced confidence, three conditioning channels and independent R/N/E experts.
+- [Python API](docs/API.md): file and array interfaces for integration.
+- [Model card](docs/MODEL_CARD.md): intended use and limitations.
 
-```python
-from cam_pda import run_from_paths
-
-result_folder = run_from_paths(
-    rgb_path="my_scene/rgb.png",
-    depth_path="my_scene/sensor_depth.npy",
-    camera_path="my_scene/camera.json",
-    output_dir="results",
-)
-```
-
-The interactive program is the easiest way to enter paths at runtime. The [API guide](docs/API.md) also covers array inputs, command-line automation, fixed example sampling and optional reference refinement.
-
-## Learn more
-
-- [Model card](docs/MODEL_CARD.md): checkpoint identity, intended use and known limits.
-- [Architecture](docs/ARCHITECTURE.md): confidence screening, three conditions and R/N/E experts.
-- [Training](docs/TRAINING.md): data provenance, expert supervision and evaluation separation.
-- [Reproducibility](docs/REPRODUCIBILITY.md): Windows/Linux verification and numerical differences.
+The released weights are the manuscript's CaM-PDA checkpoint. Application updates do not retrain the model.
 
 ## Acknowledgements and terms
 
-Built on [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything), [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) and DINOv2. Upstream notices are preserved in [licenses](licenses/README.md). ViT-B weights and DREDS data carry **CC BY-NC 4.0** terms.
+Built on [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything), [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) and DINOv2. [Upstream notices and data terms](licenses/README.md) apply; ViT-B weights and DREDS data carry **CC BY-NC 4.0** terms.
 
-The repository currently requires access while release review is completed. Public licensing for new CaM-PDA code and author-owned examples is pending; existing upstream terms continue to apply. Publication and citation metadata will be added when available.
+This repository is private during author review. Licensing for new CaM-PDA code and author-owned examples is pending; no additional redistribution rights are granted by their inclusion here.

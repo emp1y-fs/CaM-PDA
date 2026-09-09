@@ -34,13 +34,11 @@ def _load_files(rgb_path, depth_path, camera_path=None, depth_scale=None):
 
 
 def run_from_paths(rgb_path, depth_path, output_dir, *, camera_path=None,
-                   depth_scale=None, seed=0, sampled_mask_path=None, references=(),
+                   depth_scale=None, seed=0, sampled_mask_path=None,
                    model=None, model_options=None, progress=print):
     """Save one prediction under a unique child folder and return that path.
 
-    ``references`` contains dictionaries with rgb_path, depth_path, camera_path
-    and optionally depth_scale. All loading/shape checks run before model loading.
-    Paths are local files; no image is uploaded or opened in a browser.
+    Input validation runs before the model is loaded.
     """
     if model is not None and model_options:
         raise ValueError('Pass either an existing model or model_options, not both.')
@@ -48,20 +46,9 @@ def run_from_paths(rgb_path, depth_path, output_dir, *, camera_path=None,
     rgb, depth, camera = _load_files(rgb_path, depth_path, camera_path, depth_scale)
     sampled = np.load(Path(sampled_mask_path).expanduser(), allow_pickle=False) if sampled_mask_path else None
     prepare_inputs(rgb, depth, seed=seed, sampled_mask=sampled)
-    refs = []
-    if references and camera is None:
-        raise ValueError('Reference refinement requires the target camera calibration.')
-    if references and sampled is not None:
-        raise ValueError('Frozen sampled-mask examples support single-view inference only.')
-    for item in references:
-        ref_rgb, ref_depth, ref_camera = _load_files(**item)
-        if ref_camera is None:
-            raise ValueError('Each reference needs its own camera calibration.')
-        prepare_inputs(ref_rgb, ref_depth, seed=seed)
-        refs.append(dict(rgb=ref_rgb, raw_m=ref_depth, camera=ref_camera))
     root = Path(output_dir).expanduser().resolve()
     root.mkdir(parents=True, exist_ok=True)
-    # Reserve an empty run atomically; preserve everything already in the parent.
+    # A unique child directory keeps repeated runs separate.
     name = re.sub(r'[^\w.-]', '_', Path(rgb_path).stem)[:40].strip('. ') or 'scene'
     run = root / f'{datetime.now():%Y%m%d-%H%M%S}_{name}_{uuid.uuid4().hex[:8]}'
     run.mkdir()
@@ -71,8 +58,7 @@ def run_from_paths(rgb_path, depth_path, output_dir, *, camera_path=None,
             from .pipeline import CaMPDA
             model = CaMPDA(**(model_options or {}))
         progress('3/4  Predicting dense metric depth...')
-        result = (model.predict_multiview(rgb, depth, camera, refs, seed=seed) if refs else
-                  model.predict(rgb, depth, seed=seed, sampled_mask=sampled))
+        result = model.predict(rgb, depth, seed=seed, sampled_mask=sampled)
         progress('4/4  Saving depth maps' + (' and colored point cloud...' if camera else '...'))
         export_result(result, rgb, run, camera)
     except Exception:
@@ -84,5 +70,5 @@ def run_from_paths(rgb_path, depth_path, output_dir, *, camera_path=None,
 
 
 def run_example(folder, output_dir, **options):
-    """Run an example folder without losing its sealed sampling protocol."""
+    """Run an example with its recorded seed and optional sampling mask."""
     return run_from_paths(**load_example(folder), output_dir=output_dir, **options)

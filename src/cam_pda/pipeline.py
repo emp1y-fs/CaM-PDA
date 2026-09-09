@@ -1,8 +1,4 @@
-"""Portable inference for the retained CaM-PDA checkpoint.
-
-No experiment folders, original initialization checkpoint, training labels,
-platform-specific paths, or custom compiled operators are required.
-"""
+"""Single-frame depth completion from RGB and registered sensor depth."""
 from pathlib import Path
 from types import SimpleNamespace
 import gc
@@ -116,7 +112,7 @@ class CaMPDA:
         return raw,data['sampled'].clone() if failure else raw.clone(),failure
 
     def predict(self,rgb_u8,depth_m,*,seed=0,sampled_mask=None):
-        """Return depth/masks/three conditions and provenance; accepts no GT or ROI."""
+        """Return metric depth, anchor masks, three conditions and run metadata."""
         rgb,sensor,sampled,metadata=prepare_inputs(rgb_u8,depth_m,seed=seed,
             maximum_samples=self.maximum_samples,sampled_mask=sampled_mask)
         with self._lock,_TORCH_POLICY_LOCK,torch.inference_mode():
@@ -172,52 +168,3 @@ class CaMPDA:
     def predict_files(self,image,depth,*,depth_scale=None,seed=0):
         from .io import read_rgb,read_depth
         return self.predict(read_rgb(image),read_depth(depth,scale=depth_scale),seed=seed)
-
-    def predict_multiview(self,rgb,depth_m,camera,references,*,seed=0):
-        """Guarded two-view refinement selected from RGB-D references.
-
-        Each reference is a dict with ``rgb``, ``raw_m`` and ``camera``.
-        Pose is estimated from RGB and raw depth; unavailable support returns
-        the exact single-view result. No pose or ground-truth depth is required.
-        """
-        with self._lock:
-            return self._predict_multiview(rgb,depth_m,camera,references,seed=seed)
-
-    def _predict_multiview(self,rgb,depth_m,camera,references,*,seed=0):
-        from dataclasses import replace
-        from .multiview import select_reference,refine_reference,_json_value
-        camera.validate_shape(depth_m.shape)
-        started=time.perf_counter()
-        single=self.predict(rgb,depth_m,seed=seed)
-        target_routing=self.last_routing
-        target=dict(rgb=rgb,raw_m=depth_m,K=camera.matrix,frame_id=0)
-        records={}
-        for index,ref in enumerate(references,1):
-            ref['camera'].validate_shape(ref['raw_m'].shape)
-            records[index]=dict(rgb=ref['rgb'],raw_m=ref['raw_m'],K=ref['camera'].matrix,frame_id=index)
-        registration,source,attempts=select_reference(target,records,records.__getitem__)
-        metadata=dict(single.metadata,mode='multiview',registration_attempts=attempts,
-                      multiview_status='single_view_fallback',fused_pixels=0,
-                      single_view_runtime_s=single.metadata['runtime_s'],runtime_s=time.perf_counter()-started)
-        if registration is None:return replace(single,metadata=metadata)
-        try:
-            reference_result=self.predict(source['rgb'],source['raw_m'],seed=seed)
-        finally:
-            self.last_routing=target_routing
-        try:
-            fused,_,solver=refine_reference(single.depth_m,rgb,depth_m,
-                reference_result.depth_m,source['rgb'],camera.matrix,
-                registration['T_source_to_target'],source_K=source['K'])
-        except RuntimeError as error:
-            metadata.update(fallback_reason='continuous_solver_failed',solver_error=str(error),
-                registration=_json_value(registration),raw_anchor_restoration=False,
-                runtime_s=time.perf_counter()-started)
-            return replace(single,metadata=metadata)
-        changed=int(np.count_nonzero(fused!=single.depth_m))
-        metadata.update(multiview_status='fused' if solver['status']=='refined' else 'single_view_fallback',
-            fused_pixels=changed,support_pixels=sum(solver['support_pixels']),
-            runtime_s=time.perf_counter()-started,
-            registration=_json_value(registration),depth_sha256=_array_sha(fused),
-            refinement='continuous edge-aware depth correction',raw_anchor_restoration=False,
-            continuous_solver=solver)
-        return replace(single,depth_m=fused,metadata=metadata)

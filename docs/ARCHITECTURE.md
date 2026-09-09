@@ -30,17 +30,13 @@ The inference checkpoint contains every retained model tensor and its architectu
 
 | Module | Responsibility |
 |---|---|
-| `pipeline.py` | Validated RGB-D inference and optional reference refinement |
+| `pipeline.py` | Single-frame RGB-D inference |
 | `confidence.py`, `conditions.py` | Frozen balanced selection and three-channel construction |
 | `network.py` | ViT-B specialist residuals and routing |
 | `_vendor/pda/` | Attributed PDA / Depth Anything backbone and depth alignment |
 | `io.py` | Units, calibration, depth previews and binary PLY |
-| `multiview.py` | Raw RGB-D registration and unit-checked reference handoff |
-| `continuous_multiview.py` | Bilinear reference evidence and sparse continuous correction solve |
 | `weights.py` | Hash-verified acquisition and explicit model paths |
 | `interactive.py`, `runner.py` | Runtime path prompts, remembered storage settings and isolated result folders |
 | `cli.py`, `run.py` | Interactive launch and optional command-line automation |
 
 This source release packages inference and records training provenance. It does not claim to provide a one-command replay of all historical training campaigns. The paper's matched ablations require the original frozen manifests and initialization chain; see [TRAINING.md](TRAINING.md).
-
-The optional multiview path keeps the target prediction as a prior and regularizes a correction field, guided by target depth and RGB boundaries. It uses the frozen [continuous method](MULTIVIEW.md) and never restores raw anchor values into the final prediction. SciPy provides the standard sparse solver; the application remains Python source without custom compiled extensions.

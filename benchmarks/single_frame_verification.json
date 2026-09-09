@@ -1,0 +1,115 @@
+{
+  "application": "0.4.0",
+  "platform": "linux",
+  "examples": [
+    {
+      "example": "blade32",
+      "bitwise_equal": true,
+      "shape": [
+        720,
+        1280
+      ],
+      "points": 921600,
+      "depth_npy_sha256": "398a7298a88cd6675bd136c0ce8477b98ac43cf2e8dc0109bd9547da9bafb8a6",
+      "seconds": 9.390549156998532
+    },
+    {
+      "example": "engine_component_01",
+      "bitwise_equal": true,
+      "shape": [
+        720,
+        1280
+      ],
+      "points": 921600,
+      "depth_npy_sha256": "fac0de7dee20ab59100d07e2c96a32f94b59f89954a63f9c7080651e2957aeee",
+      "seconds": 7.852775147999637
+    },
+    {
+      "example": "engine_component_02",
+      "bitwise_equal": true,
+      "shape": [
+        720,
+        1280
+      ],
+      "points": 921600,
+      "depth_npy_sha256": "214759107bda2da28501057082e9f0d7719bd913357bb4d6690c9111e634f7be",
+      "seconds": 7.4676552139990235
+    },
+    {
+      "example": "engine_component_03",
+      "bitwise_equal": true,
+      "shape": [
+        720,
+        1280
+      ],
+      "points": 921600,
+      "depth_npy_sha256": "474ddbd587b4499b17bfe3f3e7667b1144b56a1582bae6b2dd506fe6ce03d9bf",
+      "seconds": 6.507913720999568
+    },
+    {
+      "example": "engine_component_04",
+      "bitwise_equal": true,
+      "shape": [
+        720,
+        1280
+      ],
+      "points": 921600,
+      "depth_npy_sha256": "2d65ad29956740132b9d44c67952878808e791faa800b58fd593e4b734eb54fc",
+      "seconds": 6.891727696998714
+    }
+  ],
+  "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+  "wheel_runtime": {
+    "version": "0.4.0",
+    "imported_from_built_wheel": true,
+    "runtime_module_entry": true,
+    "source_checkout_required": false,
+    "depth_bitwise_equal_to_stored_single_frame": true,
+    "vertices": 921600,
+    "existing_output_preserved": true,
+    "depth_npy_sha256": "398a7298a88cd6675bd136c0ce8477b98ac43cf2e8dc0109bd9547da9bafb8a6"
+  },
+  "evaluator_checks": {
+    "records": [
+      {
+        "dataset": "dreds110",
+        "id": "dreds110/dreds_catnovel_00070_0000",
+        "metric_differences": {
+          "AbsRel": 0.0,
+          "MAE_m": 0.0,
+          "RMSE_m": 0.0
+        }
+      },
+      {
+        "dataset": "nyu654",
+        "id": "nyu654/nyu_nyu_test_0001",
+        "metric_differences": {
+          "AbsRel": 0.0,
+          "MAE_m": 0.0,
+          "RMSE_m": 0.0
+        }
+      },
+      {
+        "dataset": "icl80",
+        "id": "icl_lr_kt3_0000",
+        "metric_differences": {
+          "AbsRel": 0.0,
+          "MAE_m": 0.0,
+          "RMSE_m": 0.0
+        }
+      }
+    ],
+    "all_within_1e_8": true
+  },
+  "tests": {
+    "passed": 14,
+    "platform": "Linux",
+    "python": "existing priorda-linux environment",
+    "torch": "2.7.1+cu128"
+  },
+  "recorded_metric_aggregation": {
+    "frames": 844,
+    "matching_aggregate_entries": 30,
+    "tolerance": 1e-12
+  }
+}

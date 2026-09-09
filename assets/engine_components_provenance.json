@@ -1,0 +1,109 @@
+{
+  "figure": "engine_components.png",
+  "figure_sha256": "5259204e2c4a80410f564892880538d2dd91f249288c306260561b8747965d03",
+  "source": "Native manuscript figure exported from the authors' Visio document at 400 dpi",
+  "columns": [
+    "RGB",
+    "Raw ToF Depth",
+    "CaM-PDA Depth",
+    "Point Cloud"
+  ],
+  "examples": [
+    {
+      "example": "engine_component_01",
+      "paper_figure_row": 1,
+      "source_case": "O1V2",
+      "description": "Engine internal component in a relatively uncluttered tabletop setting",
+      "capture_owner": "CaM-PDA authors",
+      "role": "qualitative example",
+      "ground_truth_available": false,
+      "seed": 0,
+      "maximum_samples": 50000,
+      "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+      "files": {
+        "rgb.png": "4c3095806908c9fcec8028ad55d3e23be903b8ce9cd1af44fa58b2f2813fb35a",
+        "sensor_depth.npy": "7b1577f76efa0966ad881182cf8a2f645c59c4985e3c08eb45eb375638abe071",
+        "camera.json": "8d6d360103afcef9f5182cc8b4b2444a0801f5d136b3922f8754540726f18742"
+      },
+      "recorded_prediction": {
+        "array_sha256": "07f4938b791cc30ae01e723dc9a86ef4cace8f373c0dfef31b453000718924e9",
+        "npy_sha256": "fac0de7dee20ab59100d07e2c96a32f94b59f89954a63f9c7080651e2957aeee",
+        "accepted_count": 47264
+      },
+      "prediction_units": "metres",
+      "geometry_postprocessing": false
+    },
+    {
+      "example": "engine_component_02",
+      "paper_figure_row": 2,
+      "source_case": "O2V2",
+      "description": "Engine internal component in a relatively uncluttered tabletop setting",
+      "capture_owner": "CaM-PDA authors",
+      "role": "qualitative example",
+      "ground_truth_available": false,
+      "seed": 0,
+      "maximum_samples": 50000,
+      "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+      "files": {
+        "rgb.png": "6de255a67d2a0d0f2bb3c7e448293a7e72c34dad9e228b7b5fefbc84c74ef74b",
+        "sensor_depth.npy": "ca7bd9a6c31d2b143530fc9b4e62f6d46759b3b20d9a96e3c38f10d65fbf3747",
+        "camera.json": "8d6d360103afcef9f5182cc8b4b2444a0801f5d136b3922f8754540726f18742"
+      },
+      "recorded_prediction": {
+        "array_sha256": "93d3ff130b7345d53e4da068f805e5c9116254ae04652165f5ebfe35d3242863",
+        "npy_sha256": "214759107bda2da28501057082e9f0d7719bd913357bb4d6690c9111e634f7be",
+        "accepted_count": 48115
+      },
+      "prediction_units": "metres",
+      "geometry_postprocessing": false
+    },
+    {
+      "example": "engine_component_03",
+      "paper_figure_row": 3,
+      "source_case": "O3V1",
+      "description": "Engine internal component in a relatively uncluttered tabletop setting",
+      "capture_owner": "CaM-PDA authors",
+      "role": "qualitative example",
+      "ground_truth_available": false,
+      "seed": 0,
+      "maximum_samples": 50000,
+      "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+      "files": {
+        "rgb.png": "1e8af5ab6cbc590f0634ec0e7ddb081578b91337c7ab0bd7eec1656bf253b056",
+        "sensor_depth.npy": "cdcc344b7eef52011fcf01bb5b308cc20845452691e43083e2a3835d01d85003",
+        "camera.json": "8d6d360103afcef9f5182cc8b4b2444a0801f5d136b3922f8754540726f18742"
+      },
+      "recorded_prediction": {
+        "array_sha256": "370e9dd1b8fb9a6e74e90499c23944c8b79b0bd3be38ee2c84bf79116fe34ce4",
+        "npy_sha256": "474ddbd587b4499b17bfe3f3e7667b1144b56a1582bae6b2dd506fe6ce03d9bf",
+        "accepted_count": 44971
+      },
+      "prediction_units": "metres",
+      "geometry_postprocessing": false
+    },
+    {
+      "example": "engine_component_04",
+      "paper_figure_row": 4,
+      "source_case": "O3V2",
+      "description": "Engine internal component in a relatively uncluttered tabletop setting",
+      "capture_owner": "CaM-PDA authors",
+      "role": "qualitative example",
+      "ground_truth_available": false,
+      "seed": 0,
+      "maximum_samples": 50000,
+      "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+      "files": {
+        "rgb.png": "1c4ce1f25a69471d6fc5ae584c1b53a3479a9245b1372e46346f2d7707aff1d3",
+        "sensor_depth.npy": "05eb927e7abb27efda7bcfdfc984e84a9c9f03fab31ca8f37ccb9c4dda7aec7e",
+        "camera.json": "8d6d360103afcef9f5182cc8b4b2444a0801f5d136b3922f8754540726f18742"
+      },
+      "recorded_prediction": {
+        "array_sha256": "83b8ea26f5d56aea2ec8c7db5926703c9b85fddb7b0db244c6c0569662083368",
+        "npy_sha256": "2d65ad29956740132b9d44c67952878808e791faa800b58fd593e4b734eb54fc",
+        "accepted_count": 47935
+      },
+      "prediction_units": "metres",
+      "geometry_postprocessing": false
+    }
+  ]
+}

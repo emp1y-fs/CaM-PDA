@@ -1,0 +1,24 @@
+{
+  "example": "engine_component_02",
+  "paper_figure_row": 2,
+  "source_case": "O2V2",
+  "description": "Engine internal component in a relatively uncluttered tabletop setting",
+  "capture_owner": "CaM-PDA authors",
+  "role": "qualitative example",
+  "ground_truth_available": false,
+  "seed": 0,
+  "maximum_samples": 50000,
+  "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+  "files": {
+    "rgb.png": "6de255a67d2a0d0f2bb3c7e448293a7e72c34dad9e228b7b5fefbc84c74ef74b",
+    "sensor_depth.npy": "ca7bd9a6c31d2b143530fc9b4e62f6d46759b3b20d9a96e3c38f10d65fbf3747",
+    "camera.json": "8d6d360103afcef9f5182cc8b4b2444a0801f5d136b3922f8754540726f18742"
+  },
+  "recorded_prediction": {
+    "array_sha256": "93d3ff130b7345d53e4da068f805e5c9116254ae04652165f5ebfe35d3242863",
+    "npy_sha256": "214759107bda2da28501057082e9f0d7719bd913357bb4d6690c9111e634f7be",
+    "accepted_count": 48115
+  },
+  "prediction_units": "metres",
+  "geometry_postprocessing": false
+}

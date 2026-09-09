@@ -1,0 +1,48 @@
+{
+  "seed": 2026090412,
+  "train_frames": 672,
+  "val_frames": 84,
+  "epochs": 12,
+  "accumulate": 4,
+  "batch": 1,
+  "trainable_scope": "full",
+  "official_sha256": "bf827963b9e39c1bd3f89d8d93a88979e25483c52c19f33ad13d3ec834a47c42",
+  "MDE_sha256": "0d2b7002e62d39d655571c371333340bd88f67ab95050c03591555aa05645328",
+  "expert_names": [
+    "reflective",
+    "nonflat",
+    "edge"
+  ],
+  "condition_channels": 3,
+  "router_condition_transform": "softsign_only_router_v1",
+  "initialization": "official PDA v1.1; zero expert up; same seed/order; no old CaM weights",
+  "depth_objective": "frame macro AbsRel on fixed GT domain; no scale fit",
+  "router_objective": "0.01 independent BCE averaged across present gates/blocks; TRAIN-only proxies; no additional boundary depth loss",
+  "proxies": {
+    "reflection": "finite positive sensor, abs error > max(.01m,.02GT); holes unknown",
+    "nonflat": "depth second differences >= max(.004m,.003GT), 3x3 valid, first jump <= max(.08m,.05GT)",
+    "edge": "all 3x3 GT valid; max absolute depth jump to 8 neighbours > max(.01m,.02GT); GT borders/holes unknown; no RGB-only targets",
+    "patch": "known coverage >= .25; positive fraction among known >=.02 reflective / .12 nonflat / .02 edge; independent BCE, pos_weight clamp(Nneg/Npos,1,4); overlap allowed"
+  },
+  "routing": "20-step soft warmup; hard_st thereafter; eval truly sparse independent sigmoid >=.5 at T=.7; no top1",
+  "primary_selection": "lowest full macro AbsRel among epochs1..12, fixed validation, hard sparse inference",
+  "optimizer": {
+    "type": "AdamW",
+    "LR": {
+      "backbone": 5e-06,
+      "decoder_alpha": 1e-05,
+      "router": 0.0001,
+      "expert": 0.0002,
+      "layer_gate": 0.001
+    },
+    "weight_decay": 0.0001,
+    "layer_gate_decay": 0.0,
+    "clip": 1.0,
+    "schedule": "cosine to .2"
+  },
+  "precision": "BF16 fine, FP32 conditions/loss, gradient checkpointing",
+  "selected_epoch": 11,
+  "selected_updates": 1848,
+  "total_updates": 2016,
+  "selected_checkpoint_sha256": "83898cc3a8b738db8de60676ba0404cde1e6bbb4d4e73b2cee74a9d7c7a85558"
+}

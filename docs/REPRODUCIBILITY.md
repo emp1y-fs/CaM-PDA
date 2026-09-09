@@ -1,21 +1,71 @@
-# Cross-platform numerical verification
+# Reproducing CaM-PDA
 
-The distributed inference checkpoint preserves all 281 retained model tensors exactly. Removing optimizer state changes the file SHA256 but not a single model tensor. Both hashes are recorded in the model manifest.
+## 1. Install and obtain the model
 
-The portable Linux CUDA pipeline reproduced the original real frame-32 result exactly: 921,600 depth pixels, all three conditions and 46,970 accepted anchors. Linux CPU inference was exercised on a 90×160 aligned view using FP32. Windows native CUDA inference was verified in the original package release.
+Use the [installation instructions](INSTALL.md) in an existing Python environment or one stored at a location of your choice. The application is a Python package for Windows and Linux; it does not require building a custom CUDA extension.
 
-Application v0.2.0 adds runtime terminal path entry without changing the model. Its real `run.py` process was exercised with stdin input for the included blade32 example, user-entered paths (including spaces and Chinese characters), and reference refinement. Both single-view paths reproduced the retained depth bitwise; the reference-view path fused successfully. The three original DREDS examples preserved their saved seeds and masks and matched the original release depth hashes. Each blade export contained 921,600 calibrated points. Existing files in the selected result folder remained untouched.
+The [weight manifest](../src/cam_pda/resources/models.json) records both download locations and SHA256 values. The released CaM-PDA file is an inference export of the selected T1 checkpoint; its 281 retained model tensors are unchanged. Optimizer state is omitted. The frozen monocular-prior weight is also required.
 
-The later [material gallery](GALLERY.md) includes three upright ClearGrasp real-test examples in the source checkout. Each was run with the same model, native 848×480 RGB-D input and fixed seed 0; output hashes are in the gallery provenance. The selected illustrations do not change the application version, model, original examples or aggregate evaluation.
+```console
+python -m cam_pda download --cache-dir /path/to/weights
+```
 
-Default Windows and Linux BF16 predictions are **not bitwise identical**. On the checked frame-32 input, the three conditions were identical; the mean absolute output difference was 0.2473 mm, the median 0.00425 mm, the 95th percentile 1.2364 mm and the maximum 5.6811 mm. These are differences between implementations, not errors against ground truth.
+While this repository is private, CaM-PDA weight downloads require access to its private release. Alternatively provide already downloaded files when the program asks for their paths. The [API guide](API.md) documents explicit checkpoint arguments.
 
-The official PyTorch 2.7.1 CUDA wheels expose Flash Attention on the tested Linux installation but not on Windows. A controlled Linux run with only Flash SDPA disabled reproduced the Windows result to a maximum difference of 5.96e-8 m and a mean difference of 6.07e-9 m. This identifies the different attention kernels as the source of the measured platform discrepancy. The public package retains the evaluated default Linux path and native PyTorch fallback on Windows; weights, confidence thresholds and input conditions are unchanged.
+## 2. Reproduce the supplied captures
 
-The archived paper scores refer to their Linux evaluation environment and frozen masks/seeds. Windows support means a tested functional implementation, not a promise of bitwise reproduction of Linux aggregate scores or identical dimensional measurements. Other hardware, precision policies or package versions may produce additional numerical differences.
+```console
+python run.py
+```
 
-See `benchmarks/release_verification.json` for historical numerical checks and `benchmarks/interactive_verification.json` for the v0.2.0 application checks. The current unit suite tests units, calibration, output isolation, deterministic sampling, CPU KNN edge cases, continuous correction, exclusion of raw-anchor outlier restoration and runtime path prompts without downloading weights. Historical web-interface measurements in the original record concern v0.1.0; that interface was removed in v0.2.0.
+Choose `blade32` or one of `engine_component_01`–`engine_component_04`, then enter the output and weight locations. The program uses the included RGB, numerical sensor depth, camera intrinsics and seed. No source-code edits are needed. Each run writes a new result folder containing depth maps and a point cloud.
 
-Version 0.3.0 replaces only the optional depth-fusion stage with the frozen 038 continuous solver. The [method page](MULTIVIEW.md) distinguishes its requested CG tolerance from the actual acceptance residual and documents platform-dependent sampling differences. Historical v0.2.0 multiview verification describes the retired hard-fusion path and is not reused as verification of this change.
+The four [additional components](ENGINE_COMPONENTS.md) are independent single-frame examples in a relatively uncluttered setting. Their provenance files identify the source capture and expected numerical output. Their point-cloud screenshots were framed in CloudCompare; terminal export reproduces the underlying geometry, not an interactive viewer's camera position.
 
-For v0.3.0, actual terminal runs with runtime-entered storage and existing-weight paths reproduced both the retained single-view frame32 array and the frozen continuous frame32 array bitwise in the original Linux environment. Each export retained all 921,600 calibrated points, and pre-existing output files were unchanged. The 24-test Linux CPU suite includes normal refinement, no registration, no support and solver-failure pipeline branches; 15 solver and prompt tests also passed on Windows without loading model weights. These are current checks, recorded in [`continuous_verification.json`](../benchmarks/continuous_verification.json). They do not assert Windows/Linux bitwise parity.
+## 3. Obtain the paper data and verify identities
+
+Download only the required portions from [Data sources](DATASETS.md), preserving the upstream split and the repository's selected frame identities. The two training manifests specify 756 initial-stage and 962 geometry-stage records; the test manifest specifies 844 targets. The later stage deliberately replays initial training/development data.
+
+```console
+python -m reproduction.audit
+python -m reproduction.audit --initial-root /path/to/data_root/prepared
+```
+
+The first command checks manifest counts and scene/trajectory separation. The second also verifies the four prepared files for every initial-stage frame against their recorded hashes. A mismatch stops verification; it is not replaced by a newly chosen image.
+
+## 4. Evaluate predictions
+
+The paper uses fixed **392 × 392** test inputs and frozen observation masks. Preserve the preprocessing grid, depth units, sampled mask, full reference domain, sensor-hole domain, material labels where available and geometric boundary definition. In particular, resizing the supplied 720p examples or drawing a fresh 50,000-point mask does not reproduce the benchmark protocol.
+
+[`reproduction/evaluate.py`](../reproduction/evaluate.py) evaluates the released checkpoint against prepared, named `.npz` records. Each contains HWC `rgb` uint8, HW `sensor_m` float32 metres, `sampled` bool, `gt_m` float32 and bool masks `full`, `sensor_hole`, `challenging_material`, `depth_boundary`. The model receives only RGB, sensor depth, sampled observations and the recorded seed; reference arrays remain in the metric calculation.
+
+```console
+python -m reproduction.evaluate --data-root /path/to/prepared/paper_test --checkpoint /path/to/cam_pda_v1.pt --mde-checkpoint /path/to/depth_anything_v2_vitb.pth --output /path/to/new_evaluation
+```
+
+The command verifies each input and reference array against the manifest before loading weights. It stops on a failed frame and never silently drops failures from an average. `--dataset dreds110`, `nyu654` or `icl80` evaluates a complete individual set. The output preserves per-frame metrics and reports frame-macro AbsRel (dimensionless), MAE and RMSE (metres). Regional metrics require at least 32 reference pixels. No ground-truth scale/shift fit, clipping or prediction-dependent masking is applied.
+
+**Prepared benchmark caches are not distributed in this release.** Raw download links and sample IDs alone do not reproduce the historical letterboxing, sensor simulation and frozen masks byte for byte. The evaluation command is usable with correctly prepared records; it is not a raw-dataset converter. Full paper-score replay therefore still requires that preprocessing/cache release. This distinction is recorded here so a different preprocessing run is not mistaken for exact reproduction.
+
+The recorded [per-frame CaM-PDA metrics](../benchmarks/cam_pda_per_frame.csv) cover all 844 targets. Their frame-macro means reproduce all 30 available CaM-PDA aggregate entries in [paper_metrics.csv](../benchmarks/paper_metrics.csv) to within 1e-12. This verifies aggregation of the recorded measurements; it is separate from rerunning model inference.
+
+## 5. Reproduce the training design
+
+The model chain is **official PDA v1.1 → initial three-expert adaptation (selected epoch 11) → geometry/material adaptation (selected update 600)**. [Training](TRAINING.md) specifies data, supervision, optimizer groups, warmup, precision and checkpoint selection. The repository includes:
+
+- [Initial-stage configuration](../reproduction/configs/initial_stage.json) and [validation history](../reproduction/configs/initial_history.json).
+- [Geometry-stage configuration](../reproduction/configs/geometry_stage.json) and [selection record](../reproduction/configs/geometry_selection.json).
+- [Initial proxy and loss definitions](../reproduction/methods/initial_losses.py), [geometry label rules](../reproduction/methods/geometry_labels.py), and [geometry-stage losses](../reproduction/methods/geometry_losses.py), extracted from the executed research code.
+- Exact training/development [manifests](../reproduction/manifests), with separate source and condition-cache hashes.
+
+Training uses the same balanced confidence rule and three condition channels as inference. For each stage, prepare source depth/reference fields, freeze observation sampling and confidence conditions, construct supervision from the specified fields, then train and select using that stage's development criteria. Evaluate external targets only after internal selection. The independent balanced-confidence PDA control starts from official PDA and follows the same data/exposure schedule; disabling trained experts is not that control.
+
+**The training definitions are reference methods, not a complete training CLI.** The original per-source converters, complete frozen caches and resumable research trainer have not yet been packaged here. The supplied manifests and method code make the experiment identifiable and reviewable, but downloading raw datasets is insufficient for an exact retraining run. The inference checkpoint and included examples can be reproduced independently of this remaining training-release work.
+
+## Numerical verification
+
+Application 0.4.0 was checked on the original Linux CUDA environment with PyTorch 2.7.1+cu128. Frame32 and all four new component outputs matched their stored depth arrays **bitwise**, with **921,600 calibrated points per capture**. The package contains Python source and uses native PyTorch attention; no custom compiled extension is bundled.
+
+The built wheel was also run outside the source checkout through the terminal prompts and reproduced frame32 exactly. The new evaluator was checked on one frozen frame from each of the three test sets; all three full-image metrics matched the archived values exactly. These are regression checks, not a new whole-set benchmark run. [Verification record](../benchmarks/single_frame_verification.json).
+
+Windows and Linux may choose different attention kernels. In the earlier controlled frame32 comparison, default predictions differed by a mean absolute 0.2473 mm; disabling Linux Flash Attention reproduced the Windows output to a maximum difference of 5.96e-8 m. These are cross-platform differences, not errors against ground truth. Published aggregate scores refer to the recorded Linux environment and frozen preprocessing. Functional Windows support does not imply bitwise parity across hardware and numerical backends.

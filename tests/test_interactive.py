@@ -49,15 +49,6 @@ def test_invalid_inputs_rejected_before_model_or_output(example,tmp_path):
     assert not (tmp_path/'out').exists()
 
 
-def test_reference_requires_calibration_and_preserves_frozen_mask(example,tmp_path):
-    ref=dict(rgb_path=example/'rgb.png',depth_path=example/'sensor_depth.npy',camera_path=example/'camera.json')
-    with pytest.raises(ValueError,match='target camera'):
-        run_from_paths(ref['rgb_path'],ref['depth_path'],tmp_path/'out',references=[ref],model=FakeModel(),progress=lambda _:None)
-    np.save(example/'sampled_mask.npy',np.ones((5,5),bool))
-    with pytest.raises(ValueError,match='single-view'):
-        run_example(example,tmp_path/'out',references=[ref],model=FakeModel(),progress=lambda _:None)
-
-
 def test_interactive_paths_are_requested_at_runtime(example,tmp_path):
     output=tmp_path/'chosen output'
     weight=tmp_path/'model.pt';weight.write_bytes(b'test placeholder')
@@ -71,7 +62,7 @@ def test_interactive_paths_are_requested_at_runtime(example,tmp_path):
     settings=tmp_path/'preferences.json'
     assert main(input_fn=lambda prompt:next(answers),output_fn=messages.append,settings_path=settings,execute=execute)==0
     assert seen['rgb_path']==example/'rgb.png' and seen['camera_path'] is None
-    assert seen['output_dir']==output and seen['references']==[]
+    assert seen['output_dir']==output and 'references' not in seen
     assert seen['model_options']['allow_download'] is False
     assert json.loads(settings.read_text(encoding='utf-8'))['output_dir']==str(output)
     assert not any('point_cloud.ply' in message for message in messages)
@@ -104,7 +95,7 @@ def test_path_quotes_corrupt_preferences_and_eof(tmp_path,monkeypatch):
     assert main(input_fn=eof,output_fn=lambda _:None,settings_path=path)==0
 
 
-def test_cli_does_not_discard_frozen_example_mask(example,tmp_path,monkeypatch,capsys):
+def test_removed_reference_flag_is_rejected_before_model_loading(example,tmp_path,monkeypatch,capsys):
     import cam_pda
     from cam_pda.cli import main as cli_main
     np.save(example/'sampled_mask.npy',np.ones((5,5),bool))
@@ -114,5 +105,5 @@ def test_cli_does_not_discard_frozen_example_mask(example,tmp_path,monkeypatch,c
     with pytest.raises(SystemExit) as error:
         cli_main(['example',str(example),'--output',str(tmp_path/'out'),'--references',str(example)])
     assert error.value.code==2
-    assert 'single-view' in capsys.readouterr().err
+    assert 'unrecognized arguments' in capsys.readouterr().err
     assert not (tmp_path/'out').exists()

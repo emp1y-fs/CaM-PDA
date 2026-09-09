@@ -2,9 +2,9 @@
 
 CaM-PDA supports **Python 3.10–3.12 on Windows and Linux**. All application source is Python, packaged as a platform-independent wheel. PyTorch, NumPy and OpenCV use their standard prebuilt dependencies. No JavaScript frontend, local web server, Visual Studio build or custom CUDA extension is needed.
 
-## 1. Create an environment
+## 1. Choose a Python environment
 
-Download the source ZIP or clone this repository, open a terminal in its folder, then:
+An existing compatible environment can be reused, including one selected by your IDE. Download the source ZIP or clone this repository and open a terminal in its folder. If you prefer an isolated environment, create it at a storage location of your choice:
 
 ```console
 python -m venv .venv
@@ -60,14 +60,14 @@ The program asks for:
 
 1. English or 中文.
 2. An included example, or your own RGB and registered sensor-depth paths.
-3. Optional camera calibration and reference view.
+3. Optional camera calibration for point-cloud export.
 4. The folder where results will be saved.
 5. A model-storage folder or two existing model files.
 6. Automatic device selection or CPU.
 
 Paths are entered **after the program starts**. You do not edit Python variables. Quoted paths, spaces, `~` and environment variables are accepted. Output runs use unique child folders, so reusing a storage location keeps earlier results.
 
-After package installation, `cam-pda` or `python -m cam_pda` starts the same prompt. The current source checkout includes nine examples. The v0.3.0 wheel includes calibrated blade32 and its blade20 reference, so the optional multiview example is available after package installation. Use the source checkout for the additional material gallery cases. SciPy is installed automatically as a standard dependency for the continuous solver; no custom C/CUDA extension or separate CUDA Toolkit build is required.
+After installation, `cam-pda` or `python -m cam_pda` starts the runtime path prompt. The wheel includes blade32 and all four engine-component examples. The source checkout also contains DREDS and ClearGrasp examples. Standard PyTorch wheels supply the required numerical kernels; no custom C/CUDA extension or separate CUDA Toolkit build is required.
 
 ## Model storage
 
@@ -78,7 +78,7 @@ To run completely offline, choose **Use two existing weight files** and enter:
 - `cam_pda_v1.pt` from the [model release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/v0.1.0).
 - `depth_anything_v2_vitb.pth` from the [official PDA model host](https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth).
 
-Application v0.3.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
+Application v0.4.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
 
 While the repository is private, downloading its model needs an account with repository access. In the automatic-download flow, enter **your own** authorized GitHub username when prompted. Sign in with Git Credential Manager first; the program reads its saved credential in memory, without saving a token in project files. A `GH_TOKEN` environment variable is also supported for automation. For public releases, the username can be left blank. Manual download and local-file selection remain available.
 
@@ -97,7 +97,6 @@ The runtime prompt remembers selected storage locations. Preferences are a small
 - Sensor PNG is a single-channel integer array; select the correct units when prompted.
 - Zero depth means missing observations; at least 17 valid observations are needed.
 - Camera JSON must describe the aligned grid. Without calibration, export depth only.
-- Reference images must show the same static scene with overlap. Unsuitable registration produces a recorded single-view fallback.
 
 See [API.md](API.md) for exact file contracts and optional CLI automation. Use full paths if the current terminal directory differs from your data directory. `run.py` locates its own package and examples even when launched from another folder.
 

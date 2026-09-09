@@ -1,0 +1,100 @@
+{
+  "checked_date": "2026-09-09",
+  "datasets": [
+    {
+      "id": "icl",
+      "page": "https://www.doc.ic.ac.uk/~ahanda/VaFRIC/iclnuim.html",
+      "files": [
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj0_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj0n_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj1_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj1n_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj2_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj2n_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj3_frei_png.tar.gz",
+        "https://www.doc.ic.ac.uk/~ahanda/living_room_traj3n_frei_png.tar.gz"
+      ],
+      "use": "initial train/validation; lr_kt3 test"
+    },
+    {
+      "id": "diode",
+      "page": "https://diode-dataset.org/",
+      "files": [
+        "https://diode-dataset.s3.amazonaws.com/val.tar.gz"
+      ],
+      "use": "initial train/validation, scene split within the downloaded validation archive"
+    },
+    {
+      "id": "bidcd",
+      "page": "https://zenodo.org/records/5172207",
+      "files": [
+        "https://zenodo.org/records/5172207/files/scenes0130_0139.tar.gz?download=1",
+        "https://zenodo.org/records/5172207/files/scenes0140_0149.tar.gz?download=1"
+      ],
+      "use": "initial train/validation"
+    },
+    {
+      "id": "industry",
+      "page": "https://zenodo.org/records/20268306",
+      "required_archives": [
+        "IndustryShapes_Classic_train.zip",
+        "IndustryShapes_cad_models.zip"
+      ],
+      "use": "initial train/validation"
+    },
+    {
+      "id": "tartanair",
+      "page": "https://tartanair.org/",
+      "download_tools": "https://github.com/castacks/tartanair_tools",
+      "required_subset": "IndustrialHangar / Data_easy / image_lcam_front + depth_lcam_front",
+      "use": "initial train/validation"
+    },
+    {
+      "id": "todd",
+      "page": "https://www.pair.toronto.edu/TranspareNet/",
+      "required_subset": "official training data; RGB, sensor depth, completed reference and object masks",
+      "use": "initial train/validation"
+    },
+    {
+      "id": "lingbot",
+      "page": "https://huggingface.co/datasets/Voxel51/lingbot-depth-subset",
+      "revision": "ba6cc914c3fb958391cb0b4826fa2b1d91b489ba",
+      "upstream": "https://huggingface.co/datasets/robbyant/mdm_depth",
+      "upstream_revision": "5dd6192bdaef7b84828bd33657adc7be17623a41",
+      "use": "initial train/validation"
+    },
+    {
+      "id": "hypersim",
+      "page": "https://github.com/apple/ml-hypersim",
+      "scene_url_template": "https://docs-assets.developer.apple.com/ml-research/datasets/hypersim/v1/scenes/{scene}.zip",
+      "use": "geometry train/validation"
+    },
+    {
+      "id": "dreds",
+      "page": "https://github.com/PKU-EPIC/DREDS",
+      "files": [
+        "https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/data/DREDS-CatKnown/",
+        "https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/data/DREDS-CatNovel/"
+      ],
+      "use": "CatKnown part0 training; CatNovel test"
+    },
+    {
+      "id": "nyu",
+      "page": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "files": [
+        "https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat"
+      ],
+      "use": "official 654 test frames only",
+      "split": {
+        "split_url": "https://horatio.cs.nyu.edu/mit/silberman/indoor_seg_sup/splits.mat",
+        "split_sha256": "6e081404491a8bfba2f066beaa9713ef6046f9007aa5f799f2a350506a580cee",
+        "method": "All 654 frozen RGB arrays matched to official MAT image entries after 392-square letterboxing; index is one-based."
+      }
+    },
+    {
+      "id": "cleargrasp",
+      "page": "https://sites.google.com/view/cleargrasp/data",
+      "use": "three real-test gallery examples only"
+    }
+  ]
+}

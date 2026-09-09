@@ -4,7 +4,7 @@ CaM-PDA completes aligned RGB-D observations into full-resolution metric depth. 
 
 ## Released model
 
-The model name is **CaM-PDA**. Its retained development checkpoint is T1 / campaign 026 / step 600. Application version 0.3.0 updates the optional continuous multiview correction; it does not indicate new weights or additional training. T2/T3 continuation candidates are not deployed by this package.
+The model name is **CaM-PDA**. Its retained development checkpoint is T1 / campaign 026 / step 600. Application version 0.4.0 provides single-frame inference with the same weights. T2/T3 continuation candidates are not deployed by this package.
 
 | Component | Identity |
 |---|---|
@@ -22,8 +22,8 @@ The inference checkpoint preserves all 281 retained model tensors; training opti
 
 Provide RGB and registered sensor depth on the same image grid. The pipeline needs at least 17 valid observations. It samples up to 50,000 observations, applies the retained confidence rule and predicts dense depth. Camera calibration is required to create a geometrically meaningful point cloud.
 
-Single RGB images, colorized depth previews, unregistered RGB-D pairs and guessed intrinsics are outside the stated input contract. The terminal checks formats and dimensions; it cannot certify that supplied calibration or depth units are correct. Optional reference views must depict the same static scene with overlap.
+Single RGB images, colorized depth previews, unregistered RGB-D pairs and guessed intrinsics are outside the stated input contract. The terminal checks formats and dimensions; it cannot certify that supplied calibration or depth units are correct.
 
 There is no universal accuracy guarantee across materials or domains. Specialist gates are learned routing decisions, not exact semantic segmentations. The real blade example has no ground-truth depth. See [evaluation data](../benchmarks/README.md), [training provenance](TRAINING.md) and [cross-platform numerical boundaries](REPRODUCIBILITY.md).
 
-Processing uses local files. Downloading missing weights requires a network connection; existing verified weights support offline inference. Single-view predictions are saved directly. Optional multiview refinement adds a spatially regularized correction, as described in [the method guide](MULTIVIEW.md). Neither path applies numerical clipping or manual plane fitting. Color normalization affects previews only.
+Processing uses local files. Downloading missing weights requires a network connection; existing verified weights support offline inference. Predictions are saved directly, without numerical clipping or manual plane fitting. Color normalization affects previews only.
