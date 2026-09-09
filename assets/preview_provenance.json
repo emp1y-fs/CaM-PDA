@@ -77,7 +77,7 @@
     }
   ],
   "image_sha256": {
-    "blade_depth_showcase.png": "21d386a13c071f1c9a2eaea8f328ec84f6f16d77b6e1716a82d60af8c0358784",
+    "blade_depth_showcase.png": "f2ec836f24f9dfb33363479f65dd42514a0e48b5ff9cb7a9cd17e70b4ad17c8e",
     "material_depth_showcase.png": "e9648f8f0870bf6ba6ee6a1daf138af7bced3f6e95f6f5fc217f502d409f8440"
   },
   "material_selection": {
@@ -121,5 +121,33 @@
       1320
     ],
     "image_panels_unchanged": true
+  },
+  "blade_presentation": {
+    "background": "#FFFFFF",
+    "text_color": "#000000",
+    "badge_removed": "REAL RGB-D",
+    "outer_frame": false,
+    "canvas_pixels": [
+      1920,
+      600
+    ],
+    "panels": [
+      {
+        "label": "RGB image",
+        "pixels_identical": true,
+        "rgb_pixel_sha256": "adc29ac5e0dac37cef8ddaa1c6d332d723c9e837e0b7bb3a8f24adfcef08d501"
+      },
+      {
+        "label": "Observed sensor depth",
+        "pixels_identical": true,
+        "rgb_pixel_sha256": "dadc725fc4d47eda9ae7f92f4526df6066fef63988d1f3420e752a34ca58b0da"
+      },
+      {
+        "label": "CaM-PDA depth",
+        "pixels_identical": true,
+        "rgb_pixel_sha256": "8cef8043e28f2046c06cc8838568ef53f4ca24d0085a49caf7836105ffe60343"
+      }
+    ],
+    "numerical_data_and_colormap_unchanged": true
   }
 }
