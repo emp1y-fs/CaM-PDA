@@ -77,7 +77,7 @@
     }
   ],
   "image_sha256": {
-    "blade_depth_showcase.png": "f2ec836f24f9dfb33363479f65dd42514a0e48b5ff9cb7a9cd17e70b4ad17c8e",
+    "blade_depth_showcase.png": "9858061184e709fce8abaf0e9b4d30266dbadd75f69df665ad62b9e4edd4ee2a",
     "material_depth_showcase.png": "e9648f8f0870bf6ba6ee6a1daf138af7bced3f6e95f6f5fc217f502d409f8440"
   },
   "material_selection": {
@@ -129,7 +129,7 @@
     "outer_frame": false,
     "canvas_pixels": [
       1920,
-      600
+      560
     ],
     "panels": [
       {
@@ -148,6 +148,7 @@
         "rgb_pixel_sha256": "8cef8043e28f2046c06cc8838568ef53f4ca24d0085a49caf7836105ffe60343"
       }
     ],
+    "footer_removed": true,
     "numerical_data_and_colormap_unchanged": true
   }
 }
