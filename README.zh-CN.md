@@ -4,7 +4,101 @@
 
 Python · Windows / Linux · 单帧推理
 
-[English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
+[快速上手](#快速上手) · [运行自己的数据](#3-运行自己的数据) · [English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
+
+## 快速上手
+
+在 Python 终端运行 CaM-PDA，**程序启动后再输入数据路径和保存位置，无需修改源代码**。建议先使用自带案例：RGB、实测深度和相机内参均已备好。
+
+### 1. 获取代码并安装
+
+Windows、Linux 均可使用已有的 **Python 3.10–3.12** 环境。在准备存放项目的文件夹中打开终端：
+
+```console
+git clone https://github.com/emp1y-fs/CaM-PDA.git
+cd CaM-PDA
+```
+
+也可以点击本页 **Code → Download ZIP**，解压后在项目文件夹中打开终端。
+
+使用 **NVIDIA 显卡及兼容驱动**时，执行：
+
+```console
+python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
+python -m pip install .
+```
+
+使用 **CPU** 时，改为下面两条命令，推理速度会慢一些：
+
+```console
+python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install .
+```
+
+无需另外安装 CUDA Toolkit 或使用 Visual Studio 编译。需要独立环境时，可参考[环境设置](docs/INSTALL.md#1-choose-a-python-environment)。
+
+### 2. 启动 CaM-PDA
+
+在项目文件夹中运行：
+
+```console
+python run.py
+```
+
+安装后，`cam-pda` 或 `python -m cam_pda` 也能启动同一个程序。
+
+### 3. 运行自己的数据
+
+准备一张 RGB 图、与其配准的数值深度，以及实际相机内参 JSON。下面假设文件位于 `D:\RGBD\scene01\rgb.png`、`D:\RGBD\scene01\sensor_depth.npy`、`D:\RGBD\scene01\camera.json`。**请替换为你电脑上的真实完整路径。** 保存位置填写文件夹，输入数据和权重填写具体文件。
+
+这个示例使用已有权重，请先下载两个模型文件，放到你选择的目录：
+
+- **`cam_pda_v1.pt`**：[CaM-PDA 模型发布页](https://github.com/emp1y-fs/CaM-PDA/releases/tag/v0.1.0)。
+- **`depth_anything_v2_vitb.pth`**：[PDA 模型下载地址](https://huggingface.co/Rain729/Prior-Depth-Anything/resolve/main/depth_anything_v2_vitb.pth)。
+
+执行 `python run.py` 后，按下表**逐项输入，每输入一项就按回车**。这些内容是在 CaM-PDA 程序内回答提示，不是整段粘贴到 PowerShell 的命令，也不用修改 Python 文件。下表列出菜单和提示名称，默认选项可能沿用上一次运行的设置。
+
+| 程序询问什么 | 你输入什么（Windows 示例） |
+|---|---|
+| Language / 语言 | **`2` — 简体中文** |
+| 选择数据来源 | **`2` — 输入自己的数据路径** |
+| RGB 照片路径 | `D:\RGBD\scene01\rgb.png` |
+| 传感深度路径（.npy 或单通道整数 .png） | `D:\RGBD\scene01\sensor_depth.npy` |
+| 相机内参 JSON 路径（回车：仅生成深度图） | `D:\RGBD\scene01\camera.json` |
+| 结果保存文件夹 | **`D:\RGBD\results`** |
+| 模型文件 | **`2` — 指定已有的两个权重文件** |
+| CaM-PDA 权重文件 | `D:\CaM-PDA\weights\cam_pda_v1.pt` |
+| 冻结单目先验权重文件 | `D:\CaM-PDA\weights\depth_anything_v2_vitb.pth` |
+| 计算设备 | `1` — 自动选择，或 `2` — CPU |
+
+Linux 操作相同，将路径换为实际 Linux 路径，例如 `/home/you/RGBD/scene01/rgb.png`、`/home/you/RGBD/scene01/sensor_depth.npy`、`/home/you/RGBD/scene01/camera.json`、`/home/you/RGBD/results`，两个模型文件放在 `/home/you/CaM-PDA/weights/` 下。含空格的路径可以连同外层引号一起粘贴。
+
+**结果保存到哪里？** 按上述 Windows 示例，程序会新建类似 `D:\RGBD\results\<时间>_rgb_<编号>\` 的文件夹，完成后在终端打印完整位置。选择保存路径不会改变输出文件名和格式。程序会记住存储位置；下次在同一提示处输入新路径即可更换。
+
+**深度和内参要求：** RGB 与实测深度须分辨率相同、已配准到同一像素网格。`.npy` 深度是以**米**为单位的二维浮点数组。若输入单通道整数深度 `.png`，填写路径后会立即多出单位选择；文件实际以毫米存储时，才选择 **1 — 毫米**。0 表示缺失，彩色预览图不是数值深度。相机 JSON 包含真实标定得到的 `fx`、`fy`、`cx`、`cy`、`width`、`height`。在相机路径处留空回车可仅生成深度图；点云需要内参。
+
+**希望自动下载权重？** 在“模型文件”处选择 **1 — 指定模型存储文件夹，缺少时下载**，再输入例如 `D:\CaM-PDA\weights` 或 `/home/you/CaM-PDA/weights`。两个文件合计约 **0.8 GB**。仓库保持私有期间，CaM-PDA 权重需要访问权限：可通过浏览器手动下载，也可使用已通过 Git Credential Manager 登录的授权账号自动下载。发布公开后，用户名提示直接留空即可。
+
+**想先跑自带案例？** 在数据来源处选择 **1 — 使用自带案例**，从列表选择 `blade32` 或 `engine_component_01`–`engine_component_04`，然后按上表填写保存目录和模型位置。案例的 RGB、实测深度和内参会自动载入。
+
+### 4. 查看结果
+
+处理完成后，终端会显示结果位置。每次运行都会在指定保存目录下新建一个子文件夹：
+
+```text
+result_folder/
+├── rgb.png              输入 RGB
+├── depth_color.png      深度预览
+├── depth_m.npy          Float32 米制深度
+├── depth_mm.png         四舍五入后的毫米深度，数值可表示时输出
+├── point_cloud.ply      彩色点云，提供内参时输出
+├── accepted_mask.png    保留的传感器观测
+└── metadata.json        内参、单位和推理设置
+```
+
+双击 **`depth_color.png`** 查看深度预览；使用 CloudCompare 等 PLY 查看器打开 **`point_cloud.ply`**。数值计算使用 **`depth_m.npy`**。点云单位为米，x 向右、y 向下、z 向前；导出保留预测的深度值。
+
+完整测试协议和训练记录另见[复现流程](docs/REPRODUCIBILITY.md)。
 
 ![真实叶片场景的 RGB、ToF 实测深度与 CaM-PDA 深度](assets/blade_depth_showcase.png)
 
@@ -15,45 +109,6 @@ CaM-PDA 在 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-
 ## 总体流程
 
 ![CaM-PDA 总体流程：平衡置信筛选、深度对齐与预填充，以及引入反射、非平面和边缘专家的条件深度估计](assets/cam_pda_overall_workflow.png)
-
-## 运行程序
-
-使用 Python **3.10–3.12**，下载仓库并安装依赖：
-
-```console
-git clone https://github.com/emp1y-fs/CaM-PDA.git
-cd CaM-PDA
-python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu128
-python -m pip install .
-python run.py
-```
-
-以上使用 NVIDIA CUDA 版 PyTorch。CPU 安装、独立环境和权重获取见[安装说明](docs/INSTALL.md)。两个模型文件合计约 **0.8 GB**。
-
-程序启动后选择自带案例，或**在运行时输入数据路径**，然后选择保存目录和模型位置。无需修改 Python 源文件。安装后也可以使用 `cam-pda` 或 `python -m cam_pda` 启动，提供中英文提示。
-
-| 输入 | 格式 |
-|---|---|
-| RGB 图像 | PNG、JPEG |
-| 已配准的传感器深度 | 以米为单位的浮点 `.npy`，或注明单位的单通道整数 `.png`；0 表示缺失 |
-| 相机内参 | 包含 `fx`、`fy`、`cx`、`cy`、`width`、`height` 的 JSON；生成点云时必需 |
-
-彩色深度图只用于展示，不能作为数值深度输入。自己的数据应使用实际相机内参；仅凭一张 RGB 照片不能获得本方法所需的实测尺度。
-
-每次运行都在所选保存目录中创建独立文件夹：
-
-```text
-result_folder/
-├── rgb.png              输入 RGB
-├── depth_color.png      深度预览
-├── depth_m.npy          Float32 米制深度
-├── depth_mm.png         四舍五入后的毫米深度，数值可表示时输出
-├── point_cloud.ply      标定后的彩色点云
-├── accepted_mask.png    保留的传感器观测
-└── metadata.json        内参、单位和推理设置
-```
-
-未提供相机内参时只生成深度图。点云单位为米，x 向右、y 向下、z 向前。导出保留模型预测数值，预览配色不会改变深度值。
 
 ## 其他发动机构件
 
