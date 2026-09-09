@@ -6,6 +6,10 @@ Python · Windows / Linux · 单帧推理
 
 [快速上手](#快速上手) · [一键测试](#一条命令下载测试集并评估) · [运行自己的数据](#3-运行自己的数据) · [English](README.md) · [安装](docs/INSTALL.md) · [数据下载](docs/DATASETS.md) · [复现流程](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
+## 总体流程
+
+![CaM-PDA 总体流程：平衡置信筛选、深度对齐与预填充，以及引入反射、非平面和边缘专家的条件深度估计](assets/cam_pda_overall_workflow.png)
+
 ## 快速上手
 
 在 Python 终端运行 CaM-PDA，**程序启动后再输入数据路径和保存位置，无需修改源代码**。建议先使用自带案例：RGB、实测深度和相机内参均已备好。
@@ -127,10 +131,6 @@ python reproduce.py --root ./cam_pda_test
 CaM-PDA 在 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything) 的基础上引入了**平衡置信前置**和**专家矩阵**。置信前置筛选传感器观测，用于视觉深度先验与实测深度的对齐；专家矩阵在条件深度网络中引入独立门控的反射、非平面和边缘专家，进一步预测稠密的米制深度。
 
 **输入：** 一张 RGB 图像及对应的传感器深度。**输出：** 深度预览、数值深度；提供相机内参时还可生成彩色点云。RGB 与传感器深度需要预先配准到同一像素网格。CaM-PDA 内部进行的是深度尺度与结构对齐，不负责两台相机之间的图像配准。
-
-## 总体流程
-
-![CaM-PDA 总体流程：平衡置信筛选、深度对齐与预填充，以及引入反射、非平面和边缘专家的条件深度估计](assets/cam_pda_overall_workflow.png)
 
 ## 其他发动机构件
 

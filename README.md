@@ -6,6 +6,10 @@ Python · Windows & Linux · Single-frame inference
 
 [Quick start](#quick-start) · [Test our weights](#test-the-released-weights-with-one-command) · [Use your data](#3-run-your-own-data) · [简体中文](README.zh-CN.md) · [Install](docs/INSTALL.md) · [Data & downloads](docs/DATASETS.md) · [Reproduce](docs/REPRODUCIBILITY.md) · [API](docs/API.md)
 
+## Overall workflow
+
+![CaM-PDA workflow: balanced-confidence screening, depth alignment and prefilling, and conditioned depth estimation with reflective, non-flat and edge experts](assets/cam_pda_overall_workflow.png)
+
 ## Quick start
 
 Run CaM-PDA in a Python terminal. **Choose your input files and save locations after the program starts; no source-code edits are needed.** The supplied examples include RGB, measured depth and calibration, so they are a convenient first run.
@@ -127,10 +131,6 @@ To start with the smaller 80-frame ICL set, use `python reproduce.py --root ./ca
 CaM-PDA extends [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything) with a **balanced-confidence front end** and an **expert matrix**. The confidence front end selects sensor observations for aligning the visual depth prior with measured depth. The expert matrix introduces independently gated reflective, non-flat and edge experts into the conditioned network to predict dense metric depth.
 
 **Input:** one RGB image and its registered sensor depth. **Output:** a depth preview, numerical metric depth and, with camera calibration, a colored point cloud. RGB and sensor depth must already share the same pixel grid; the alignment inside CaM-PDA recovers depth scale and structure, not camera-to-camera image registration.
-
-## Overall workflow
-
-![CaM-PDA workflow: balanced-confidence screening, depth alignment and prefilling, and conditioned depth estimation with reflective, non-flat and edge experts](assets/cam_pda_overall_workflow.png)
 
 ## Engine components
 
