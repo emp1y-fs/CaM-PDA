@@ -8,9 +8,13 @@ Python · Windows / Linux · 单帧推理
 
 ![真实叶片场景的 RGB、ToF 实测深度与 CaM-PDA 深度](assets/blade_depth_showcase.png)
 
-CaM-PDA 从 RGB 图像估计视觉深度先验，用平衡置信筛选保留较可靠的传感器观测，再将视觉先验与这些实测深度对齐。带有反射、非平面和边缘专家的条件深度网络进一步预测稠密的米制深度。方法基于 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything)。
+CaM-PDA 在 [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything) 的基础上引入了**平衡置信前置**和**专家矩阵**。置信前置筛选传感器观测，用于视觉深度先验与实测深度的对齐；专家矩阵在条件深度网络中引入独立门控的反射、非平面和边缘专家，进一步预测稠密的米制深度。
 
 **输入：** 一张 RGB 图像及对应的传感器深度。**输出：** 深度预览、数值深度；提供相机内参时还可生成彩色点云。RGB 与传感器深度需要预先配准到同一像素网格。CaM-PDA 内部进行的是深度尺度与结构对齐，不负责两台相机之间的图像配准。
+
+## 总体流程
+
+![CaM-PDA 总体流程：平衡置信筛选、深度对齐与预填充，以及引入反射、非平面和边缘专家的条件深度估计](assets/cam_pda_overall_workflow.png)
 
 ## 运行程序
 
@@ -60,20 +64,6 @@ result_folder/
 在程序中选择 `engine_component_01` 至 `engine_component_04`，即可分别运行图中四行案例。源码和安装包都附带原始 RGB、实测深度、内参与采样种子。详见[案例说明及来源](docs/ENGINE_COMPONENTS.md)。
 
 源码中还保留了[真实材料场景案例](docs/GALLERY.md)。
-
-## 测试结果
-
-固定测试帧的全图 **AbsRel ↓** 均值：
-
-| 方法 | DREDS-CatNovel · 110 帧 | NYUv2 · 654 帧 | ICL-NUIM · 80 帧 |
-|---|---:|---:|---:|
-| **CaM-PDA** | **0.014226** | 0.023305 | **0.009010** |
-| Official PDA | 0.030987 | 0.054981 | 0.067776 |
-| OMNI-DC v1.1 | 0.035454 | **0.016802** | — |
-| IP-Basic | 0.078946 | 0.031725 | — |
-| Marigold-DC · 10 steps | 0.096877 | 0.059145 | — |
-
-CaM-PDA 在这三个测试集上均优于原始 PDA；OMNI-DC 的 NYUv2 全图误差更低。[完整记录](benchmarks/README.md)保留各区域指标与单独列出的 VGGT 对比。上方的案例展示不能代替整套测试集结果。
 
 ## 复现与代码
 

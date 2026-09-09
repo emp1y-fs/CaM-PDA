@@ -8,9 +8,13 @@ Python · Windows & Linux · Single-frame inference
 
 ![RGB, measured ToF depth and CaM-PDA depth in a real engine-blade scene](assets/blade_depth_showcase.png)
 
-CaM-PDA estimates a visual depth prior from an RGB image, screens unreliable sensor observations, and aligns the prior to the retained measurements. A conditioned depth network with reflective, non-flat and edge experts then predicts a dense depth map in metres. The method builds on [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything).
+CaM-PDA extends [Prior Depth Anything](https://github.com/SpatialVision/Prior-Depth-Anything) with a **balanced-confidence front end** and an **expert matrix**. The confidence front end selects sensor observations for aligning the visual depth prior with measured depth. The expert matrix introduces independently gated reflective, non-flat and edge experts into the conditioned network to predict dense metric depth.
 
 **Input:** one RGB image and its registered sensor depth. **Output:** a depth preview, numerical metric depth and, with camera calibration, a colored point cloud. RGB and sensor depth must already share the same pixel grid; the alignment inside CaM-PDA recovers depth scale and structure, not camera-to-camera image registration.
+
+## Overall workflow
+
+![CaM-PDA workflow: balanced-confidence screening, depth alignment and prefilling, and conditioned depth estimation with reflective, non-flat and edge experts](assets/cam_pda_overall_workflow.png)
 
 ## Run CaM-PDA
 
@@ -60,20 +64,6 @@ These additional engine-component captures appear in Section 5 of the manuscript
 Choose `engine_component_01` through `engine_component_04` in the program to reproduce the four rows. The original RGB, sensor depth, calibration and sampling seed are included in both the source checkout and installed package. [Example details and provenance](docs/ENGINE_COMPONENTS.md).
 
 Additional [real material examples](docs/GALLERY.md) are available in the source checkout.
-
-## Recorded benchmarks
-
-Full-image **AbsRel ↓**, averaged over fixed test frames:
-
-| Method | DREDS-CatNovel · 110 | NYUv2 · 654 | ICL-NUIM · 80 |
-|---|---:|---:|---:|
-| **CaM-PDA** | **0.014226** | 0.023305 | **0.009010** |
-| Official PDA | 0.030987 | 0.054981 | 0.067776 |
-| OMNI-DC v1.1 | 0.035454 | **0.016802** | — |
-| IP-Basic | 0.078946 | 0.031725 | — |
-| Marigold-DC · 10 steps | 0.096877 | 0.059145 | — |
-
-CaM-PDA improves over official PDA on all three evaluated sets. OMNI-DC has lower full-image error on NYUv2. [Complete results](benchmarks/README.md) include regional metrics and the separate VGGT comparison. Selected illustrations above do not replace whole-set evaluation.
 
 ## Reproduction and implementation
 
