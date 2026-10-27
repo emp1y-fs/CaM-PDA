@@ -2,7 +2,7 @@
 
 **Confidence-aware RGB-D completion for low-cost, spray-free reconstruction.**
 
-[Paper figures & data](docs/PAPER_DATA.md) · [Download source data](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) · [Final benchmarks](docs/BENCHMARKS.md) · [中文](README.zh-CN.md)
+[Paper figures & data](docs/PAPER_DATA.md) · [Download source data](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2) · [Final benchmarks](docs/BENCHMARKS.md) · [中文](README.zh-CN.md)
 
 ![CaM-PDA single-view workflow](assets/paper/figure_1.png)
 
@@ -16,7 +16,7 @@ The specimen is a **first-stage high-pressure compressor blade**. Its exact mode
 |---|---|
 | [Figures 1–12 and A1](paper/figures/README.md) | Unchanged publication assets, PNG previews, captions, printed figure numbers and source hashes |
 | [Tables 1–15 and A1–A8](paper/tables/README.md) | Displayed values as CSV, including units and continued Table A4 |
-| [Versioned source-data download](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) | Calibrated RGB-D, numerical predictions, observation masks, point clouds, blue-light reference, routing arrays and selected benchmark inputs |
+| [Versioned source-data download](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2) | Calibrated RGB-D, numerical predictions, observation masks, point clouds, blue-light reference, routing arrays and selected benchmark inputs |
 | [Figure-to-data map](docs/PAPER_DATA.md) | Exact file locations, executable checks and coverage of each figure |
 | [Final benchmark protocols](paper/manifests/index.json) | **17,354** recorded targets across five sets; identities, seeds and prepared-array fingerprints |
 | [Model card](docs/MODEL_CARD.md) | Formal checkpoint identity, input contract and interpretation limits |

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "version": "paper-final-20261027",
+  "version": "paper-final-20261027-v2",
   "author_rights": "Retained; no new license granted; upstream terms remain in force.",
   "archive": {
-    "filename": "cam_pda_final_paper_source_data_20261027.zip",
-    "bytes": 108006478,
-    "sha256": "a5f06cb0b4e1046d1e80893fc098dd8210224abd0800d06cfb4c10353b20854d",
-    "url": "https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-final-20261027/cam_pda_final_paper_source_data_20261027.zip"
+    "filename": "cam_pda_final_paper_source_data_20261027_v2.zip",
+    "bytes": 108006373,
+    "sha256": "979e14848c85270011c2ebf67f431a59e9eef513690c1aab01dcd0ff00bf8bff",
+    "url": "https://github.com/emp1y-fs/CaM-PDA/releases/download/paper-final-20261027-v2/cam_pda_final_paper_source_data_20261027_v2.zip"
   },
   "files": [
     {
@@ -3681,8 +3681,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 1107,
-      "sha256": "e3f686d345261b593f4dfb4700a0f3fa08ff274a362b76cf5f5d2f8638a712dc"
+      "bytes": 905,
+      "sha256": "1074469e2f06bab804c579f291ffe5dad57296287984b501b5d7d0baa02f68cd"
     },
     {
       "path": "routing_frame32/accepted_mask.npy",

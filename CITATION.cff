@@ -4,7 +4,7 @@ type: software
 title: "CaM-PDA: final-paper inference and source-data companion"
 url: "https://github.com/emp1y-fs/CaM-PDA"
 repository-code: "https://github.com/emp1y-fs/CaM-PDA"
-version: "paper-final-20261027"
+version: "paper-final-20261027-v2"
 date-released: "2026-10-27"
 authors:
   - family-names: Zhang

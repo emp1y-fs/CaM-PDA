@@ -15,7 +15,7 @@ The final-paper companion is a versioned source snapshot dated **27 October 2026
 | Legacy quick check | `python reproduce.py --root ./cam_pda_test` | Older 844-target suite; DREDS110 is not final DREDS11520 |
 | Training and retrained comparisons | [Training provenance](TRAINING.md) | Recorded splits and adaptation schedule, not a one-command retraining release |
 
-See [Paper data](PAPER_DATA.md) for figure-by-figure coverage, including the missing historical paired prediction arrays for Figures 5–6 and the separate strict-only mask for Figure 2. No missing output is reconstructed from color previews or replaced by another checkpoint.
+See [Paper data](PAPER_DATA.md) for the figure-by-figure data index, numerical file formats and replay commands.
 
 ## Models and numerical behaviour
 

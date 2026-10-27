@@ -2,7 +2,7 @@
 
 **置信度感知的 RGB-D 深度补全，用于低成本、免喷涂三维重建。**
 
-[English](README.md) · [论文图件与数值数据](docs/PAPER_DATA.md) · [下载数据包](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) · [最终稿测试协议](docs/BENCHMARKS.md)
+[English](README.md) · [论文图件与数值数据](docs/PAPER_DATA.md) · [下载数据包](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2) · [最终稿测试协议](docs/BENCHMARKS.md)
 
 ![论文总体流程](assets/paper/figure_1.png)
 
@@ -16,7 +16,7 @@
 |---|---|
 | 图 1–12、附录图 A1 | [原版图件、预览、图注与哈希](paper/figures/README.md) |
 | 表 1–15、附录表 A1–A8 | [CSV 与单位说明](paper/tables/README.md) |
-| 原始深度、模型输出、点云、参考扫描、专家激活 | [版本化下载包](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) |
+| 原始深度、模型输出、点云、参考扫描、专家激活 | [版本化下载包](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2) |
 | 各图的数据路径及复算命令 | [数据对应表](docs/PAPER_DATA.md) |
 | 五组最终测试、共 17,354 条记录 | [冻结清单、种子与数组指纹](paper/manifests/index.json) |
 

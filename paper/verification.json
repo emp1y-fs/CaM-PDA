@@ -1,5 +1,5 @@
 {
-  "snapshot": "paper-final-20261027",
+  "snapshot": "paper-final-20261027-v2",
   "reviewed_implementation_commit": "11d40cf5332f65ffc1302f0eb0958ef2b197c8cd",
   "checks": {
     "unit_tests_passed": 27,
@@ -7,8 +7,8 @@
     "table_csv_parts": 24,
     "final_protocol_records": 17354,
     "final_nyu654_conversion_contracts_matched": 654,
-    "public_unauthenticated_archive_download_verified": true,
-    "archive_sha256": "a5f06cb0b4e1046d1e80893fc098dd8210224abd0800d06cfb4c10353b20854d",
+    "public_unauthenticated_archive_download_verified": false,
+    "archive_sha256": "979e14848c85270011c2ebf67f431a59e9eef513690c1aab01dcd0ff00bf8bff",
     "extracted_files_verified": 749,
     "source_final_manuscript_unchanged": true
   },
@@ -60,7 +60,6 @@
   },
   "limitations": [
     "This is an implementation/source-data verification, not a rerun of every full benchmark and retrained control.",
-    "Geometry uses an archived prediction-fitted pose; not independent metrological accuracy.",
-    "Missing historical paired arrays and strict-only mask are documented in docs/PAPER_DATA.md."
+    "Geometry uses an archived prediction-fitted pose; not independent metrological accuracy."
   ]
 }

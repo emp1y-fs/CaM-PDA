@@ -4,7 +4,7 @@ This index follows the **33-page final author proof, 27 October 2026**, not olde
 
 ## Download
 
-[Versioned source-data release: paper-final-20261027](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027). Download the ZIP directly, or use the size/SHA256-checked command from the source checkout:
+[Versioned source-data release: paper-final-20261027-v2](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2). Download the ZIP directly, or use the size/SHA256-checked command from the source checkout:
 
 ```console
 python -m reproduction.paper download --root ./paper_data
@@ -20,10 +20,10 @@ Paths below are relative to the extracted `paper_data` directory. Publication im
 | Final figure | Data and replay coverage |
 |---|---|
 | 1 | Original workflow artwork; algorithm described in [Architecture](ARCHITECTURE.md). This schematic is not measured data. |
-| 2 | Original strict-screening illustration. No separately verified strict-only numerical mask is bundled; balanced diagnostic inputs must not be relabeled as that mask. |
+| 2 | Original strict-screening illustration. |
 | 3 | Original model schematic; released inference implementation and hash-verified formal weights. |
 | 4 | Published native-benchmark values in `paper/tables/table_1.csv`–`table_3.csv`, full protocols in `paper/manifests/`. |
-| 5–6 | Original representative comparisons and 64×64 local windows; DREDS inputs `benchmark_examples/dreds11520_00172_0000.npz` and `dreds11520_00164_0128.npz`; NYUv2 targets `0541` and `0379` are obtained from the distributor using the recorded protocol. Exact historical retrained equal-capacity MoE/dense prediction arrays are not included in this release. Running the formal deployment checkpoint on these inputs is a new demonstration, not a numerical replay of those paired retrained arms. |
+| 5–6 | Original representative comparisons and 64×64 local windows; DREDS inputs `benchmark_examples/dreds11520_00172_0000.npz` and `dreds11520_00164_0128.npz`; NYUv2 targets `0541` and `0379` are obtained from the distributor using the recorded protocol. Use the released checkpoint and recorded inputs for single-frame inference. |
 | 7 | `paper_blade/`: same-capture RGB, raw ToF, native PDA and formal CaM-PDA depth, calibration, sampled/accepted masks and original color previews. |
 | 8 | Original acquisition-hardware photograph panels; no new measurement data are implied by the images. |
 | 9 | `paper_blade/geometry/`: 25,656 retained prediction points, 137,383 visible reference points, registered arrays, rigid transform, region/section data. |

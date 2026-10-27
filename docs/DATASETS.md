@@ -1,6 +1,6 @@
 # Data sources
 
-Final-proof benchmark descriptions are in [BENCHMARKS.md](BENCHMARKS.md). The [paper-data guide](PAPER_DATA.md) maps the publication figures to downloadable numerical files. Full third-party raw datasets are obtained from their distributors; author captures and selected prepared examples are available in the [versioned source-data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027).
+Final-proof benchmark descriptions are in [BENCHMARKS.md](BENCHMARKS.md). The [paper-data guide](PAPER_DATA.md) maps the publication figures to downloadable numerical files. Full third-party raw datasets are obtained from their distributors; author captures and selected prepared examples are available in the [versioned source-data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2).
 
 ## Training sources
 

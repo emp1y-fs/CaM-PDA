@@ -25,4 +25,4 @@ The figure is the original high-resolution manuscript export. It combines depth 
 
 ## Download the recorded numerical outputs
 
-The [final-paper data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) includes the four `engine_component_01`–`04` directories with full-resolution raw/completed NPY depth, original color previews and the recorded RGB PLY. Input folders remain directly runnable in the checkout. These are author captures with rights retained, not newly licensed open data. See [PAPER_DATA.md](PAPER_DATA.md).
+The [final-paper data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027-v2) includes the four `engine_component_01`–`04` directories with full-resolution raw/completed NPY depth, original color previews and the recorded RGB PLY. Input folders remain directly runnable in the checkout. These are author captures with rights retained, not newly licensed open data. See [PAPER_DATA.md](PAPER_DATA.md).
