@@ -80,7 +80,7 @@ To run completely offline, choose **Use two existing weight files** and enter:
 
 Application v0.4.0 uses the same retained model as the original model release. An application update does not require a new checkpoint.
 
-While the repository is private, downloading its model needs an account with repository access. In the automatic-download flow, enter **your own** authorized GitHub username when prompted. Sign in with Git Credential Manager first; the program reads its saved credential in memory, without saving a token in project files. A `GH_TOKEN` environment variable is also supported for automation. For public releases, the username can be left blank. Manual download and local-file selection remain available.
+The repository and released model files are public; downloads need no sign-in, and the optional GitHub username can be left blank. Git Credential Manager or a `GH_TOKEN` environment variable can be used when authentication is needed for API rate limits. Credentials are read in memory and are not saved in project files. Manual download and local-file selection remain available.
 
 For automated installation:
 

@@ -1,0 +1,66 @@
+{
+  "snapshot": "paper-final-20261027",
+  "reviewed_implementation_commit": "11d40cf5332f65ffc1302f0eb0958ef2b197c8cd",
+  "checks": {
+    "unit_tests_passed": 27,
+    "original_figure_hashes_matched": 13,
+    "table_csv_parts": 24,
+    "final_protocol_records": 17354,
+    "final_nyu654_conversion_contracts_matched": 654,
+    "public_unauthenticated_archive_download_verified": true,
+    "archive_sha256": "a5f06cb0b4e1046d1e80893fc098dd8210224abd0800d06cfb4c10353b20854d",
+    "extracted_files_verified": 749,
+    "source_final_manuscript_unchanged": true
+  },
+  "physical_capture_inference": {
+    "shape": [
+      720,
+      1280
+    ],
+    "accepted_anchors": 45048,
+    "mean_absolute_difference_from_archived_prediction_m": 0.0,
+    "maximum_absolute_difference_m": 0.0
+  },
+  "fresh_icl80": {
+    "icl80": {
+      "full": {
+        "frames": 80,
+        "pixels": 8904428,
+        "AbsRel": 0.009009837557966015,
+        "MAE_m": 0.016980278252506188,
+        "RMSE_m": 0.03734402147833671
+      },
+      "sensor_hole": {
+        "frames": 80,
+        "pixels": 60722,
+        "AbsRel": 0.03482871789180854,
+        "MAE_m": 0.06552840377981146,
+        "RMSE_m": 0.10586452083510758
+      },
+      "challenging_material": {
+        "frames": 0,
+        "pixels": 0,
+        "AbsRel": null,
+        "MAE_m": null,
+        "RMSE_m": null
+      },
+      "depth_boundary": {
+        "frames": 80,
+        "pixels": 320204,
+        "AbsRel": 0.04576751164591802,
+        "MAE_m": 0.0723157218925694,
+        "RMSE_m": 0.13168473957370147
+      }
+    }
+  },
+  "surface_agreement_replay_mm": {
+    "prediction_to_reference_mean": 3.5140665598849545,
+    "reference_to_prediction_mean": 3.0416168124110055,
+    "symmetric_mean": 3.2778416861479798
+  },
+  "limitations": [
+    "This is an implementation/source-data verification, not a rerun of every full benchmark and retrained control.",
+    "Geometry uses an archived prediction-fitted pose; not independent metrological accuracy.",
+    "Missing historical paired arrays and strict-only mask are documented in docs/PAPER_DATA.md."
+  ]
+}

@@ -4,7 +4,7 @@
   "seed": 0,
   "depth_unit": "m",
   "ground_truth_available": false,
-  "license": "Author material; private review copy.",
+  "license": "Author rights retained; no new license granted.",
   "files": {
     "camera.json": "8039a9d18be44515cb1d67153777ae2190a7fd720305edd3491d389afe016f24",
     "rgb.png": "4fee7eda7339fe72190d1cfb44aa7d72e0acbe81fa3060e02bc254973bff5521",
