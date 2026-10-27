@@ -1,0 +1,10 @@
+Setting,Full,Change (%),Holes,Boundary
+nominal,0.033496,+0.00,0.047458,0.085748
+confidence_radius_7,0.031778,-5.13,0.044821,0.085754
+confidence_radius_15,0.033412,-0.25,0.047577,0.085572
+confidence_k_8,0.034289,+2.37,0.050394,0.085946
+confidence_k_24,0.033972,+1.42,0.048457,0.086732
+confidence_min_neighbors_4,0.031874,-4.84,0.044586,0.085729
+confidence_min_neighbors_12,0.029270,-12.61,0.040303,0.085868
+confidence_max_rel_error_0.2,0.033518,+0.07,0.045884,0.086742
+confidence_max_rel_error_0.5,0.034377,+2.63,0.050615,0.086528

@@ -1,6 +1,6 @@
-# Data sources and selected subsets
+# Data sources
 
-Start with the included examples if you only want to run CaM-PDA. Reproducing the paper experiments additionally requires the source data listed below. Prepared DREDS110 and ICL80 test subsets are distributed under their original licenses. NYUv2 RGB/depth and all training sources are obtained from their original distributors; full raw datasets are not mirrored here.
+Final-proof benchmark descriptions are in [BENCHMARKS.md](BENCHMARKS.md). The [paper-data guide](PAPER_DATA.md) maps the publication figures to downloadable numerical files. Full third-party raw datasets are obtained from their distributors; author captures and selected prepared examples are available in the [versioned source-data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027).
 
 ## Training sources
 
@@ -27,36 +27,12 @@ Geometry/material adaptation retains the 672/84 initial training/development fra
 
 Use [`geometry_train_val.json`](../reproduction/manifests/geometry_train_val.json) for the combined **854/108** split and source/condition-cache hashes. [`dataset_sources.json`](../reproduction/dataset_sources.json) contains download URLs, archive names and pinned revisions in a machine-readable form. It lists only sources, not credentials or machine-specific directories.
 
-## Test sets
+## Final tests and historical subsets
 
-**Automatic download and evaluation:** after installation, run `python reproduce.py --root ./cam_pda_test` from the source checkout. See the [homepage quick start](../README.md#test-the-released-weights-with-one-command). The [test release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-tests-v1) contains DREDS110 (30.2 MB), ICL80 (28.0 MB), and NYUv2 Boolean protocol masks (15.8 MB). NYUv2 RGB/depth are downloaded from the official labeled MAT and converted automatically. SHA256 values and exact URLs are in [test_assets.json](../reproduction/test_assets.json).
+The final targets are **DREDS11520, NYUv2 654, ICL80, STD4500 and procedural600**. The complete identities and fingerprints are in [paper/manifests](../paper/manifests/index.json). The older [paper-tests-v1](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-tests-v1) bundles DREDS110/ICL80 and NYUv2 masks for an **844-frame quick check**, not the complete final benchmark. Do not report DREDS110 scores as the 11,520-frame result.
 
-These 844 prepared test records total about 375 MB. First-time download is larger (about 3.83 GB with weights) because NYUv2 is acquired as its official 2.97-GB labeled MAT; only the 654 test targets enter evaluation. The original source links below remain available for attribution and manual acquisition.
+The source-data release includes the two DREDS representative inputs shown in Figures 5–6, one ICL input, and all 654 final NYUv2 protocol masks. NYUv2 RGB/depth are obtained from the [official distributor](https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html); they are not mirrored here. The [preparation entry point](BENCHMARKS.md#prepare-distributor-data) reconstructs DREDS/STD from separately obtained distributor files, and acquires/prepares ICL/NYUv2 with final-array verification. It does not automatically mirror every full raw dataset or recreate all procedural renders.
 
-| Dataset | Download | Frozen evaluation subset |
-|---|---|---|
-| DREDS-CatNovel | [Official PKU mirror](https://mirrors.pku.edu.cn/dl-release/DREDS_ECCV2022/data/DREDS-CatNovel/) | 110 targets; separate from CatKnown training |
-| NYUv2 | [Official page](https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html) · [labeled MAT file](https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat) | Official 654 test images; the 428-GB raw archive is not needed for this subset |
-| ICL-NUIM | [Clean lr_kt3](https://www.doc.ic.ac.uk/~ahanda/living_room_traj3_frei_png.tar.gz) · [noisy lr_kt3](https://www.doc.ic.ac.uk/~ahanda/living_room_traj3n_frei_png.tar.gz) | 80 fixed target frames, each evaluated independently |
+## Rights and attribution
 
-[`paper_test.json`](../reproduction/manifests/paper_test.json) fixes all **844** target identities and seeds. NYUv2 entries include the one-based `labeled.mat` index and position in official `testNdxs`; all 654 mappings were verified against the original RGB pixels after recorded letterboxing. The [official split file](https://horatio.cs.nyu.edu/mit/silberman/indoor_seg_sup/splits.mat) and its SHA256 are recorded in the manifest. ICL shares the living-room scene with adaptation trajectories; its separation is by trajectory, not by unseen scene. The three [ClearGrasp](https://sites.google.com/view/cleargrasp/data) real-test illustrations are gallery examples, not another whole-set benchmark.
-
-## Local organization
-
-Choose any storage drive and keep source archives outside the source checkout:
-
-```text
-data_root/
-├── raw/                 Original dataset files, grouped by source
-├── prepared/
-│   ├── initial/         <dataset>/<split>/<frame>/rgb.png, raw_depth_mm.png,
-│   │                    gt_depth_mm.png, workspace_mask.png
-│   └── paper_test/      <dataset>/<frame>.npz
-└── weights/             CaM-PDA and frozen monocular-prior checkpoints
-```
-
-File hashes in the manifests refer to their stated source or prepared representation. A prepared-file hash is not the hash of the distributor's ZIP, and a seed alone cannot recover a frozen sampling mask. Follow the [reproduction guide](REPRODUCIBILITY.md) before comparing aggregate scores.
-
-## Terms and attribution
-
-Follow each distributor's current license and access conditions. Hypersim uses CC BY-SA 3.0, DREDS uses CC BY-NC 4.0 and ICL-NUIM uses CC BY 3.0. The included engine captures are author-owned qualitative examples; their release terms are listed in [licenses](../licenses/README.md). Cite the original datasets as well as CaM-PDA. A repository link does not replace permission to redistribute another dataset.
+Keep original dataset licenses and citation requirements. DREDS uses CC BY-NC 4.0, ICL-NUIM CC BY 3.0, and Hypersim CC BY-SA 3.0. The author's code, trained derivatives, figures and captures receive no new license in this snapshot; author rights remain reserved. See [third-party notices](../licenses/README.md). A public URL does not relicense upstream content.

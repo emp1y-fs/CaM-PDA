@@ -1,0 +1,9 @@
+Method,Whole Image,Sensor Holes
+IP-Basic,0.031725,0.103635
+Marigold-DC (10 steps),0.059182,0.120808
+OMNI-DC v1.1,0.016802,0.075469
+Official PDA,0.054981,0.068390
+PromptDA (sparse),0.617410,0.892902
+PromptDA (pooled),0.181552,0.694613
+Depth Pro,0.107963,0.157442
+CaM-PDA,0.023305,0.081889

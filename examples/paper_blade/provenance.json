@@ -1,0 +1,40 @@
+{
+  "example": "paper_blade",
+  "paper_figures": [
+    "7",
+    "9",
+    "10",
+    "A1"
+  ],
+  "specimen": "First-stage high-pressure compressor blade; exact model untraceable; category confirmed by all authors",
+  "seed": 0,
+  "maximum_samples": 50000,
+  "source_checkpoint_sha256": "4f406c8778dd0de1b3215f8540b325b5f24043f689a30126a407a9995bc6fe48",
+  "units": "metres",
+  "invalid_sensor_value": 0,
+  "camera_coordinates": "x right, y down, z forward",
+  "figure_7_crop_xyxy": [
+    480,
+    260,
+    755,
+    565
+  ],
+  "figure_7_shared_colour_range_m": [
+    0.15850081890821457,
+    1.344947165250779
+  ],
+  "colour_map": "reversed TURBO; visualization only; numerical depth not clipped",
+  "geometry": "Single capture, visible surface only. SOR (30 neighbours, 1.0 standard deviation) and manual segmentation removed part of the root.",
+  "files": {
+    "accepted_mask.png": "ac77ad0fb5053c80937718557c1061199d996318ebf328aaf51471dd1322af7b",
+    "camera.json": "ca34a96e4bb8cc123bd29f10e2c9f961c58f409abb426361ec22a8113756ef4f",
+    "cam_pda_depth.npy": "898c41d47ac0f59dd1cd3102590e3193c984923af744711d3922f26366bffb49",
+    "cam_pda_depth_mm.png": "f3c9acb9e28ccea604734646bad340f440be99392549f115c2ee250fb91e5e9b",
+    "cam_pda_depth_preview.png": "f58d37718596f2fc612a609429e194438a7a23cb4bf28a22180634671200cca6",
+    "rgb.png": "c939d1aac07615d24f6ee5ed319ba2a29867a8ec5a352297a58477d25dda8ae6",
+    "sampled_mask.npy": "a9c0882aaaa2821cd69aef7a255651eba39634260936405d8274f9dd6c49b3c3",
+    "sensor_depth.npy": "4bd7bed53976e27cbe43a7c8089f7498f07801288a68aca1897e6cb769f17a09",
+    "sensor_depth_mm.png": "c4fbb97a53260a21d60e3a37a257cd6038913a09d9422563839eaddd4625ab61",
+    "sensor_depth_preview.png": "d99100608cce16f9935944d345f01fd94d34b926562bc9bbb2007d3428a139bb"
+  }
+}

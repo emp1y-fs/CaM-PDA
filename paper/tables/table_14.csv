@@ -1,0 +1,5 @@
+Method,Points,P→ R,R→ P,Symmetric,Common Symmetric
+Raw ToF,"19,331",23.857,3.109,13.483,13.483
+Native PDA,"25,656",19.058,2.039,10.548,8.542
+No-expert PDA,"25,656",4.413,3.875,4.144,4.092
+CaM-PDA,"25,656",3.514,3.042,3.278,3.315

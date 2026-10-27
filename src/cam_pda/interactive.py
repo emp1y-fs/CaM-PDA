@@ -40,7 +40,7 @@ def example_folders(explicit=None):
         for folder in sorted(root.glob('*')):
             if (folder/'rgb.png').is_file() and (folder/'sensor_depth.npy').is_file():
                 found.setdefault(folder.name, folder)
-    order = {'blade32': 0}
+    order = {'paper_blade': 0, 'blade32': 1}
     return sorted(found.values(), key=lambda p: (order.get(p.name, 3), p.name))
 
 

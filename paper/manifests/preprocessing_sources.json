@@ -1,0 +1,27 @@
+[
+  {
+    "source_name": "prepare_dreds_full_image_cache.py",
+    "sha256": "b184a791f172c85ce6223ff52c35b68b9e0864999700f7b0cbbb31611bd0e4fc",
+    "functions": [
+      "full_frame_letterbox"
+    ]
+  },
+  {
+    "source_name": "losses.py",
+    "sha256": "8b515e968909d93dbd10c794a185eb92552855511a04497e1ba3317ce120bd9f",
+    "functions": [
+      "boundary_proxies_numpy",
+      "boundary_domain"
+    ]
+  },
+  {
+    "source_name": "external_data_reference.py",
+    "sha256": "6898c8f22c2d53e386c2ad8e0f3d12dd624d6f8e58023239780120c1cf96fa9e",
+    "functions": [
+      "exr_depth",
+      "material_ids",
+      "dreds_material",
+      "std_arrays"
+    ]
+  }
+]

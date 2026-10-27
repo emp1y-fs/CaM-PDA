@@ -1,0 +1,9 @@
+Region,Frames,Three-Expert MoE,Dense,Reduction (%)
+DREDS specular,175,0.025472,0.027232,+6.47
+DREDS transparent,166,0.101446,0.103236,+1.73
+DREDS difficult material,180,0.061407,0.063015,+2.55
+DREDS boundary,180,0.054272,0.055398,+2.03
+DREDS material complement,180,0.009195,0.009312,+1.26
+DREDS observed complement,180,0.006442,0.006424,-0.28
+STD difficult material,40,0.031257,0.032098,+2.62
+STD material complement,40,0.005929,0.006694,+11.42

@@ -1,6 +1,6 @@
 # Engine-component examples
 
-The manuscript figure contains these independently processed RGB-D captures:
+Final-proof **Figure 12** contains these independently processed RGB-D captures:
 
 | Figure row | Example folder | Recorded capture |
 |---|---|---|
@@ -22,3 +22,7 @@ cam-pda example examples/engine_component_01 --output outputs/component_01
 For installed-package examples, use the terminal selector. Each folder supplies `rgb.png`, float32 `sensor_depth.npy` in metres, `camera.json` and `provenance.json`. Sampling uses seed 0 and at most 50,000 original observations. The native image grid is 1280 × 720. The model and confidence rules are the same as for blade32.
 
 The figure is the original high-resolution manuscript export. It combines depth previews with recorded point-cloud views; the application exports PLY geometry rather than recreating a particular CloudCompare camera view. No reference depth or reference mesh is available for these captures. [Input and prediction hashes](../assets/engine_components_provenance.json) identify the recorded files. Windows and Linux attention kernels may produce small numerical differences; see the [reproduction guide](REPRODUCIBILITY.md).
+
+## Download the recorded numerical outputs
+
+The [final-paper data release](https://github.com/emp1y-fs/CaM-PDA/releases/tag/paper-final-20261027) includes the four `engine_component_01`–`04` directories with full-resolution raw/completed NPY depth, original color previews and the recorded RGB PLY. Input folders remain directly runnable in the checkout. These are author captures with rights retained, not newly licensed open data. See [PAPER_DATA.md](PAPER_DATA.md).

@@ -23,7 +23,7 @@ cam-pda = "cam_pda.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-cam_pda = ["resources/*.json", "resources/examples/blade32/*", "resources/examples/engine_component_*/*"]
+cam_pda = ["resources/*.json", "resources/examples/blade32/*", "resources/examples/paper_blade/*", "resources/examples/engine_component_*/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

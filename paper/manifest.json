@@ -1,0 +1,458 @@
+{
+  "title": "CaM-PDA: Confidence-Aware Prior Depth Completion with a Mixture of Experts for Low-Cost, Spray-Free 3D Reconstruction of Reflective High-Pressure Compressor Blades",
+  "authors": [
+    "Qing Zhang",
+    "Xiaojun Yang",
+    "Sibo Wang",
+    "Yuqi Fan"
+  ],
+  "journal": "Aerospace",
+  "manuscript_id": "aerospace-4587144",
+  "status": "Accepted; final author-proof source dated 27 October 2026",
+  "final_author_package_sha256": "ef008a9126087d7a42ef004fe072cc7c8f3ddbe12302bd73aed747f49dbd0233",
+  "source_tex_sha256": "52d163fba0279b023c369bf6e52dfffe08fae0425e29e5a9bd336d041cb5d371",
+  "doi": null,
+  "pages": 33,
+  "figures": [
+    {
+      "id": "figure_1",
+      "number": "1",
+      "page": 3,
+      "label": "fig:overall-workflow",
+      "caption": "Overall single-view workflow of CaM-PDA. Green marks accepted locations in the balanced anchor mask \\(M_bal\\), formed by strict, flat-region, and smooth-region screening. The condition \\(C_3=[M_bal, G, P]\\) contains the mask and two normalized disparity maps; the inset labeled “prefilled depth” visualizes the associated coarse depth, not the three-channel tensor. RGB and condition patch embeddings are added before the conditioned MDE. R, N, and E denote reflective, non-flat, and geometric-edge experts, respectively. The output is metric depth in meters.",
+      "original": "paper/figures/originals/cam_pda_overall_workflow.png",
+      "sha256": "fe5437d3cf024df1343debe75ff476683f638f6e88fb47b7c1dcd7de19c5d7d3",
+      "preview": "assets/paper/figure_1.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_2",
+      "number": "2",
+      "page": 4,
+      "label": "fig:strict-confidence",
+      "caption": "Strict geometric-confidence screening. White marks all valid ToF samples, green marks accepted samples, and red marks rejected samples.",
+      "original": "paper/figures/originals/strict_confidence_points.png",
+      "sha256": "c1d2c404e63787e57cc5e2fcc51ec2bd8de8efaaea59cd27eff417f4682af18f",
+      "preview": "assets/paper/figure_2.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_3",
+      "number": "3",
+      "page": 6,
+      "label": "fig:moe-overview",
+      "caption": "CaM -PDA condition encoding, residual experts and metric-depth decoding. RGB and condition embeddings enter a Transformer with an always-active general FFN and overlapping specialist residuals. The example \\(518×518\\) input produces 1369 spatial tokens and one class token. Multi-scale decoding and scale de-normalization recover metric depth.",
+      "original": "paper/figures/originals/cam_pda_simplified_architecture.pdf",
+      "sha256": "b9185a14db5eb8aa885a2a2a6736b31062ecd78d534a7a7f34d32b8c85d41045",
+      "preview": "assets/paper/figure_3.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_4",
+      "number": "4",
+      "page": 11,
+      "label": "fig:native-method-lines",
+      "caption": "Whole -image AbsRel of CaM-PDA and native methods across the reported benchmark sets. Each point is a complete dataset mean on a logarithmic error axis. Dataset categories are discrete; lines guide the eye. Missing comparable results have no plotted point. Shared-confidence and equal-capacity architecture controls are excluded from this system comparison.",
+      "original": "paper/figures/originals/native_methods_test_AbsRel.pdf",
+      "sha256": "daf1930d12930a0d8329fed859d7a69297649958ed416e450808acdbbc273cc5",
+      "preview": "assets/paper/figure_4.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_5",
+      "number": "5",
+      "page": 14,
+      "label": "fig:completed518-benefit-adverse",
+      "caption": "Whole -frame favorable and adverse examples for the final architecture and equal-capacity dense control. Rows are DREDS 00172/0000 and 00164/0128, then NYUv2 0541 and 0379. Depth ranges match within rows. Signed error differences are CaM minus dense; blue favors CaM, red favors dense and grey is outside scoring support. Display saturation leaves scored predictions unchanged. Examples are selected from the fixed representative subset.",
+      "original": "paper/figures/originals/completed518_benefit_adverse.pdf",
+      "sha256": "a9a3a8e87c1c7f0970a149858f1674b4f7384cc984e60bd026c8639f7ee0050a",
+      "preview": "assets/paper/figure_5.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_6",
+      "number": "6",
+      "page": 15,
+      "label": "fig:completed518-local-regions",
+      "caption": "Local boundary behavior of the same examples as Figure [fig:completed518-benefit-adverse]. Yellow context boxes locate 64×64 windows selected by reference-boundary support. Relative window AbsRel reductions are +2.11%, -0.17%, -3.77% and -27.73%. Support colors encode annotated difficult material (red), depth-boundary proxy (green) and missing sensor observations (blue), with overlap colors. NYUv2 has no material annotation. Signed error differences retain the whole-frame display range.",
+      "original": "paper/figures/originals/completed518_local_regions.pdf",
+      "sha256": "990a4e1fd702f3362e96a930651531d47c7998adadfbbdc0e0ae1b137c7857a1",
+      "preview": "assets/paper/figure_6.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_7",
+      "number": "7",
+      "page": 17,
+      "label": "fig:blade-qualitative",
+      "caption": "Single -view blade completion. (Top): aligned RGB and depth images; (bottom): matching blade crops from the marked region. All three depth maps share the same 0.159--1.345 m display range; black denotes missing raw depth.",
+      "original": "paper/figures/originals/blade_scene_compact.pdf",
+      "sha256": "d22b72a03887e711fad4f0e94d1b6032acb7655bed740807ce68f3b2b74f7f67",
+      "preview": "assets/paper/figure_7.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_8",
+      "number": "8",
+      "page": 17,
+      "label": "fig:blade-acquisition-hardware",
+      "caption": "Acquisition equipment and reference scanning. (a) Handheld blue-light scanner with the housing label CereScan Max. (b) Blade scanning with projected blue lines and surface markers. (c) Azure Kinect ToF capture setup.",
+      "original": "paper/figures/originals/blade_acquisition_hardware.pdf",
+      "sha256": "b632c4b5eac61407ca2568d94b32e928f246329fdff961b8b21ad7adfb5590f1",
+      "preview": "assets/paper/figure_8.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_9",
+      "number": "9",
+      "page": 18,
+      "label": "fig:cloudcompare-local-geometry",
+      "caption": "Blue-light surface comparison. (a--c) Front, left and top projections show reference points in green and the prediction in red. (d) Bidirectional distance distributions include all retained points. (e) The 50% span section uses a ±0.5 mm slab without curve fitting. The same upper-anchored rigid pose is used in all panels.",
+      "original": "paper/figures/originals/blue_light_comparison.pdf",
+      "sha256": "67aac0d64ec299374af622b7055b1ed816f5aa3daf4544718ad9923e005c7e34",
+      "preview": "assets/paper/figure_9.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_10",
+      "number": "10",
+      "page": 19,
+      "label": "fig:author-blade-structure",
+      "caption": "Local structural features of the reconstructed blade. (a) Root truncation from manual cropping. (b) Tip-edge elongation and retained attachment form. (c) Residual boundary fringe points. (d) Incomplete recovery of a basal projection.",
+      "original": "paper/figures/originals/author_blade_structure.pdf",
+      "sha256": "aef9154df673e14858957428b8ad490fcf783a014a7be51022bccae86d4b2505",
+      "preview": "assets/paper/figure_10.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_11",
+      "number": "11",
+      "page": 20,
+      "label": "fig:expert-activation-real",
+      "caption": "Final CaM-PDA activation on a separate diagnostic frame. RGB context is followed by gates for the intended reflective, non-flat and boundary roles at blocks 6, 8 and 10. Teal marks active spatial tokens; grey marks inactive tokens. Percentages use all 2442 spatial tokens in each panel.",
+      "original": "paper/figures/originals/current_cam_pda_expert_activation.pdf",
+      "sha256": "f967082fa4d64278969185f95b75e6864f284ec72ebb932a649d3cd0f8b227b0",
+      "preview": "assets/paper/figure_11.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_12",
+      "number": "12",
+      "page": 21,
+      "label": "fig:additional-engine-components",
+      "caption": "Exploratory single-view scans of additional internal engine components. Each row shows RGB, raw ToF depth, CaM-PDA depth and the corresponding colored point cloud, from left to right. The examples illustrate completion and overall shape qualitatively.",
+      "original": "paper/figures/originals/engine_internal_components_exploratory.png",
+      "sha256": "5259204e2c4a80410f564892880538d2dd91f249288c306260561b8747965d03",
+      "preview": "assets/paper/figure_12.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    },
+    {
+      "id": "figure_a1",
+      "number": "A1",
+      "page": 30,
+      "label": "fig:S1",
+      "caption": "Same-capture prediction-to-blue-light distance maps. Every panel shares image axes, color bins, RGB-D capture, ROI and rigid pose. Blank raw pixels are missing observations.",
+      "original": "paper/figures/originals/same_capture_fourway_error_maps.pdf",
+      "sha256": "9d42864ace81841cb179a7b16d4ac5f6e599abb0a7b671f71498d0672d913562",
+      "preview": "assets/paper/figure_a1.png",
+      "rights": "Author rights retained; third-party content retains its upstream terms."
+    }
+  ],
+  "tables": [
+    {
+      "id": "table_1",
+      "number": "1",
+      "page": 10,
+      "caption": "NYUv2 test-set AbsRel on 654 images. Registered baseline settings retain each model's modality and internal processing; lower values indicate smaller error.",
+      "labels": [
+        "tab:exp-single-view"
+      ],
+      "file": "paper/tables/table_1.csv",
+      "rows": 9,
+      "source_sha256": "a40904dee613260260a57281f4970e5cd5207aef5d5ec94b2b3dd976b5b1b9de"
+    },
+    {
+      "id": "table_2",
+      "number": "2",
+      "page": 10,
+      "caption": "DREDS-CatNovel results on 11,520 targets. AbsRel is reported for the whole image, input holes, annotated difficult materials and depth boundaries. Material support is available on 11,508 targets. Whole-image MAE and RMSE are in millimeters; bold marks the lowest reported value in each column.",
+      "labels": [
+        "tab:dreds-complete"
+      ],
+      "file": "paper/tables/table_2.csv",
+      "rows": 11,
+      "source_sha256": "a05831cca21ae534b74b051bc9a41d74638f17a6af60ff8f080fdcf2f5e53516"
+    },
+    {
+      "id": "table_3",
+      "number": "3",
+      "page": 10,
+      "caption": "ICL-NUIM results on 80 targets. Whole-image MAE and RMSE are in meters; remaining entries are AbsRel.",
+      "labels": [
+        "tab:icl-native"
+      ],
+      "file": "paper/tables/table_3.csv",
+      "rows": 7,
+      "source_sha256": "89321decf5efc5a75ed032652cf457537da68a4ea44a22b145feea0d94b07acf"
+    },
+    {
+      "id": "table_4",
+      "number": "4",
+      "page": 11,
+      "caption": "MoE architecture versus a functional equal-capacity dense control under shared balanced-confidence conditions. AbsRel and sample SD across three paired seeds are multiplied by 10^3. Group-macro reductions and paired-group 95% intervals measure this component contrast.",
+      "labels": [
+        "tab:completed518-three-seed"
+      ],
+      "file": "paper/tables/table_4.csv",
+      "rows": 6,
+      "source_sha256": "5ea4d9134d1ecfd75bb06c75ec4b13c41a2c3a0da4a3c65e9dd8f4a3450047b4"
+    },
+    {
+      "id": "table_5",
+      "number": "5",
+      "page": 12,
+      "caption": "Regional AbsRel for one frozen paired retraining of the final three-expert architecture and an independently trained dense residual control, each with 98,076,526 completion parameters. DREDS and STD diagnostic pools contain 180 and 40 frames; region-specific counts exclude unsupported regions. Positive reductions favor MoE. The observed complement excludes difficult materials, sensor holes and boundaries. Values are frame-macro means from one paired training seed. Full-split three-seed results appear in Table [tab:completed518-three-seed].",
+      "labels": [
+        "tab:dense-regional-diagnostic"
+      ],
+      "file": "paper/tables/table_5.csv",
+      "rows": 9,
+      "source_sha256": "9e0129912a183737e8729b1825fbd0f823545b7f767e72c788a7c19a4be31703"
+    },
+    {
+      "id": "table_6",
+      "number": "6",
+      "page": 12,
+      "caption": "Independent ablations of the final expert architecture. Values are relative whole-image AbsRel reductions against full MoE, in percent. Removing E, N or R deletes the corresponding residual, router and gain. Fixed routing computes all residuals without learned router selection.",
+      "labels": [
+        "tab:completed518-structure"
+      ],
+      "file": "paper/tables/table_6.csv",
+      "rows": 6,
+      "source_sha256": "bc254ed01b9120fedf1c067323c5a1e4bec79a1014573f2bd385ec3413f53bb2"
+    },
+    {
+      "id": "table_7",
+      "number": "7",
+      "page": 12,
+      "caption": "Three paired training seeds for the final CaM-PDA and the no-expert shared-confidence PDA. Errors are image-macro AbsRel averaged across seeds. Reduction is calculated within each pair, then reported as mean ± sample standard deviation across the three pairs; positive values favor CaM-PDA. This control is separate from the equal-capacity dense control.",
+      "labels": [
+        "tab:matched-pda"
+      ],
+      "file": "paper/tables/table_7.csv",
+      "rows": 6,
+      "source_sha256": "edb2602bd191fee96bb3e240c9ca48d1c016aec097bc3310c3e9119b5f1e4185"
+    },
+    {
+      "id": "table_8",
+      "number": "8",
+      "page": 13,
+      "caption": "Deployment-pair DREDS expert-refinement effects on 11,508 material-eligible images. Specular and transparent pixels form the difficult-material region; its complement contains diffuse objects and background. Both columns use the same input screening and common-parameter training exposure.",
+      "labels": [
+        "tab:material-retention"
+      ],
+      "file": "paper/tables/table_8.csv",
+      "rows": 3,
+      "source_sha256": "770f16b37cc08ddf09df6caf90fba6391e985e3e81e4da13dbbefca6b6288e8b"
+    },
+    {
+      "id": "table_9",
+      "number": "9",
+      "page": 13,
+      "caption": "Paired regional AbsRel reductions for CaM-PDA. Native PDA measures the complete-system contrast; shared-confidence PDA measures the expert-training increment and is not parameter-matched. Intervals use 5000 paired resamples of 45 filename groups, conditional on fixed checkpoints. They do not quantify training-seed variability. Positive reductions favor CaM-PDA; unsupported material regions are excluded.",
+      "labels": [
+        "tab:full-dreds-paired"
+      ],
+      "file": "paper/tables/table_9.csv",
+      "rows": 5,
+      "source_sha256": "aa24fc552f780d406f580981c1cb8976031b773ae99ef1bd9a985ab78bc10ae5"
+    },
+    {
+      "id": "table_10",
+      "number": "10",
+      "page": 15,
+      "caption": "Rank and insertion-position sensitivity using paired training and 108 validation inputs. All configurations use the same native-518 recipe and fixed geometry endpoint. Block indices are zero-based; positive percentages indicate larger validation error.",
+      "labels": [
+        "tab:old518-rank-block"
+      ],
+      "file": "paper/tables/table_10.csv",
+      "rows": 5,
+      "source_sha256": "5ead73ed5e39c94f52e3b1c361319b8ac334307c12a2a833cdf7a84baf5d337b"
+    },
+    {
+      "id": "table_11",
+      "number": "11",
+      "page": 16,
+      "caption": "Anchor-screening comparison with the same frozen official PDA on 84 validation images. Full, hole and anomaly regions have 84, 46 and 60 eligible images. The anomaly proxy includes holes and sensor errors above (10 mm,2%D^gt). MAE/RMSE are in meters.",
+      "labels": [
+        "tab:confidence-depth-complete",
+        "tab:exp-confidence-depth-coupling"
+      ],
+      "file": "paper/tables/table_11.csv",
+      "rows": 4,
+      "source_sha256": "dd880b510de993120fa08b7692ca58ff10787a9d986146852cd36a69e9ba1837"
+    },
+    {
+      "id": "table_12",
+      "number": "12",
+      "page": 16,
+      "caption": "Standardized warm input-to-depth inference on a common 392×392 observation/output grid. Model-specific internal resolutions, modalities and native settings are retained. Parameters count resident learned components, including required priors. Allocated memory is the maximum Torch GPU allocation; CPU IP-Basic has no such allocation.",
+      "labels": [
+        "tab:deployment-timing"
+      ],
+      "file": "paper/tables/table_12.csv",
+      "rows": 11,
+      "source_sha256": "f57b89f1665c74f543184da2f1653cd0eee4c753513a09cae4b641fa07dd49d3"
+    },
+    {
+      "id": "table_13",
+      "number": "13",
+      "page": 19,
+      "caption": "Bidirectional mean surface distance in millimeters. Regions are defined from reference span and chord geometry; the upper region overlaps the pose-fitting band.",
+      "labels": [
+        "tab:blue-light-regions"
+      ],
+      "file": "paper/tables/table_13.csv",
+      "rows": 8,
+      "source_sha256": "41d88051b6a569ed3ec119ec3326196cdee5a8168fb2f60cd96fd90655dfa9a8"
+    },
+    {
+      "id": "table_14",
+      "number": "14",
+      "page": 19,
+      "caption": "Same-capture blue-light comparison in millimeters. P denotes prediction and R the fixed 137,383-point visible-side reference. The first three distances use each method' s finite positive ROI points; the last uses identical 19,331 raw-valid pixel locations for all methods. Symmetric mean is the equal-weight mean of the two directional means. No-expert PDA shares CaM-PDA' s confidence and depth-adaptation protocol but has no expert branches.",
+      "labels": [
+        "tab:blade-four-methods"
+      ],
+      "file": "paper/tables/table_14.csv",
+      "rows": 5,
+      "source_sha256": "a81dbc9adef04e7345d763995fd505fc542c920585f69ba924c2bbed3a4dd8d9"
+    },
+    {
+      "id": "table_15",
+      "number": "15",
+      "page": 20,
+      "caption": "Processing sensitivity of the final blade cloud pair. Values are symmetric mean C2C distances in millimeters. Fixed support retains every original point after pose refitting; processed support also reflects point retention.",
+      "labels": [
+        "tab:blue-light-processing-sensitivity"
+      ],
+      "file": "paper/tables/table_15.csv",
+      "rows": 5,
+      "source_sha256": "be3824affca33a9cd882d7272189c8f60d09bd561b8d52d07b363dd917d8d9ca"
+    },
+    {
+      "id": "table_a1",
+      "number": "A1",
+      "page": 25,
+      "caption": "Screening-policy integration on a frozen development checkpoint. Counts pool evaluable observations from 84 images; AbsRel is frame-averaged over 84 full images and 46 eligible hole regions. Count-trained and depth-trained denote learned screening objectives. Higher \\(J\\) and lower AbsRel are preferred.",
+      "labels": [
+        "tab:app-anchor-objective"
+      ],
+      "file": "paper/tables/table_a1.csv",
+      "rows": 6,
+      "source_sha256": "4c1c188c1b62be07b7955d047b7e42eed73b66d6a6f2b33503b147fd6403df1f"
+    },
+    {
+      "id": "table_a2",
+      "number": "A2",
+      "page": 27,
+      "caption": "Whole-image AbsRel reductions against original no-expert shared-confidence PDA (%). Group intervals condition on the three trained pairs.",
+      "labels": [
+        "tab:S1"
+      ],
+      "file": "paper/tables/table_a2.csv",
+      "rows": 6,
+      "source_sha256": "f07a39d287560ce9024397a3bdd7c88a7132fae4c3aa6fcc4d58465b70439240"
+    },
+    {
+      "id": "table_a3",
+      "number": "A3",
+      "page": 27,
+      "caption": "Regional AbsRel reductions against no-expert shared-confidence PDA (%). Material means annotated specular/transparent support where available; the procedural label is the supplied reflective support. Values below zero denote larger error.",
+      "labels": [
+        "tab:S2"
+      ],
+      "file": "paper/tables/table_a3.csv",
+      "rows": 14,
+      "source_sha256": "d28daae455baa8ef76ca5f92709f2b9410e7bed6d001ed9632a8f6ec62d2365b"
+    },
+    {
+      "id": "table_a4",
+      "number": "A4",
+      "page": 28,
+      "caption": "All 24 sensitivity settings. Changes compare whole-image AbsRel with nominal; positive means higher error. Hole and boundary columns retain their eligible-image support.",
+      "labels": [
+        "tab:S3"
+      ],
+      "file": "paper/tables/table_a4.csv",
+      "rows": 10,
+      "source_sha256": "734c71395d2470777dac003fcdec64775f8ed6cc8714b67efd1e4da478da9868"
+    },
+    {
+      "id": "table_a4_continued",
+      "number": "A4",
+      "page": 28,
+      "caption": "Cont.",
+      "labels": [
+        "tab:S3"
+      ],
+      "file": "paper/tables/table_a4_continued.csv",
+      "rows": 16,
+      "source_sha256": "d1d3d7830b3ccb33694302523028df5f25a893f64cfceb3bc53a7998d1385fd9"
+    },
+    {
+      "id": "table_a5",
+      "number": "A5",
+      "page": 29,
+      "caption": "Known-label role diagnostics. Mean active experts counts all spatial tokens, excluding the class token.",
+      "labels": [
+        "tab:S4"
+      ],
+      "file": "paper/tables/table_a5.csv",
+      "rows": 10,
+      "source_sha256": "65152b0aacc58cd9f7997f08345a0066ce14a254ff2f3867874ad4af36b0c3c7"
+    },
+    {
+      "id": "table_a6",
+      "number": "A6",
+      "page": 29,
+      "caption": "Local AbsRel reductions(%). The last column compares the full model with its same-role residual-zero counterfactual. Neither gate activation nor intended role guarantees lower local error.",
+      "labels": [
+        "tab:S5"
+      ],
+      "file": "paper/tables/table_a6.csv",
+      "rows": 19,
+      "source_sha256": "de391d6547a2db3cc4d6a69361c83e0f4eb74af0865f7f2f87bdef32e1569467"
+    },
+    {
+      "id": "table_a7",
+      "number": "A7",
+      "page": 30,
+      "caption": "Resource measurements. Times are seconds; reserved GPU and process RSS are GiB. Operation estimates exclude unsupported operations and are not comparable total FLOPs.",
+      "labels": [
+        "tab:S6"
+      ],
+      "file": "paper/tables/table_a7.csv",
+      "rows": 11,
+      "source_sha256": "4095bdea948608e5855e5634b8eaf2caf0b15f0bf3974b99ca729cc9fda3aef5"
+    },
+    {
+      "id": "table_a8",
+      "number": "A8",
+      "page": 31,
+      "caption": "Additional native-method metrics for STD, NYUv2 and the procedural diagnostic. DREDS and ICL-NUIM are reported in Tables [tab:dreds-complete] and [tab:icl-native]; all values use complete registered coverage.",
+      "labels": [
+        "tab:S8"
+      ],
+      "file": "paper/tables/table_a8.csv",
+      "rows": 13,
+      "source_sha256": "dbd9303d81a4900f1e252b7f83ef168e89e55b158edcb6d50970b8a51b010306"
+    }
+  ],
+  "specimen": {
+    "classification": "First-stage high-pressure compressor blade",
+    "classification_basis": "Carefully confirmed by all authors in the final proof",
+    "exact_model": "Not traceable",
+    "quantitative_scope": "Visible-side surface agreement after the stated rigid registration; not calibrated whole-blade dimensional accuracy."
+  }
+}

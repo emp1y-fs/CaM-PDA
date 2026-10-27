@@ -1,0 +1,5 @@
+Diagnostic Family,Cases,Fixed Support,Processed Support
+Nominal,1,3.278,3.278
+Crop boundary,4,2.764--3.499,2.726--4.618
+SOR30 filtering,3,2.599--2.719,2.620--2.832
+Pose initialization,12,3.151--3.446,3.151--3.446

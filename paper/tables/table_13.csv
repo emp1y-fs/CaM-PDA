@@ -1,0 +1,8 @@
+Reference-Defined Region,Prediction → Reference,Reference → Prediction
+All retained single-side points,3.514,3.042
+Lower 20% of span,4.503,3.820
+Middle 60% of span,3.617,3.189
+Upper 20% of span,1.489,1.309
+Geometric edge A,2.090,1.343
+Geometric edge B,5.191,4.142
+High surface-variation proxy,4.069,2.919

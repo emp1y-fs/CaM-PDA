@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source": "Final author-proof experimental protocol",
+  "counts": {
+    "dreds11520": 11520,
+    "nyu654": 654,
+    "icl80": 80,
+    "std4500": 4500,
+    "heldout600": 600
+  },
+  "total_records": 17354,
+  "array_hash_algorithm": "sha256(str(dtype).encode() + repr(shape).encode() + contiguous_array.tobytes())",
+  "datasets": {
+    "dreds11520": {
+      "file": "paper/manifests/dreds11520.jsonl.gz",
+      "records": 11520,
+      "sha256": "31a868f6f690092276b530783e256f0a563c98a4579991f04fbc30a69b41f26f",
+      "uncompressed_sha256": "603694a824d74d36887c9d7acccc2c736600a6844528dd3dc0f6af1fc2fa159e"
+    },
+    "nyu654": {
+      "file": "paper/manifests/nyu654.jsonl.gz",
+      "records": 654,
+      "sha256": "8d664b5e18d8f5f990ec01c51d533de80476b97995dcfa0fa3952522d174ae69",
+      "uncompressed_sha256": "29c0693c9c79d069b84776095d65cd3c0d4dcb69448bef9c04c5934b67f6f529"
+    },
+    "icl80": {
+      "file": "paper/manifests/icl80.jsonl.gz",
+      "records": 80,
+      "sha256": "f852b38500413825f515a10a18c4485b02c373dc51451ae5294366fe0180c1a3",
+      "uncompressed_sha256": "a60f8ed5c113a3b97e21171403429fb971c64edd1cf5cf65ea187906492b86c0"
+    },
+    "std4500": {
+      "file": "paper/manifests/std4500.jsonl.gz",
+      "records": 4500,
+      "sha256": "ed197eff5e1d70312051c25d21f18051163c0a9458a2291c471554c42b8f9686",
+      "uncompressed_sha256": "ed8aad9cc8eabb9faf2968079ee7cfd426be4989b5067f57f0857d9c26f4e282"
+    },
+    "heldout600": {
+      "file": "paper/manifests/heldout600.jsonl.gz",
+      "records": 600,
+      "sha256": "2c14348886954e82917e76b05bfec95b9c2cd7ac115df6a87d411f5a947d3043",
+      "uncompressed_sha256": "78c83960ff66eeae2ff76cb79b6c7cefc40367dcff0bca5bf6c215690513fcea"
+    }
+  },
+  "notes": [
+    "DREDS11520 is the complete CatNovel evaluation, not historical DREDS110.",
+    "ICL80 is trajectory-held-out within the adaptation living-room scene.",
+    "The procedural diagnostic set was exposed during development; not an untouched real-world test.",
+    "Manifest files do not redistribute the complete third-party datasets."
+  ]
+}

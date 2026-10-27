@@ -9,4 +9,8 @@
 
 Changes for this distribution: reorganized imports; removed unreachable tutorials and custom-extension dependency; hash-verified tensor-only weight loading; Python API/CLI and interactive runtime path entry; empty-completion and CPU guards; strict units/calibration/output-directory contracts. Executed model operations are checked against the retained checkpoint.
 
-The author has not selected a public license for new CaM-PDA code, trained derivatives or author-captured examples. This private review copy does not add a redistribution license. Upstream obligations continue to apply. Before making the repository public, the owner must finalize the project's own license and publication/author metadata.
+## Author-owned material
+
+This repository and the versioned paper-data assets are public. **No new license is granted for author-owned CaM-PDA additions, trained derivatives, publication figures, procedural examples or author-captured RGB-D/point clouds. Author rights are retained.** Public access and download availability do not create an additional open-source or open-data license. Do not infer permission from the Apache licenses of upstream software. Contact the corresponding author for permissions beyond applicable existing terms.
+
+This is the author's explicit release choice for the final-proof companion snapshot. It does not override existing licenses: upstream code, weights and third-party datasets retain their own terms. The prepared DREDS records preserve CC BY-NC 4.0 attribution; ICL-NUIM records preserve CC BY 3.0 attribution. NYUv2 raw RGB/depth are not mirrored. Author predictions do not replace the need to cite source datasets. No “all materials CC BY/MIT/CC0” blanket statement applies to this repository.

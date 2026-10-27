@@ -1,4 +1,4 @@
-"""Download the paper test subsets and weights, evaluate, and export results."""
+"""Download and evaluate the legacy 844-target quick-check suite."""
 import argparse
 import csv
 from datetime import datetime
@@ -57,7 +57,7 @@ def main(argv=None):
     parser.add_argument('--root', type=Path, default=Path('./cam_pda_test'), help='All downloads, prepared data, weights and results stay here')
     parser.add_argument('--dataset', choices=('all',)+DATASETS, default='all')
     parser.add_argument('--device', default='auto')
-    parser.add_argument('--github-user', help='Optional Git Credential Manager account during private review')
+    parser.add_argument('--github-user', help='Optional Git Credential Manager account')
     parser.add_argument('--prepare-only', action='store_true', help='Download and verify data and weights without inference')
     parser.add_argument('--metrics-only', action='store_true', help='Skip saving predicted depth maps')
     parser.add_argument('--nyu-mat', type=Path, help='Reuse an existing official labeled MAT instead of downloading it')

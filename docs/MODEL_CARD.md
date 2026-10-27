@@ -4,7 +4,7 @@ CaM-PDA completes aligned RGB-D observations into full-resolution metric depth. 
 
 ## Released model
 
-The model name is **CaM-PDA**. Its retained development checkpoint is T1 / campaign 026 / step 600. Application version 0.4.0 provides single-frame inference with the same weights. T2/T3 continuation candidates are not deployed by this package.
+The model name is **CaM-PDA**. Its retained development checkpoint is T1 / campaign 026 / step 600. The final-paper source-data snapshot provides single-frame inference with the same weights. T2/T3 continuation candidates are not deployed by this package.
 
 | Component | Identity |
 |---|---|
@@ -24,6 +24,12 @@ Provide RGB and registered sensor depth on the same image grid. The pipeline nee
 
 Single RGB images, colorized depth previews, unregistered RGB-D pairs and guessed intrinsics are outside the stated input contract. The terminal checks formats and dimensions; it cannot certify that supplied calibration or depth units are correct.
 
-There is no universal accuracy guarantee across materials or domains. Specialist gates are learned routing decisions, not exact semantic segmentations. The real blade example has no ground-truth depth. See [evaluation data](../benchmarks/README.md), [training provenance](TRAINING.md) and [cross-platform numerical boundaries](REPRODUCIBILITY.md).
+There is no universal accuracy guarantee across materials or domains. Specialist gates are learned routing decisions, not exact semantic segmentations. The final-paper physical blade capture has a blue-light visible-surface reference and archived registration; the separate frame32 routing diagnostic has no dense reference depth. Surface agreement is not independently calibrated metrological accuracy. The specimen is a first-stage high-pressure compressor blade, with an untraceable exact model. See [evaluation data](../benchmarks/README.md), [training provenance](TRAINING.md) and [cross-platform numerical boundaries](REPRODUCIBILITY.md).
 
 Processing uses local files. Downloading missing weights requires a network connection; existing verified weights support offline inference. Predictions are saved directly, without numerical clipping or manual plane fitting. Color normalization affects previews only.
+
+## Final-proof evaluation
+
+The final protocol covers DREDS-CatNovel 11,520, NYUv2 654, ICL80, STD-CatNovel 4,500 and procedural role diagnostics 600. The legacy DREDS110 convenience subset is not the final benchmark. See [full-set protocols](BENCHMARKS.md) and [source-data coverage](PAPER_DATA.md).
+
+No new author-owned model/data license is granted by this release; upstream weight restrictions remain applicable.

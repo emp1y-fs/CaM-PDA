@@ -1,0 +1,4 @@
+Policy,Full AbsRel,Full MAE (m),Full RMSE (m),Hole AbsRel,Anomaly AbsRel
+No selection,0.086127,0.270400,0.623194,0.374167,0.248771
+Strict analytic rule,0.094187,0.211390,0.631106,0.312963,0.192408
+Balanced analytic rule,0.061330,0.220173,0.620501,0.197507,0.126128

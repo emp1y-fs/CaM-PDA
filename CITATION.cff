@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript and original datasets; verified article DOI will be added after publication."
+type: software
+title: "CaM-PDA: final-paper inference and source-data companion"
+url: "https://github.com/emp1y-fs/CaM-PDA"
+repository-code: "https://github.com/emp1y-fs/CaM-PDA"
+version: "paper-final-20261027"
+date-released: "2026-10-27"
+authors:
+  - family-names: Zhang
+    given-names: Qing
+  - family-names: Yang
+    given-names: Xiaojun
+  - family-names: Wang
+    given-names: Sibo
+  - family-names: Fan
+    given-names: Yuqi
+preferred-citation:
+  type: article
+  title: "CaM-PDA: Confidence-Aware Prior Depth Completion with a Mixture of Experts for Low-Cost, Spray-Free 3D Reconstruction of Reflective High-Pressure Compressor Blades"
+  authors:
+    - family-names: Zhang
+      given-names: Qing
+    - family-names: Yang
+      given-names: Xiaojun
+    - family-names: Wang
+      given-names: Sibo
+    - family-names: Fan
+      given-names: Yuqi
+  year: 2026
+  journal: Aerospace
+  notes: "Accepted in Aerospace; manuscript aerospace-4587144; final author proof dated 27 October 2026. DOI not yet verified."

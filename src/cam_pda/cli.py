@@ -12,7 +12,7 @@ def main(argv=None):
     sub=parser.add_subparsers(dest='command',required=True)
     download=sub.add_parser('download',help='Download and SHA256-verify inference weights')
     download.add_argument('--cache-dir',type=Path)
-    download.add_argument('--github-user',help='Use this account from Git Credential Manager for the private release')
+    download.add_argument('--github-user',help='Optionally select a Git Credential Manager account')
     sub.add_parser('interactive', help='Enter input and output paths when the program asks')
     for name in ('infer','example'):
         item=sub.add_parser(name)

@@ -1,0 +1,19 @@
+Block,Role,Support,Images,vs PDA,vs Own Zero
+6,R,active,600,+1.27,-0.67
+6,R,known positive,590,+1.30,-0.88
+6,N,active,600,+1.11,+0.24
+6,N,known positive,599,-2.08,+0.99
+6,E,active,600,+0.92,+1.01
+6,E,known positive,579,-1.58,+0.33
+8,R,active,600,+1.16,-0.78
+8,R,known positive,590,+1.30,-0.88
+8,N,active,600,+0.97,+0.27
+8,N,known positive,599,-2.08,+0.99
+8,E,active,600,+0.80,+1.02
+8,E,known positive,579,-1.58,+0.33
+10,R,active,600,+0.97,-0.74
+10,R,known positive,590,+1.30,-0.88
+10,N,active,600,+1.12,+0.25
+10,N,known positive,599,-2.08,+0.99
+10,E,active,600,+0.96,+1.01
+10,E,known positive,579,-1.58,+0.33
